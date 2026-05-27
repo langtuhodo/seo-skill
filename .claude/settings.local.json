@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.augmentcode.com)",
+      "WebFetch(domain:www.geminicli.com)",
+      "WebFetch(domain:docs.augmentcode.com)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "WebFetch(domain:kiro.dev)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:binhnndigital.com)",
+      "Bash(curl -sI \"https://binhnndigital.com\")",
+      "WebFetch(domain:pagespeed.web.dev)",
+      "Bash(curl -s \"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://binhnndigital.com&strategy=mobile&category=performance\")",
+      "Bash(mv _knowledge-notes/* knowledge/)",
+      "Bash(mv _playbooks/* playbooks/)",
+      "Bash(mv Projects/* projects/)",
+      "WebFetch(domain:thepbaotin.com)",
+      "Bash(Remove-Item -Force \"00_glossary-seo.md\",\"01_pillar-pages.md\",\"02_topical-map.md\",\"03_long-tail-keywords.md\",\"04_on-page-seo.md\",\"05_helpful-content.md\",\"06_content-strategy.md\",\"07_seo-copywriting.md\",\"08_link-building.md\",\"10_entity-seo.md\",\"11_why-keyphrase-length-matters.md\",\"12_Geo.md\",\"09_topical-map-framework.md\",\"eeat-content-rules.md\",\"01-strategy.md\",\"02-on-page-seo.md\",\"03-technical-seo.md\",\"05-off-page-seo.md\",\"06-international-seo.md\",\"07-analytics.md\",\"08-ux.md\",\"09-ai-seo.md\",\"10-growth.md\")",
+      "Bash(Get-ChildItem -Name)",
+      "Bash(mkdir -p 'C:\\\\Users\\\\binhnn\\\\Downloads\\\\Compressed\\\\seo-skills\\\\skills\\\\brand-distribution\\\\Google Business Profile')",
+      "Bash(mkdir -p 'C:\\\\Users\\\\binhnn\\\\Downloads\\\\Compressed\\\\seo-skills\\\\skills\\\\brand-distribution\\\\Facebook Content')",
+      "Bash(mkdir -p 'C:\\\\Users\\\\binhnn\\\\Downloads\\\\Compressed\\\\seo-skills\\\\skills\\\\brand-distribution\\\\Zalo OA')",
+      "WebFetch(domain:developers.google.com)"
+    ]
+  }
+}

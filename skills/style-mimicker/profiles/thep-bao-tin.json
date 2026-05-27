@@ -1,0 +1,349 @@
+{
+  "style_name": "ThepBaoTin",
+  "field_category": [
+    "steel-industry",
+    "b2b-marketing",
+    "construction-materials"
+  ],
+  "created_at": "2026-05-06",
+  "updated_at": "2026-05-21",
+  "sample_source": "Thép Bảo Tín - Chuyên gia ngành thép, phụ kiện đường ống và PCCC",
+  "business_context": {
+    "company_name": "Thép Bảo Tín",
+    "core_services": [
+      "Phân phối và nhập khẩu ống thép (đúc, mạ kẽm, hàn)",
+      "Cung cấp thép hình U, I, V, H, C",
+      "Cung cấp thép hộp vuông, chữ nhật, thép tấm",
+      "Phân phối phụ kiện đường ống (mặt bích, cóc nối thép, van công nghiệp...)",
+      "Cung cấp thiết bị, vật tư PCCC",
+      "Phân phối các thương hiệu thép trong nước: Hoa Sen, Hòa Phát..."
+    ],
+    "target_audience": [
+      "Chủ đầu tư",
+      "Nhà thầu xây dựng",
+      "Khách hàng B2B",
+      "Kỹ sư dự án"
+    ],
+    "service_areas": [
+      "Hồ Chí Minh",
+      "Hà Nội",
+      "Toàn quốc",
+      "Campuchia"
+    ],
+    "unique_selling_points": [
+      "Nhập khẩu trực tiếp từ nhà máy, không qua trung gian",
+      "Giá cả cạnh tranh, tốt nhất thị trường",
+      "Cung cấp chứng chỉ, giấy tờ CO, CQ hợp lệ"
+    ]
+  },
+  "content_mandatory_structure": {
+    "description": "Mọi bài viết PHẢI đáp ứng 4 yếu tố sau. Mức độ nhấn mạnh từng yếu tố TÙY THUỘC vào loại nội dung (xem content_type_adaptation).",
+    "elements": [
+      {
+        "element": "1. Vấn đề của khách hàng (Pain Point)",
+        "requirement": "Chỉ ra chính xác vấn đề kỹ thuật, tiến độ hoặc ngân sách mà chủ đầu tư/nhà thầu đang gặp. Ví dụ: Tìm hàng không đúng quy cách, thiếu nguồn cung, giá bị đội qua trung gian."
+      },
+      {
+        "element": "2. Nỗi sợ của khách hàng (Fear)",
+        "requirement": "Đánh trúng tâm lý lo lắng. Ví dụ: Sợ mua phải thép giả/kém chất lượng ảnh hưởng tuổi thọ công trình, sợ thiếu giấy tờ CO/CQ không nghiệm thu được, sợ giao hàng chậm trễ đình trệ dự án."
+      },
+      {
+        "element": "3. Nhu cầu tư vấn/hỏi đáp (Needs/Questions)",
+        "requirement": "Cung cấp câu trả lời chuyên sâu cho thắc mắc đang tìm kiếm. Ví dụ: So sánh các loại ống thép, cách đọc ký hiệu, tư vấn chọn phụ kiện/van phù hợp cho hệ thống PCCC, quy trình lấy báo giá."
+      },
+      {
+        "element": "4. Động lực ra quyết định (Next Step/Decision Driver)",
+        "requirement": "Lời khuyên thiết thực và CTA rõ ràng. Cung cấp bảng giá, catalogue, mẫu chứng chỉ hoặc thông tin liên hệ Thép Bảo Tín để họ đủ niềm tin chốt đơn."
+      }
+    ]
+  },
+  "content_type_adaptation": {
+    "description": "Nội dung Thép Bảo Tín chia 4 loại. Mỗi loại có cách viết, mở bài, kết bài, FAQ và mức CTA khác nhau. AI PHẢI xác định loại bài TRƯỚC KHI viết.",
+    "how_to_determine": "Dựa vào keyword chính + search intent: Kiến thức (I), Sản phẩm (C/T), So sánh (C), Dự án (I/N). Nếu không rõ, mặc định là Kiến thức.",
+    "type_A_knowledge": {
+      "label": "Bài kiến thức (Informational)",
+      "examples": [
+        "Thép vuông đặc là gì",
+        "Cách tính trọng lượng ống thép",
+        "Tiêu chuẩn ASTM A106 giải thích",
+        "Phân biệt ống đúc và ống hàn"
+      ],
+      "psychology_focus": "Nặng Q3 (tư vấn, giải thích) + Q1 (vấn đề cụ thể khi chọn sai)",
+      "opening": "2-3 câu đi thẳng vào chủ đề + nêu tình huống thực tế nhà thầu hay gặp. KHÔNG CÓ box, KHÔNG CÓ danh sách tóm tắt đầu bài.",
+      "body": "Giải thích kỹ thuật chính xác, bảng biểu so sánh, công thức tính, ví dụ cụ thể. Cấu trúc: Định nghĩa > Phân loại > Thông số > Ứng dụng > Sai lầm thường gặp.",
+      "tone": "Chuyên gia ngành chia sẻ kiến thức cho đồng nghiệp. Kỹ thuật nhưng không hàn lâm, thực tế nhưng không bán hàng.",
+      "faq": "Có nếu keyword có nhiều PAA questions. Câu hỏi phải là câu nhà thầu/kỹ sư thực sự hỏi khi tìm mua vật tư.",
+      "cta_level": "Nhẹ. 'Liên hệ để được kỹ sư tư vấn chi tiết' hoặc 'Gọi hotline nhận catalogue sản phẩm'.",
+      "closing": "Khuyến nghị kỹ thuật cuối cùng + thông tin liên hệ. Không cam kết bán hàng nặng nề."
+    },
+    "type_B_product": {
+      "label": "Bài sản phẩm (Commercial / Transactional)",
+      "examples": [
+        "Bảng giá thép vuông đặc",
+        "Ống thép đúc DN200 SCH40",
+        "Thép hộp mạ kẽm 40x80"
+      ],
+      "psychology_focus": "Nặng Q4 (ra quyết định, CTA) + Q2 (nỗi sợ mua sai, thiếu CO/CQ)",
+      "opening": "1-2 câu đi thẳng vào sản phẩm + cam kết (CO/CQ, giá gốc nhà máy). KHÔNG mở bài dài dòng.",
+      "body": "Bảng giá + quy cách (GIỮ NGUYÊN 100% dữ liệu gốc), thông số kỹ thuật, ứng dụng theo nhóm kích thước, sai lầm khi mua hàng. Bảng biểu là trọng tâm.",
+      "tone": "Tư vấn bán hàng chuyên nghiệp. Trực tiếp, rõ ràng, không lan man. Mỗi câu phải phục vụ quyết định mua hàng.",
+      "faq": "Có nếu sản phẩm phức tạp (nhiều quy cách, nhiều mác thép). Câu hỏi: giá bao nhiêu, mua ở đâu, giao hàng bao lâu.",
+      "cta_level": "Mạnh. 'Gọi 0932 059 176 hoặc gửi BOQ qua bts@thepbaotin.com, nhận báo giá trong 30 phút.'",
+      "closing": "Cam kết CO/CQ + nhập khẩu trực tiếp + hotline/email. Ngắn gọn, dứt khoát."
+    },
+    "type_C_comparison": {
+      "label": "Bài so sánh (Commercial Investigation)",
+      "examples": [
+        "Ống thép đúc vs ống thép hàn",
+        "Thép CT3 vs SS400",
+        "Mặt bích JIS vs ANSI",
+        "Thép Hòa Phát vs Hoa Sen"
+      ],
+      "psychology_focus": "Nặng Q3 (tư vấn chọn đúng loại) + Q2 (sợ chọn sai lãng phí ngân sách)",
+      "opening": "Đặt thẳng câu hỏi so sánh mà nhà thầu đang phân vân. 1-2 câu.",
+      "body": "Bảng so sánh chi tiết (BẮT BUỘC). Phân tích ưu/nhược theo ứng dụng cụ thể. Khuyến nghị rõ: 'Chọn A khi..., chọn B khi...'. Không dìm hàng thương hiệu nào.",
+      "tone": "Phân tích khách quan. Đưa ra khuyến nghị cuối cùng dựa trên điều kiện kỹ thuật và ngân sách.",
+      "faq": "Tùy nội dung. Nếu có nhiều biến thể phức tạp thì có.",
+      "cta_level": "Trung bình. 'Liên hệ nhận bảng báo giá so sánh các phương án.'",
+      "closing": "Tóm gọn: loại nào phù hợp điều kiện nào + liên hệ tư vấn cụ thể."
+    },
+    "type_D_project": {
+      "label": "Bài dự án / Case Study",
+      "examples": [
+        "Cung cấp ống thép đúc cho dự án nhà máy X",
+        "Thép Bảo Tín đồng hành cùng công trình cầu Y",
+        "Giải pháp vật tư PCCC cho tòa nhà Z"
+      ],
+      "psychology_focus": "Nặng Q1 (vấn đề mà dự án gặp phải) + Q3 (cách giải quyết cụ thể). KHÔNG PHẢI bài quảng cáo.",
+      "opening": "Giới thiệu dự án: tên (nếu được phép), quy mô, yêu cầu kỹ thuật. 2-3 câu ngắn gọn.",
+      "body_structure": [
+        "Bối cảnh dự án: yêu cầu kỹ thuật, thách thức cụ thể (tiến độ gấp, quy cách đặc biệt, khối lượng lớn)",
+        "Vấn đề cần giải quyết: khó tìm nguồn cung, yêu cầu CO/CQ nghiêm ngặt, dung sai chặt",
+        "Giải pháp: loại vật tư đã cung cấp, tiêu chuẩn, quy cách, khối lượng cụ thể",
+        "Kết quả: giao hàng đúng tiến độ, nghiệm thu thành công, số liệu cụ thể nếu có"
+      ],
+      "tone": "Kể chuyện thực tế, có giá trị kỹ thuật. Người đọc phải học được điều gì đó từ dự án này (cách chọn vật tư, cách giải quyết vấn đề kỹ thuật). Không viết như bài PR ca ngợi công ty.",
+      "value_rule": "Mỗi bài dự án PHẢI có ít nhất 1 bài học kỹ thuật mà nhà thầu khác có thể áp dụng. Ví dụ: 'Với hệ thống PCCC áp lực cao, tiêu chuẩn ASTM A795 là lựa chọn bắt buộc thay vì BS 1387.'",
+      "faq": "Không cần. Bài dự án tập trung vào câu chuyện và bài học.",
+      "cta_level": "Nhẹ nhất. 'Bạn có dự án tương tự? Liên hệ Thép Bảo Tín để được tư vấn giải pháp vật tư phù hợp.'",
+      "closing": "Bài học rút ra từ dự án + liên hệ nếu có nhu cầu tương tự."
+    }
+  },
+  "data_integrity_rule": {
+    "rule": "TUYỆT ĐỐI KHÔNG THAY ĐỔI số liệu kỹ thuật trong bài viết.",
+    "applies_to": [
+      "Bảng giá (giá/kg, giá/m, giá/cây)",
+      "Quy cách sản phẩm (kích thước, khối lượng/m, độ dày)",
+      "Tiêu chuẩn kỹ thuật (TCVN, ASTM, JIS, BS, mã số tiêu chuẩn)",
+      "Thông số cơ tính (MPa, %, nhiệt độ, áp suất)",
+      "Dung sai sản xuất (mm, %)",
+      "Thông tin liên hệ (hotline, email, địa chỉ kho)"
+    ],
+    "what_CAN_change": "Cách diễn đạt xung quanh dữ liệu, cấu trúc bảng, thứ tự trình bày, thêm giải thích/ngữ cảnh cho số liệu",
+    "what_CANNOT_change": "Bất kỳ con số, mã tiêu chuẩn, tên sản phẩm, mức giá nào trong dữ liệu gốc. Nếu không chắc chắn, giữ nguyên 100%."
+  },
+  "fingerprint": {
+    "sentence_length": "Rành mạch, dứt khoát. Câu trung bình 15-20 từ, xen kẽ câu ngắn 5-10 từ để nhấn mạnh. Tập trung vào tính chính xác thông số kỹ thuật. Không lan man.",
+    "vocabulary_level": "Chuyên ngành nhưng dễ hiểu (Professional-Accessible). Sử dụng chuẩn xác thuật ngữ ngành thép, cơ khí, xây dựng và PCCC (CO, CQ, SCH, DN, ANSI, JIS...). Mọi thuật ngữ kỹ thuật đặt trong ngữ cảnh thực tế của dự án.",
+    "tone": "Chuyên gia ngành thép đang chia sẻ kiến thức và tư vấn cho đối tác B2B. Đồng cảm với áp lực tiến độ và chất lượng của nhà thầu. Uy tín, đáng tin cậy, giải quyết vấn đề.",
+    "point_of_view": "Ngôi thứ hai (bạn/quý khách hàng/nhà thầu/chủ đầu tư) kết hợp ngôi thứ nhất số nhiều (Thép Bảo Tín/chúng tôi). KHÔNG dùng 'tui', 'mình', 'ta'.",
+    "opening_rule": "KHÔNG CÓ Key Takeaways box. KHÔNG CÓ 'Nội dung chính:'. Mở bài 2-3 câu đi thẳng vào chủ đề, nêu vấn đề/tình huống thực tế. Số câu và cách mở tùy theo content_type_adaptation.",
+    "structure_pattern": "Tùy biến theo loại bài (xem content_type_adaptation). Nguyên tắc chung: Mở bài ngắn > H2/H3 giải quyết vấn đề > Bảng biểu/Bullet points cho dữ liệu > Kết bài cam kết + CTA.",
+    "transitions": "Logic, nguyên nhân-kết quả: 'Chính vì vậy,', 'Để giải quyết vấn đề này,', 'Xét về mặt kỹ thuật,', 'Tuy nhiên, cần lưu ý rằng', 'Đối với các dự án yêu cầu khắt khe,'. KHÔNG dùng casual transitions kiểu blog ('Nhưng khoan', 'Nói thẳng ra:', 'Nghe quen không?').",
+    "closing_style": "Cam kết chất lượng (nhập khẩu trực tiếp, CO/CQ) + hướng dẫn liên hệ. Mức CTA tùy loại bài. KHÔNG dùng quotable line hay câu truyền cảm hứng.",
+    "punctuation_rule": "KHÔNG DÙNG em dash (—). Dùng dấu phẩy, chấm phẩy, hoặc tách thành câu riêng. KHÔNG DÙNG dấu ba chấm (...) kiểu tạo suspense."
+  },
+  "signature_patterns": {
+    "paragraph_length": "Ngắn gọn (2-4 câu/đoạn). Nhà thầu không có thời gian đọc đoạn văn dài.",
+    "list_usage": "Bullet points và Numbered lists cho: đặc điểm kỹ thuật, thành phần hóa học, tính chất cơ lý, bước quy trình, lý do chọn Thép Bảo Tín.",
+    "table_usage": "Bảng biểu là TRỌNG TÂM. Bảng giá, bảng quy cách, bảng so sánh mác thép, bảng dung sai. Dữ liệu trong bảng KHÔNG ĐƯỢC THAY ĐỔI (xem data_integrity_rule).",
+    "data_anchoring": "Dữ liệu thực tế: kích thước (DN, Phi, Độ dày ly), tiêu chuẩn mác thép, chứng nhận quốc tế. Mỗi claim kỹ thuật phải có con số hoặc mã tiêu chuẩn đi kèm.",
+    "myth_busting": "Chỉ ra sai lầm phổ biến khi mua vật tư (nhầm lẫn độ dày, mua hàng trôi nổi thiếu giấy tờ) và hậu quả khi nghiệm thu.",
+    "qualification_habit": "Luôn kèm điều kiện kỹ thuật: 'Ống thép đúc phù hợp cho môi trường áp lực cao, trong khi ống thép hàn xoắn phù hợp hơn cho cấp thoát nước thông thường.'",
+    "experience_style": "Kinh nghiệm CÔNG TY: 'Chúng tôi đã cung cấp cho dự án X', 'Trong quá trình phân phối, chúng tôi nhận thấy...'. KHÔNG dùng kinh nghiệm cá nhân kiểu 'Tui đã test...'."
+  },
+  "example_phrases": [
+    "Thiếu chứng chỉ CO, CQ sẽ gây chậm trễ tiến độ và khiến công trình không thể nghiệm thu.",
+    "Đừng để việc mua nhầm quy cách vật tư làm đội chi phí dự án.",
+    "Tại Thép Bảo Tín, chúng tôi nhập khẩu trực tiếp từ nhà máy sản xuất, cam kết giá cạnh tranh nhất cho nhà thầu.",
+    "Bạn đang phân vân nên chọn mặt bích tiêu chuẩn JIS hay ANSI cho hệ thống bơm PCCC?",
+    "Đây là bảng thông số độ dày và áp lực làm việc bạn cần nắm rõ trước khi đặt hàng.",
+    "Trong quá trình cung cấp cho các dự án nhà xưởng tại KCN, chúng tôi nhận thấy nhà thầu thường nhầm lẫn giữa ống SCH40 và SCH80."
+  ],
+  "vocabulary_blacklist": {
+    "description": "Từ cấm theo knowledge/15-anti-ai-content-rules.md (Ruleset 1). Xem chi tiết tại knowledge note.",
+    "vi_core": [
+      "Đột phá",
+      "Cách mạng hóa",
+      "Chìa khóa (để...)",
+      "Cốt lõi (là...)",
+      "Thúc đẩy",
+      "Tận dụng",
+      "Đáng chú ý",
+      "Thú vị thay",
+      "Hơn nữa",
+      "Ngoài ra",
+      "Bên cạnh đó",
+      "Tóm lại",
+      "Nhìn chung"
+    ],
+    "vi_extended": [
+      "Đắm chìm",
+      "Khám phá (hãy cùng...)",
+      "Toàn diện",
+      "Nổi bật",
+      "Đa dạng",
+      "Đóng vai trò quan trọng",
+      "Bức tranh toàn cảnh",
+      "Hành trình",
+      "Nền tảng vững chắc",
+      "Liền mạch",
+      "Nâng tầm",
+      "Trao quyền",
+      "Minh chứng",
+      "Vô cùng (quan trọng)",
+      "Sâu sắc",
+      "Không thể phủ nhận"
+    ],
+    "en_top_banned": [
+      "Delve",
+      "Tapestry",
+      "Landscape (nghĩa bóng)",
+      "Leverage",
+      "Robust",
+      "Comprehensive",
+      "Seamless",
+      "Empower",
+      "Streamline",
+      "Holistic",
+      "Paradigm",
+      "Groundbreaking",
+      "Cutting-edge",
+      "Myriad",
+      "Plethora"
+    ],
+    "en_filler_words": [
+      "Essentially",
+      "Fundamentally",
+      "Significantly",
+      "Additionally",
+      "Ultimately",
+      "Undoubtedly",
+      "Arguably",
+      "Remarkably"
+    ]
+  },
+  "structural_blacklist": {
+    "description": "Mẫu câu cấm theo knowledge/15-anti-ai-content-rules.md (Ruleset 2).",
+    "vi_banned_openers": [
+      "Trong thế giới/kỷ nguyên số ngày nay...",
+      "Không thể phủ nhận rằng...",
+      "Hành trình khám phá...",
+      "Như chúng ta đã biết...",
+      "Trong bài viết này, chúng ta sẽ...",
+      "Điều quan trọng cần lưu ý là...",
+      "Trong bối cảnh [chủ đề] không ngừng phát triển...",
+      "Hãy cùng đắm chìm vào thế giới của..."
+    ],
+    "banned_transitions": [
+      "Với điều đó trong đầu...",
+      "Điều này đưa chúng ta đến...",
+      "Hãy xem xét kỹ hơn..."
+    ],
+    "vi_banned_conclusions": [
+      "Tóm lại,...",
+      "Kết luận lại,...",
+      "Hy vọng bài viết đã mang đến cho bạn cái nhìn toàn diện...",
+      "Chúc bạn thành công trên hành trình..."
+    ],
+    "banned_cta": [
+      "Hãy chia sẻ ý kiến trong phần bình luận!",
+      "Đăng ký để nhận thêm nhiều nội dung giá trị!"
+    ],
+    "banned_formatting": "KHÔNG dùng em dash (—) trong bài viết. KHÔNG dùng 'Nội dung chính:' hoặc Key Takeaways box đầu bài. KHÔNG dùng --- (horizontal rule)."
+  },
+  "vi_ai_patterns_to_avoid": {
+    "description": "Pattern tiếng Việt đặc trưng AI. PHẢI TRÁNH.",
+    "patterns": [
+      "Câu dài xuyên suốt không ngắt → tách câu",
+      "Lạm dụng 'sự' + danh từ → dùng động từ",
+      "Dùng 'được' quá nhiều → viết chủ động",
+      "'không chỉ...mà còn' lặp → tách câu",
+      "Lạm dụng 'một cách' → bỏ",
+      "'Hãy' mệnh lệnh liên tục → 'Bạn nên...'",
+      "Dùng em dash (—) tạo rhythm break → dấu phẩy hoặc tách câu"
+    ]
+  },
+  "red_flags_checklist": {
+    "description": "10 Red Flags. Nếu bài có 3+ dấu hiệu → phải sửa. MỤC TIÊU: 0-2.",
+    "flags": [
+      "Dùng 'delve'/'landscape'/'comprehensive'",
+      "Mở+kết bài đều câu hỏi tu từ",
+      "Liệt kê đúng 5/10 tips đều đặn",
+      "Đoạn văn đều đặn cùng độ dài",
+      "Quá hoàn hảo, không có nuance/caveat",
+      "Thiếu dẫn nguồn/tiêu chuẩn cụ thể",
+      "Filler: 'it is important to note'",
+      "Title: 'Ultimate Guide'/'Deep Dive'",
+      "Có Key Takeaways box hoặc 'Nội dung chính:' (pattern BinhNN, không phải Thép Bảo Tín)",
+      "Dùng em dash (—) nhiều lần trong bài"
+    ]
+  },
+  "self_correction_checklist": {
+    "description": "Ruleset 4. Chạy trước khi giao bài.",
+    "step_1_find_replace": "Quét bài tìm từ cấm VN (vi_core + vi_extended) + EN (en_top_banned + en_filler_words) + mẫu câu cấm. Xóa/thay thế.",
+    "step_2_tone_check": "Giọng văn PHẢI giống chuyên gia ngành thép chia sẻ kiến thức, KHÔNG giống blogger cá nhân hay AI generic. Kiểm tra: có dùng 'tui'/'mình' không? Có Key Takeaways box không? Có em dash không?",
+    "step_3_data_integrity": "Đối chiếu MỌI số liệu kỹ thuật, bảng giá, mã tiêu chuẩn trong bài với dữ liệu gốc. Nếu có bất kỳ sai lệch nào → sửa lại về đúng bản gốc.",
+    "step_4_content_type_check": "Xác nhận bài viết đúng loại (A/B/C/D) và đã áp dụng đúng mở bài, kết bài, mức CTA theo loại đó.",
+    "step_5_red_flag_check": "Đếm red flags. MỤC TIÊU: 🟢 0-2. Nếu ≥ 3 → sửa lại."
+  },
+  "keyword_integration": {
+    "description": "Quy tắc tích hợp từ khóa ngữ nghĩa. Xem Content Writing SKILL.md Bước 0.5.",
+    "research_required": "BẮT BUỘC: Keyword Map gồm primary (1) + secondary (3-5) + long-tail (5-10) + LSI/semantic terms (10-20) + PAA questions (5-8).",
+    "placement_rules": {
+      "primary_keyword": "H1 + first 100 words + meta_title + meta_description",
+      "secondary_keywords": "2-3 cái trong H2 headings + body text",
+      "long_tail_keywords": "H3 headings + FAQ section (nếu có)",
+      "lsi_semantic_terms": "Rải tự nhiên trong body. Thuật ngữ kỹ thuật (ASTM, JIS, TCVN) đếm là LSI terms.",
+      "paa_questions": "FAQ section (nếu phù hợp với loại bài) hoặc H3 sub-sections"
+    },
+    "density_rule": "KHÔNG nhồi keyword. Đọc to, nếu gượng ép → thay biến thể. Ngành thép: dùng xen kẽ tên kỹ thuật VN-EN tự nhiên.",
+    "natural_integration": "Keyword tích hợp trong giọng chuyên gia B2B: thuật ngữ kỹ thuật chính xác chính là keyword tự nhiên."
+  },
+  "avoid": [
+    "Văn phong bay bổng, sến súa, quá nhiều tính từ cảm xúc",
+    "Giải thích lan man không đi vào trọng tâm kỹ thuật hoặc vấn đề dự án",
+    "Lời hứa suông không có bằng chứng (như 'rẻ nhất' mà không giải thích vì sao)",
+    "Bỏ qua việc nhắc nhở về giấy tờ chất lượng (CO, CQ)",
+    "Đoạn văn quá dài, dày đặc chữ khiến nhà thầu/kỹ sư mỏi mắt",
+    "Key Takeaways box hoặc 'Nội dung chính:' đầu bài (đây là pattern BinhNN, KHÔNG phải Thép Bảo Tín)",
+    "Em dash (—) trong bài viết. Dùng dấu phẩy, chấm phẩy, hoặc tách câu",
+    "Giọng blogger cá nhân: 'tui', 'mình', câu hỏi tu từ casual, dấu ba chấm tạo suspense",
+    "Bài dự án viết như quảng cáo mời gọi thay vì chia sẻ kiến thức có giá trị",
+    "Thay đổi bất kỳ số liệu kỹ thuật nào (bảng giá, quy cách, tiêu chuẩn, dung sai)",
+    "Từ cấm VN Ruleset 1: 'Đột phá', 'Cách mạng hóa', 'Hành trình', 'Toàn diện', 'Nổi bật'",
+    "Từ cấm EN Ruleset 1C: 'Delve', 'Leverage', 'Comprehensive', 'Seamless'",
+    "Filler words Ruleset 1F: 'Essentially', 'Fundamentally', 'Undoubtedly'",
+    "Từ nối máy móc: 'Hơn nữa', 'Ngoài ra', 'Bên cạnh đó'",
+    "Mở bài mẫu AI: 'Trong thời đại số...', 'Không thể phủ nhận...'",
+    "Kết bài: 'Tóm lại,...', 'Nhìn chung,...', 'Hy vọng bài viết...'",
+    "Lạm dụng 'sự' + danh từ, 'một cách' + tính từ, 'được' quá nhiều"
+  ],
+  "notes": "Profile dành riêng cho Thép Bảo Tín. Giọng: chuyên gia ngành thép chia sẻ kiến thức (KHÔNG phải blogger cá nhân). Nội dung tùy biến theo 4 loại bài (Kiến thức/Sản phẩm/So sánh/Dự án). Dữ liệu kỹ thuật chính xác 100%. Áp dụng 4 Rulesets Anti-AI từ knowledge/15-anti-ai-content-rules.md.",
+  "rare_attribute_guidance": {
+    "description": "Thông tin hiếm, độc đáo mà Google chấm điểm Knowledge Graph cao. Mỗi bài ít nhất 1-2 rare attributes.",
+    "sources": [
+      "Kinh nghiệm cung cấp cho dự án thực tế (tên dự án, quy mô, hạng mục cụ thể)",
+      "Dữ liệu kỹ thuật từ thực nghiệm (VD: tuổi thọ ống mạ kẽm trong môi trường pH cụ thể)",
+      "So sánh thực tế giữa các mác thép/nhà sản xuất mà chỉ người trong ngành mới biết",
+      "Case study sai lầm khi mua hàng (đặt sai mác → trả hàng, thiếu CO/CQ → không nghiệm thu)"
+    ],
+    "style_note": "Rare attribute phải viết bằng giọng 'chúng tôi' — kinh nghiệm công ty, dữ liệu kỹ thuật chính xác 100%",
+    "data_integrity": "Số liệu kỹ thuật trong rare attribute PHẢI CHÍNH XÁC TUYỆT ĐỐI — không được thay đổi"
+  },
+  "topical_context_linking": {
+    "description": "Kết nối bài viết với category hierarchy qua ngữ cảnh tự nhiên. Internal link chỉ mạnh 1/10.",
+    "example": "Viết bài 'Ống thép mạ kẽm BS 1387' → mở bài nhắc 'ngành vật liệu xây dựng' (cha) → 'ống thép công nghiệp' (con) → 'ống mạ kẽm cho PCCC' (cháu)",
+    "rule": "Mở bài (first 100 words) PHẢI có context linking. Body ít nhất 2-3 đoạn."
+  }
+}
