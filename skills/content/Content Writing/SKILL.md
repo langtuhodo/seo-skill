@@ -325,13 +325,23 @@ Trước khi viết BẤT KỲ bài nào, phải trả lời 4 câu hỏi:
 
 ### Phase -1: Load Project Context — BẮT BUỘC (nếu viết cho dự án cụ thể)
 
-**Trước khi bắt đầu research, PHẢI đọc 3 file dự án (nếu tồn tại):**
+**Trước khi bắt đầu research, PHẢI đọc file dự án theo thứ tự ưu tiên:**
 
-| File | Mục đích | Bắt buộc? |
-|------|----------|-----------|
-| `projects/{project}/profile.md` | Hiểu chủ thể, brand voice, business context | ✅ Có |
-| `projects/{project}/topical.md` | Hiểu topical map, cluster hierarchy, role (pillar/supporting) | ✅ Có (nếu tồn tại) |
-| `projects/{project}/keywords-urls.md` | Biết keywords đã publish → chèn internal link | ✅ Có (nếu tồn tại) |
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|-------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions → 80% context AI cần | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/profile.md` | Chủ thể, brand voice, business context (chi tiết) | ✅ Nếu memory.md không đủ |
+| 3 | `projects/{project}/topical.md` | Topical map, cluster hierarchy, role (pillar/supporting) | ✅ (nếu tồn tại) |
+| 4 | `projects/{project}/keywords-urls.md` | Keywords đã publish → chèn internal link | ✅ (nếu tồn tại) |
+
+**Tại sao đọc memory.md trước**: Memory.md cache 80% context AI cần để bắt đầu (brand voice 1 dòng, cluster đang focus, style profile, pending tasks). Chỉ mở profile.md/topical.md/keywords-urls.md khi memory.md không đủ. Điều này giảm bootstrap từ ~30k token xuống ~5k token cho task thường gặp.
+
+**Từ memory.md xác định:**
+1. Quick Facts → brand voice cốt lõi, ngôi xưng, hotline
+2. Active Context → cluster đang ưu tiên build → bài này khuớp cluster đó?
+3. Pending Tasks → có task liên quan bài này chưa?
+4. Recent Articles → tránh trùng với bài vừa publish
+5. Key Decisions → có style/kỹ thuật nào đã chốt không được vi phạm?
 
 **Từ topical.md xác định:**
 1. Bài viết thuộc **cluster nào**?
@@ -346,6 +356,8 @@ Trước khi viết BẤT KỲ bài nào, phải trả lời 4 câu hỏi:
 4. Tránh viết trùng keyword đã có bài
 
 > ⚠️ Nếu `topical.md` hoặc `keywords-urls.md` chưa tồn tại → ghi nhận và tiếp tục. Nhưng sau khi bài publish → CẬP NHẬT `keywords-urls.md` với keyword + URL mới.
+>
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md` tạo mới và fill Quick Facts từ profile.md. Sau đó áp dụng Session End Protocol cuối phiên (xem Phase 7 bên dưới).
 
 ### Phase 0: Competitor Research (20 phút) — BẮT BUỘC
 
@@ -1080,12 +1092,59 @@ Sau khi bài viết hoàn chỉnh và publish, **BẮT BUỘC** cập nhật `pr
 │  Phase 6: INTERNAL LINK & SEO META CHECK (10 phút)              │
 │  └── Chèn link từ keywords-urls.md, mỗi URL 1 lần duy nhất     │
 │  └── SEO Metadata blockquote đầy đủ: meta_title + meta_description│
+│                         ↓                                       │
+│  Phase 7: SESSION END PROTOCOL — UPDATE MEMORY (5 phút) ⭐      │
+│  └── Append entry vào projects/{project}/memory.md             │
+│  └── Append article mới vào Recent Articles                    │
+│  └── Edit Active Context + Pending Tasks                       │
+│  └── Append Key Decisions nếu có chốt mới                      │
+│  └── Commit memory.md CÙNG commit với bài viết                 │
 │                                                                 │
 ├─────────────────────────────────────────────────────────────────┤
-│  ⚠️ OUTPUT = Chỉ bài viết hoàn chỉnh                            │
+│  ⚠️ OUTPUT = Bài viết hoàn chỉnh + memory.md đã update         │
 │  ❌ KHÔNG xuất: User Psychology Brief, Competitor Analysis      │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+### Phase 7 chi tiết: Session End Protocol — Update Memory
+
+**Sau khi hoàn thành bài (Phase 0-6), AI BẮT BUỘC update `projects/{project}/memory.md` trước khi report completion cho user.**
+
+Checklist 7 điểm:
+
+```
+[ ] Append entry mới vào Session History
+    - Date: YYYY-MM-DD
+    - CLI / Model: {Claude Code | Cursor | Codex | Gemini CLI}
+    - Task Done: 1-2 dòng tóm tắt
+    - Files Touched: file1.md, file2.md
+    - Pending Carry-over: task chưa xong (nếu có)
+
+[ ] Append article vừa viết vào Recent Articles
+    - Date, Title, URL dự kiến, Cluster, Role, Style Variant
+
+[ ] Edit Active Context
+    - Cập nhật cluster đang ưu tiên nếu chuyển
+    - Cập nhật content type focus của sprint
+    - Cập nhật last_updated
+
+[ ] Edit Pending Tasks
+    - Xóa task vừa done
+    - Thêm task mới phát sinh
+
+[ ] Append Key Decisions nếu có chốt mới
+    - Quyết định kỹ thuật/style đã chốt để không phải tranh luận lại
+
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi
+    - 80% case: KHÔNG cần update
+
+[ ] Commit memory.md trong cùng commit với bài viết
+    - Tránh memory dirty khi rollback bài viết
+```
+
+Mục đích: phiên tiếp theo mở CLI → AI đọc memory.md → có ngay context vừa chốt → không hỏi lại, không read lại profile.md / skill files.
+
+Workflow chi tiết + bảo trì memory.md: `skills/project-memory/SKILL.md`.
 
 ---
 
