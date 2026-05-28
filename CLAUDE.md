@@ -20,25 +20,41 @@ seo-skills/
 │   ├── brand-distribution/
 │   └── style-mimicker/
 │
-├── knowledge/              # 16 knowledge notes (auto-load triggers)
+├── knowledge/              # 17 knowledge notes (auto-load triggers)
 ├── playbooks/              # 7 end-to-end workflows
-├── projects/               # Output theo dự án
+├── projects/               # Output theo dự án (mỗi project có memory.md)
 │
+├── COMPILED-CONTEXT.md     # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
 ├── AGENTS.md               # Config gốc
 ├── CLAUDE.md               # Claude Code
 ├── GEMINI.md               # Gemini CLI
 └── README.md
 ```
 
-## Cách sử dụng
+## ⭐ Quick Start cho AI — Session Bootstrap (BẮT BUỘC)
+
+**Đầu mỗi phiên, AI làm 3 bước theo thứ tự:**
+
+1. **Đọc `COMPILED-CONTEXT.md`** — skill digest gọn (~4k token) thay vì load 60 skill + 17 knowledge notes
+2. **NẾU task gắn 1 dự án cụ thể**: Đọc `projects/{ten-du-an}/memory.md` TRƯỚC TIÊN — cache trạng thái dự án (Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions)
+3. **CHỈ deep-dive `SKILL.md` / `profile.md` / `topical.md` / `keywords-urls.md` cụ thể** khi 2 file trên không đủ context
+
+→ Mục tiêu: bootstrap context < 8k token thay vì 30-50k token.
+
+**Cuối mỗi phiên (Session End Protocol)**: AI BẮT BUỘC cập nhật `projects/{project}/memory.md` (Session History + Pending Tasks + Recent Articles + Key Decisions) trước khi report completion cho user. Chi tiết: `skills/project-memory/SKILL.md`.
+
+## Cách sử dụng (chi tiết)
 
 Khi nhận task SEO, AI assistant sẽ:
-1. Xác định task thuộc category nào (xem bảng dưới)
-2. Đọc Knowledge Note tương ứng trong `knowledge/`
-3. Đọc SKILL.md chi tiết nếu cần workflow cụ thể
-4. Đọc Playbook nếu task là workflow end-to-end
+1. Đọc `COMPILED-CONTEXT.md` (luôn luôn, mọi task)
+2. Đọc `projects/{project}/memory.md` nếu có project context
+3. Xác định task thuộc category nào (xem bảng dưới)
+4. Đọc Knowledge Note tương ứng trong `knowledge/`
+5. Đọc SKILL.md chi tiết nếu cần workflow cụ thể
+6. Đọc Playbook nếu task là workflow end-to-end
+7. Cuối phiên: chạy Session End Protocol cập nhật memory.md
 
-## Quick Reference — 15 Knowledge Notes
+## Quick Reference — 17 Knowledge Notes
 
 | # | Category | Trigger Keywords | Knowledge Note |
 |---|----------|------------------|----------------|
@@ -58,6 +74,7 @@ Khi nhận task SEO, AI assistant sẽ:
 | 14 | **Brand Distribution** | Google Business Profile, GBP, Facebook content, Zalo OA, phủ thương hiệu, multi-channel, NAP, local SEO, brand presence | `knowledge/14-brand-distribution.md` |
 | 15 | **Anti-AI Content Rules** | viết nội dung, anti-AI, tránh AI, humanize, giọng văn, AI detection, blacklist từ cấm, viết như người thật | `knowledge/15-anti-ai-content-rules.md` |
 | 16 | **SEO Trends 2026** | rare attribute, topical authority, phantom keywords, keyword phụ, platform diversification, zero-click, AI Overviews, owned community, user-first content, agentic SEO | `knowledge/16-seo-trends-2026.md` |
+| 17 | **Project Memory** | project memory, session memory, context cache, COMPILED-CONTEXT, memory.md, session end protocol, ghi nhớ ngữ cảnh, bộ nhớ dự án, giảm token bootstrap, lưu trạng thái dự án | `knowledge/17-project-memory.md` |
 
 ## 60 Skills — Full Index
 
@@ -138,6 +155,9 @@ Khi nhận task SEO, AI assistant sẽ:
 
 ### Style (1 skill)
 - `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING
+
+### Project Memory (1 skill)
+- `skills/project-memory/SKILL.md` — **Bộ nhớ ngữ cảnh dự án giữa các phiên AI** ⭐ BẮT BUỘC ĐẦU + CUỐI MỖI PHIÊN
 
 ### Brand Distribution (4 skills)
 - `skills/brand-distribution/Google Business Profile/SKILL.md` — Local Pack, GBP posts, reviews, NAP, entity signal
@@ -245,10 +265,12 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
    └── Tạo folder nếu chưa tồn tại
 
 3. LOAD PROJECT CONTEXT
-   └── Đọc projects/{ten-du-an}/profile.md → hiểu chủ thể, business context, brand voice
-   └── Đọc projects/{ten-du-an}/topical.md → hiểu topical map, cluster hierarchy, role (pillar/supporting)
-   └── Đọc projects/{ten-du-an}/keywords-urls.md → biết keywords đã publish, URL sẵn có cho internal link
-   └── Áp dụng tất cả context vào mọi output
+   └── ⭐ Đọc projects/{ten-du-an}/memory.md TRƯỚC TIÊN → Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions
+   └── CHỈ mở các file sau khi memory.md không đủ context:
+       └── projects/{ten-du-an}/profile.md → chủ thể, business context, brand voice (chi tiết)
+       └── projects/{ten-du-an}/topical.md → topical map, cluster hierarchy, role (pillar/supporting)
+       └── projects/{ten-du-an}/keywords-urls.md → keywords đã publish, URL sẵn có cho internal link
+   └── Áp dụng context vào mọi output
 
 4. ACTIVATE RELEVANT SKILLS
    └── Đọc Knowledge Note + SKILL.md tương ứng với task
@@ -279,7 +301,9 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
 
 ```
 projects/
+├── memory-template.md                 ← ⭐ Template memory.md cho dự án mới
 ├── thep-bao-tin/
+│   ├── memory.md                     ← ⭐ Bộ nhớ dự án (đọc TRƯỚC TIÊN, cập nhật cuối phiên)
 │   ├── profile.md
 │   ├── topical.md                    ← Sơ đồ topical map (pillar/cluster/sub-cluster)
 │   ├── keywords-urls.md              ← Danh sách keyword + URL đã publish
@@ -360,5 +384,25 @@ projects/
 
 ---
 
-*SEO Skills Library v1.5 — 60 skills, 16 knowledge notes, 7 playbooks*
+## Session End Protocol — BẮT BUỘC cuối mỗi phiên dự án
+
+Trước khi report task completion cho user, AI BẮT BUỘC cập nhật `projects/{project}/memory.md`:
+
+```
+[ ] Append entry mới vào Session History (ngày + task + files + carry-over)
+[ ] Append article mới vào Recent Articles (nếu có publish)
+[ ] Edit Active Context nếu chuyển cluster/style/sprint focus
+[ ] Edit Pending Tasks: xóa done, thêm mới phát sinh
+[ ] Append Key Decisions nếu chốt quyết định mới
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi
+[ ] Commit memory.md trong cùng commit với output bài viết
+```
+
+Mục đích: phiên tiếp theo của AI đọc được memory.md → không phải tái dựng context từ đầu → tiết kiệm 30-50k token / phiên.
+
+Chi tiết workflow + bảo trì: `skills/project-memory/SKILL.md`.
+
+---
+
+*SEO Skills Library v1.6 — 61 skills, 17 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory*
 *Maintained for AI SEO 2025+*

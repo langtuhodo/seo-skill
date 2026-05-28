@@ -6,7 +6,7 @@
 
 ```
 seo-skills/
-├── skills/                    # 60 skills theo 12 categories
+├── skills/                    # 61 skills theo 13 categories
 │   ├── strategy/              # Nền tảng chiến lược
 │   ├── on-page/               # Tối ưu trên trang
 │   ├── technical/             # Hạ tầng kỹ thuật
@@ -18,19 +18,32 @@ seo-skills/
 │   ├── ai-seo/                # SEO trong kỷ nguyên AI
 │   ├── growth/                # Tăng trưởng dài hạn
 │   ├── brand-distribution/    # Phủ thương hiệu đa kênh
-│   └── style-mimicker/        # Sao chép & áp dụng phong cách viết
+│   ├── style-mimicker/        # Sao chép & áp dụng phong cách viết
+│   └── project-memory/        # ⭐ Bộ nhớ ngữ cảnh dự án giữa các phiên AI
 │
-├── knowledge/                 # 16 knowledge notes (trigger auto-load)
+├── knowledge/                 # 17 knowledge notes (trigger auto-load)
 ├── playbooks/                 # 7 workflow end-to-end
-├── projects/                  # Output theo dự án
+├── projects/                  # Output theo dự án (mỗi project có memory.md)
 │
+├── COMPILED-CONTEXT.md        # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
 ├── AGENTS.md                  # Config cho AI assistants
 ├── CLAUDE.md                  # Claude Code
 ├── GEMINI.md                  # Gemini CLI
 └── README.md                  # File này
 ```
 
-## 12 Categories × 60 Skills
+## ⭐ Project Memory System (v1.6 mới)
+
+Từ v1.6, bộ skill hỗ trợ **bộ nhớ ngữ cảnh dự án** giữa các phiên AI — giải 2 vấn đề cốt lõi khi dùng CLI AI cho dự án dài hạn:
+
+| Vấn đề | Giải pháp | File |
+|---------|-----------|------|
+| AI đọc lại toàn bộ 60 skill mỗi phiên (30-50k token lãng phí) | Skill digest gọn (~4k token) thay vì load 60 skill files | `COMPILED-CONTEXT.md` |
+| AI quên trạng thái dự án giữa các phiên | Memory file per project + Session End Protocol | `projects/{project}/memory.md` |
+
+**Quick start:** đầu mỗi phiên AI đọc `COMPILED-CONTEXT.md` + `projects/{project}/memory.md`. Cuối mỗi phiên AI tự cập nhật memory.md. Chi tiết: `skills/project-memory/SKILL.md`.
+
+## 13 Categories × 61 Skills
 
 | # | Category | Skills | Path |
 |---|----------|--------|------|
@@ -46,6 +59,7 @@ seo-skills/
 | 10 | Growth | 4 | `skills/growth/` |
 | 11 | Brand Distribution | 4 | `skills/brand-distribution/` |
 | 12 | Style Mimicker | 1 | `skills/style-mimicker/` |
+| 13 | Project Memory | 1 | `skills/project-memory/` |
 
 ## Chuẩn (template) của mỗi `SKILL.md`
 
@@ -69,7 +83,7 @@ Mỗi file kỹ năng tuân theo cấu trúc 8 phần:
 
 ## Knowledge Notes (`knowledge/`)
 
-14 note tổng hợp — dùng để AI retrieval tự động khi nhận task SEO. Mỗi note có:
+17 note tổng hợp — dùng để AI retrieval tự động khi nhận task SEO. Mỗi note có:
 - Trigger keywords (khi nào auto-load).
 - Mục đích nhóm.
 - Sub-skill list + tóm tắt.
@@ -122,12 +136,13 @@ Bộ skill này auto-load với các tool sau:
 - ✅ v1.3: Style Mimicker + Topical Audit + Content Writing nâng cấp
 - ✅ v1.4: 15 Knowledge Notes + Entity SEO + E-E-A-T & Quality + SEO Foundations
 - ✅ v1.5: Brand Distribution (4 skills) + 7 Playbooks + Project Profile workflow
-- 🔲 v1.6: Dashboard mẫu (Looker Studio / GA4 / GSC)
-- 🔲 v1.7: Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
+- ✅ v1.6: ⭐ Project Memory System (COMPILED-CONTEXT digest + per-project memory.md + Session End Protocol)
+- 🔲 v1.7: Dashboard mẫu (Looker Studio / GA4 / GSC)
+- 🔲 v1.8: Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
 
 ---
 
-*SEO Skills Library v1.5 — 60 skills, 16 knowledge notes, 7 playbooks*
+*SEO Skills Library v1.6 — 61 skills, 17 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory*
 *Maintained for AI SEO 2025+*
 
 *Maintained as a senior SEO assistant playbook. Cập nhật theo guideline mới của Google & xu hướng AI SEO 2025+.*
