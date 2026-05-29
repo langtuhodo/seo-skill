@@ -97,7 +97,7 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
 
 ### 4.3. Session End Protocol — AI làm gì cuối phiên
 
-**Trước khi report task completion cho user**, AI BẮT BUỘC:
+**Trước khi report task completion cho user**, AI BẮT BUỘC chạy checklist 7 điểm (đồng bộ với Content Writing Phase 7):
 
 ```
 1. SCAN PHIÊN VỪA LÀM:
@@ -105,20 +105,20 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
    - Đã chốt quyết định gì? (style, kỹ thuật, hướng đi)
    - Còn pending gì? (TODO, follow-up)
 
-2. UPDATE memory.md (chỉ section thay đổi):
-   - Append 1 entry mới vào Session History
-   - Append article mới vào Recent Articles (nếu publish)
-   - Edit Active Context nếu chuyển cluster/style
-   - Append Key Decisions nếu chốt mới
-   - Edit Pending Tasks: xóa done, thêm mới
+2. UPDATE memory.md — checklist 7 điểm:
+   1) Append entry mới vào Session History (date, CLI/model, task done, files touched, pending carry-over)
+   2) Append article vừa publish vào Recent Articles (date, title, URL, cluster, role) — bỏ qua nếu task không publish (audit / keyword research / setup...)
+   3) Edit Active Context (cluster đang ưu tiên, content type focus, last_updated)
+   4) Edit Pending Tasks (xóa done, thêm mới phát sinh)
+   5) Append Key Decisions (style / kỹ thuật / cluster boundary / merge-delete decisions đã chốt phiên này) — KHÔNG bỏ qua, cực quan trọng cho audit + refresh
+   6) Refresh Quick Facts CHỈ KHI profile.md đổi (80% case: KHÔNG cần)
+   7) Commit memory.md trong cùng commit với bài viết/output (tránh memory dirty)
 
-3. COMMIT memory.md cùng với output:
-   - Memory.md đi cùng commit chứa bài viết/output
-   - Không commit riêng
-
-4. INFORM user:
+3. INFORM user:
    - "Đã cập nhật memory.md: {section_thay_doi}"
 ```
+
+> ⭐ **Source of truth**: Checklist 7 điểm này khớp từng điểm với `skills/content/Content Writing/SKILL.md` Phase 7 và với Session End block trong tất cả sub-skill content (Blog / Pillar / Topic Clusters / Tools / Evergreen / pSEO / Refresh / Audit — section 8.5 hoặc Phase 6 của mỗi skill).
 
 ### 4.4. Bảo trì memory.md — Khi nào nên trim
 
@@ -134,15 +134,19 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
 ### Template memory.md
 Xem: `projects/memory-template.md`
 
-### Session End Checklist (5 điểm)
+### Session End Checklist (7 điểm — source of truth)
 
 ```
-[ ] Đã append entry mới vào Session History?
-[ ] Đã cập nhật Recent Articles nếu có bài mới publish?
-[ ] Đã cập nhật Active Context nếu chuyển cluster/style?
-[ ] Đã edit Pending Tasks (xóa done + thêm mới)?
-[ ] Đã commit memory.md trong cùng commit với output?
+[ ] (1) Đã append entry mới vào Session History (date, CLI/model, task done, files touched, pending carry-over)?
+[ ] (2) Đã cập nhật Recent Articles nếu có bài mới publish (date, title, URL, cluster, role)?
+[ ] (3) Đã edit Active Context (cluster đang ưu tiên, content type focus, last_updated)?
+[ ] (4) Đã edit Pending Tasks (xóa done + thêm mới phát sinh)?
+[ ] (5) Đã append Key Decisions (style / kỹ thuật / cluster boundary / merge-delete đã chốt phiên này)?
+[ ] (6) Refresh Quick Facts CHỈ KHI profile.md đổi (80% case: skip)?
+[ ] (7) Đã commit memory.md trong cùng commit với output?
 ```
+
+> Checklist này là **source of truth** — mọi sub-skill content (Blog / Pillar / Topic / Tools / Evergreen / pSEO / Refresh / Audit) và Content Writing Phase 7 phải khớp 7 điểm này.
 
 ## 6. KPI đo lường
 

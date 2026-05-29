@@ -23,6 +23,21 @@ Không dùng cho:
 - Pop culture / event coverage.
 - Software changelog / release notes.
 
+## 3.5. Load Project Context (BẮT BUỘC nếu viết cho dự án cụ thể)
+
+Evergreen = bài nguồn traffic dài hạn → quyết định chủ đề phải lựa kỹ. Memory.md giúp biết bài evergreen nào đã có, tránh trùng. Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Recent Articles → biết bài evergreen đã publish + Key Decisions về evergreen cadence | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/profile.md` | Business core offering → evergreen phải map tới pain lâu dài của ICP | ✅ Nếu memory.md không đủ |
+| 3 | `projects/{project}/topical.md` | Cluster → evergreen thường là pillar hoặc core supporting | ✅ Nếu tồn tại |
+| 4 | `projects/{project}/keywords-urls.md` | URL evergreen đã publish — internal link trọng tâm | ✅ Nếu tồn tại |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
+
 ## 4. Workflow xác định + xây evergreen
 
 ### Bước 1. Filter topic evergreen
@@ -152,6 +167,22 @@ Mục tiêu: ≥ 60% organic traffic từ evergreen → site bền vững.
 > ⚠️ **Anti-AI Detection**: Evergreen content tồn tại lâu dài → càng cần giọng văn người thật. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), Structural Replacement (2A-2F), Humanization (3.1-3.6), Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: `skills/content/Content Writing/SKILL.md` (section 2.4).
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Evergreen là tài sản dài hạn → mỗi quyết định (chủ đề, format, refresh cadence) phải persist. Update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, "viết/refresh evergreen {title}", files touched)
+[ ] Append Recent Articles — evergreen URL + đánh dấu type="evergreen" trong note
+[ ] Edit Active Context — cập nhật evergreen portfolio status (nếu cần)
+[ ] Edit Pending Tasks — set next refresh date (6 tháng/12 tháng cadence), thêm internal link tasks
+[ ] Append Key Decisions — cadence refresh đã chốt, foundational keyword scope, format (guide/checklist/template)
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi
+[ ] Commit memory.md cùng commit với bài evergreen
+```
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 ---
 **Đầu ra**: portfolio evergreen được track riêng, refresh theo cadence, contribute ≥ 60% organic traffic site.
