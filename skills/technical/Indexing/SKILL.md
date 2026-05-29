@@ -1,5 +1,7 @@
 # Indexing — Lập chỉ mục
 
+> **Output path 2026 (folder-scoped)**: Index audit report → `projects/{project}/technical/index-audit-{yyyy-mm-dd}.md`. Index policy / noindex list → `projects/{project}/technical/index-policy.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Sau khi crawl, Google quyết định **có index URL hay không**. Index = URL có trong cơ sở dữ liệu Google = đủ điều kiện rank. Không index = không tồn tại với search. Skill này đảm bảo URL đáng index thì index, URL không đáng thì không index — và xử lý nhanh khi GSC báo "không indexed".
 

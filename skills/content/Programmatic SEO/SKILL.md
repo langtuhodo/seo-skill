@@ -2,6 +2,8 @@
 
 > **Chuẩn 2026 bắt buộc**: pSEO 2026 = template phải sinh **Summary Chunk theo data row** + meta_description ≤ 135 chars (mobile-first) + Entity Mapping per row + Original Image (không stock). Tránh nhồi keyword density (Vector Search 2026). Mỗi page có ít nhất 1 Bite-sized answer + bảng/list. Xem `knowledge/18-metadata-sop-2026.md`.
 
+> **Output path 2026 (folder-scoped)**: Mỗi page programmatic lưu vào `projects/{project}/writing/{slug-tieu-de}.md` (cùng folder với bài blog/pillar — programmatic là dạng bài viết). Template/spec/data dictionary của pSEO project → `projects/{project}/research/pSEO-template.md` + `research/pSEO-data-dictionary.md`. KHÔNG lưu trực tiếp ở root project. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Programmatic SEO (pSEO) là **tự động generate hàng nghìn/triệu landing page** từ template + data nguồn, để chiếm long-tail keyword scale. Mô hình thắng quy mô lớn ở Zapier (`/integrations/X-with-Y`), Wise (`/X-to-Y exchange rate`), Tripadvisor (`/{city}/restaurants`), G2 (`/{tool}-vs-{tool}`). Skill này hướng dẫn build đúng cách — vì làm sai sẽ tạo "spam pages" và bị Google de-index hàng loạt.
 

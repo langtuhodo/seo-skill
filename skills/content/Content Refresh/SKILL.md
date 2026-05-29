@@ -103,6 +103,20 @@ Phân loại refresh:
 → Lựa chọn dựa trên ROI (effort vs traffic potential).
 
 ### Bước 5. Execute refresh
+
+**Output path bắt buộc (2026)**: Bài refresh lưu vào subfolder `refresh/`:
+
+```
+projects/{project}/refresh/{slug-bai}.md
+```
+
+Lưu ý: GIỮ NGUYÊN slug của bài gốc (URL không đổi). Tên file trong `refresh/` chỉ là bản nháp/lưu trữ nội bộ trước khi push lên CMS. Tạo folder `refresh/` nếu chưa có.
+
+Ví dụ:
+- ✅ `projects/thep-bao-tin/refresh/thep-ong-duc-phi-127.md` (refresh bài đã publish)
+- ❌ `projects/thep-bao-tin/writing/thep-ong-duc-phi-127.md` (sai — refresh KHÔNG vào `writing/`)
+- ❌ `projects/thep-bao-tin/thep-ong-duc-phi-127.md` (sai — không lưu thẳng vào root)
+
 Quy tắc:
 - **GIỮ URL** — đừng đổi slug.
 - **GIỮ structure tốt** — đừng xoá H2 đang rank Featured Snippet.

@@ -1116,6 +1116,30 @@ Mỗi bài viết output **phải có** block SEO Metadata dạng blockquote đ�
 
 ⚠️ **5 trường 2026 mới thêm** (summary_chunk + entities + author + embed_video_url + aio_readiness) là bắt buộc cho bài mới. Bài cũ chỉ bổ sung khi refresh.
 
+### ⚠️ Output path bắt buộc (2026 — folder-scoped)
+
+**Bài viết MỚI** → lưu vào subfolder `writing/`:
+
+```
+projects/{project}/writing/{slug-tieu-de}.md
+```
+
+KHÔNG lưu trực tiếp `projects/{project}/{slug}.md` (root). Root chỉ chứa 4 file lõi: `memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`.
+
+Ví dụ:
+- ✅ `projects/thep-bao-tin/writing/ong-thep-duc-la-gi.md`
+- ✅ `projects/thep-bao-tin/writing/thep-u-vinaone.md`
+- ❌ `projects/thep-bao-tin/ong-thep-duc-la-gi.md` (sai — bài viết phải vào `writing/`)
+- ❌ `projects/thep-bao-tin/ong-thep-duc/thep-ong-duc-phi-127.md` (sai — không nested cluster trong `writing/`)
+
+Tạo folder `writing/` nếu chưa tồn tại (lần đầu tiên project có bài viết).
+
+Trường hợp đặc biệt:
+- **Refresh** (bài đã publish, optimize lại) → `projects/{project}/refresh/{slug}.md` (xem `skills/content/Content Refresh/SKILL.md`)
+- **Brief** (content brief trước khi viết) → `projects/{project}/research/brief-{slug}.md`
+
+Tham chiếu chuẩn: `AGENTS.md` Section "GENERATE OUTPUT" + `COMPILED-CONTEXT.md` mục 9.
+
 ### ⚠️ Sau khi publish — Cập nhật keywords-urls.md
 
 Sau khi bài viết hoàn chỉnh và publish, **BẮT BUỘC** cập nhật `projects/{project}/keywords-urls.md`:

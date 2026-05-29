@@ -467,6 +467,22 @@ lý_do: "{Tại sao cluster cần bài này}"
 
 ### Phase 5: Output — Topical Map hoàn chỉnh
 
+**Output path bắt buộc (2026)**: Audit report lưu vào subfolder `audit/`:
+
+```
+projects/{project}/audit/audit-{yyyy-mm-dd}.md            # audit toàn project
+projects/{project}/audit/audit-{cluster}-{yyyy-mm-dd}.md  # audit theo cluster
+```
+
+Tạo folder `audit/` nếu chưa có. KHÔNG lưu audit-{date}.md trực tiếp ở root project.
+
+Ví dụ:
+- ✅ `projects/thep-bao-tin/audit/audit-2026-05-27.md`
+- ✅ `projects/thep-bao-tin/audit/audit-ong-thep-duc-2026-05-27.md`
+- ❌ `projects/thep-bao-tin/audit-2026-05-27.md` (sai — phải vào `audit/`)
+
+**Cập nhật topical.md**: sau audit, topical map cluster có thể được merge vào file `projects/{project}/topical.md` (root — file lõi) nếu user yêu cầu. Bản audit report riêng vẫn giữ trong `audit/` để lưu vết history.
+
 Sau khi audit xong, tổng hợp thành **Topical Map** cho toàn bộ cluster:
 
 ```markdown

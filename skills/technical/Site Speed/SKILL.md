@@ -1,5 +1,7 @@
 # Site Speed — Tốc độ tải trang & Core Web Vitals
 
+> **Output path 2026 (folder-scoped)**: Performance audit + CWV measurement → `projects/{project}/technical/speed-audit-{yyyy-mm-dd}.md`. Optimization plan → `projects/{project}/technical/speed-plan.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Site speed ảnh hưởng đồng thời ranking (Core Web Vitals là confirmed signal), CTR, conversion, crawl efficiency. Mỗi 100ms LCP giảm = ~1% conversion (Amazon, Akamai test). Skill này tập trung tối ưu **3 chỉ số CWV chính (LCP, INP, CLS)** + workflow audit thực tế.
 

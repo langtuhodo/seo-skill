@@ -1,5 +1,11 @@
 # Project Memory — Bộ nhớ ngữ cảnh dự án giữa các phiên AI
 
+> **Output path 2026 (folder-scoped)**:
+> - **memory.md đang dùng** → `projects/{project}/memory.md` (root project, file lõi — KHÔNG đổi)
+> - **memory rotation (khi Session History > 10 entries)** → `projects/{project}/archive/memory-{YYYY-MM}.md` (subfolder `archive/`)
+>
+> Tạo folder `archive/` lần đầu khi cần rotate. Memory archive là append-only, dùng để tra cứu lịch sử dài hạn khi cần. Chi tiết workflow rotation: section 4.4 bên dưới.
+
 ## 1. Purpose / Mục đích
 
 Skill này giải quyết 2 vấn đề kinh điển khi dùng CLI AI (Claude Code, Cursor, Codex, Gemini CLI) cho dự án dài hạn:
@@ -124,7 +130,7 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
 
 | Trigger | Hành động |
 |---------|-----------|
-| Session History > 10 entries | Giữ 10 mới nhất, archive cũ vào `memory-archive-{YYYY-Q1}.md` |
+| Session History > 10 entries | Giữ 10 mới nhất, archive cũ vào `projects/{project}/archive/memory-{YYYY-MM}.md` (subfolder `archive/`, 2026 standard) |
 | Recent Articles > 10 entries | Giữ 10 mới nhất, danh sách đầy đủ ở `keywords-urls.md` |
 | Pending Tasks > 30 days old | Đánh dấu stale, hỏi user có còn ưu tiên không |
 | Key Decisions không bao giờ trim | Đây là "trí nhớ dài hạn", giữ vĩnh viễn |
@@ -170,7 +176,7 @@ Xem: `projects/memory-template.md`
 | Quên cập nhật memory.md cuối phiên | Treat Session End như checklist bắt buộc |
 | Đưa quá nhiều chi tiết vào memory (thành bản sao của profile.md) | Memory là **tóm tắt mỏng** — link tới profile.md cho chi tiết |
 | Quick Facts dài hơn 15 dòng | Giới hạn 10 dòng. Nếu cần nhiều, đọc profile.md |
-| Append vô hạn Session History | Trim sau 10 entries, archive vào file riêng |
+| Append vô hạn Session History | Trim sau 10 entries, archive vào `archive/memory-{YYYY-MM}.md` |
 | Coi memory.md là source of truth | Memory chỉ là cache. `topical.md` + `keywords-urls.md` mới là source of truth |
 | Cập nhật memory.md ở giữa phiên | Chỉ cập nhật cuối phiên (Session End), tránh memory dirty khi rollback |
 | Đọc memory.md nhưng không đọc COMPILED-CONTEXT.md | Cả 2 bắt buộc đầu phiên. COMPILED = skill, MEMORY = trạng thái |

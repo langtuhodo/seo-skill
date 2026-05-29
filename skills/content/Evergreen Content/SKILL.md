@@ -2,6 +2,8 @@
 
 > **Chuẩn 2026 bắt buộc**: Evergreen sống lâu hơn → phải refresh hàng năm để đáp ứng chuẩn mới. Mỗi lần refresh: cập nhật Summary Chunk + Author Entity (ProfilePage) + meta_description ≤ 135 chars + nhúng short-form video mới + ảnh gốc thay stock. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/10-eeat-content-quality.md` (Proof of Experience 2026).
 
+> **Output path 2026 (folder-scoped)**: Bài evergreen MỚI → `projects/{project}/writing/{slug-tieu-de}.md`. Khi refresh evergreen cũ (annual cycle) → `projects/{project}/refresh/{slug-tieu-de}.md` (xem `skills/content/Content Refresh/SKILL.md`). KHÔNG lưu trực tiếp ở root project. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Evergreen content là bài **giữ giá trị qua thời gian**, traffic không phụ thuộc trend. Đối ngược với news/trend content (peak rồi tắt). Evergreen là nền tảng compound traffic — mỗi bài evergreen tốt sẽ cộng dồn organic traffic năm này qua năm khác. Skill này định nghĩa cách chọn topic, viết, và **maintain** evergreen.
 

@@ -311,60 +311,104 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
    └── Đọc Knowledge Note + SKILL.md tương ứng với task
    └── Áp dụng workflow từ skill
 
-5. GENERATE OUTPUT
-   └── Tạo file Markdown với naming convention:
-       - Content: {slug-tieu-de}.md
+5. GENERATE OUTPUT — Naming convention 2026 (folder-scoped)
+   ⭐ Quy tắc: 4 file lõi ở ROOT project, mọi deliverable khác đi vào subfolder tương ứng.
+
+   ROOT (4 file lõi, giữ nguyên):
+       - Memory: memory.md
+       - Profile: profile.md
        - Topical map: topical.md
        - Keywords & URLs: keywords-urls.md
-       - Keyword research: keyword-research.md
-       - Content brief: brief-{slug-tieu-de}.md
-       - Audit: audit-{yyyy-mm-dd}.md
-       - Profile: profile.md
-       - GBP plan: brand-distribution/master-plan.md
-       - Facebook strategy: brand-distribution/master-plan.md
-       - Zalo OA strategy: brand-distribution/master-plan.md
-       - Weekly plan: brand-distribution/plan-tuan-{X}-thang-{M}-{YYYY}.md
-       - Brand distribution index: brand-distribution/index.md
-   └── Lưu vào projects/{ten-du-an}/
+
+   writing/ — bài viết mới (blog, pillar, supporting, tools, evergreen, pSEO):
+       - writing/{slug-tieu-de}.md
+
+   refresh/ — bài optimize/refresh content cũ:
+       - refresh/{slug-tieu-de}.md
+
+   research/ — keyword research + content brief:
+       - research/keyword-research.md
+       - research/keyword-research-{cluster}.md (nếu chia theo cluster)
+       - research/brief-{slug-tieu-de}.md
+
+   audit/ — topical audit + content audit:
+       - audit/audit-{yyyy-mm-dd}.md
+       - audit/audit-{cluster}-{yyyy-mm-dd}.md (nếu audit từng cluster)
+
+   technical/ — technical SEO audit + schema snippets:
+       - technical/audit-{yyyy-mm-dd}.md
+       - technical/schema-{type}.json (Article/FAQ/Product/Organization/ProfilePage)
+       - technical/sitemap-plan.md, technical/robots-policy.md
+
+   brand-distribution/ — GBP + Facebook + Zalo + Local SEO (giữ nguyên):
+       - brand-distribution/index.md
+       - brand-distribution/master-plan.md
+       - brand-distribution/plan-tuan-{X}-thang-{M}-{YYYY}.md
+
+   archive/ — memory rotation + file lưu trữ:
+       - archive/memory-{YYYY-MM}.md (memory cũ khi rotate)
+       - archive/audit-{yyyy-mm-dd}.md (audit cũ > 12 tháng nếu muốn dọn)
+
+   ❌ KHÔNG lưu bài viết / audit / research thẳng vào projects/{ten-du-an}/ (root). Root chỉ chứa 4 file lõi.
 
 6. RETURN RESULT
    └── Thông báo file path đã tạo
    └── Summary nội dung
 ```
 
-### Project Folder Structure
+### Project Folder Structure (2026 — folder-scoped)
 
 ```
 projects/
-├── memory-template.md                 ← ⭐ Template memory.md cho dự án mới
-├── thep-bao-tin/
-│   ├── memory.md                     ← ⭐ Bộ nhớ dự án (đọc TRƯỚC TIÊN, cập nhật cuối phiên)
-│   ├── profile.md
-│   ├── topical.md                    ← Sơ đồ topical map (pillar/cluster/sub-cluster)
-│   ├── keywords-urls.md              ← Danh sách keyword + URL đã publish
-│   ├── keyword-research.md
-│   ├── ong-thep-duc-la-gi.md
-│   ├── brief-ong-thep-duc-la-gi.md
-│   ├── audit-2026-05-13.md
-│   └── brand-distribution/
-│       ├── index.md
-│       ├── master-plan.md
-│       ├── plan-tuan-3-thang-5-2026.md
-│       ├── plan-tuan-4-thang-5-2026.md
-│       └── plan-tuan-1-thang-6-2026.md
+├── memory-template.md                  ← Template memory.md cho dự án mới
+├── keywords-urls-template.md           ← Template keywords-urls.md
 │
-├── binhnn-digital/
-│   ├── profile.md
-│   ├── topical.md
-│   ├── keywords-urls.md
-│   ├── audit-2026-05-13.md
-│   └── brand-distribution/
-│       ├── index.md
-│       └── ...
-│
-└── {ten-du-an-khac}/
-    └── ...
+└── {ten-du-an}/                        ← Vd: thep-bao-tin, binhnn-digital
+    │
+    ├── memory.md                       ← ⭐ Bộ nhớ dự án (đọc TRƯỚC TIÊN, cập nhật cuối phiên)
+    ├── profile.md                      ← Chủ thể + brand voice + business context
+    ├── topical.md                      ← Sơ đồ topical map (pillar/cluster/sub-cluster)
+    ├── keywords-urls.md                ← Keyword + URL đã publish (cho internal link)
+    │
+    ├── writing/                        ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
+    │   ├── {slug-bai-1}.md
+    │   ├── {slug-bai-2}.md
+    │   └── ...
+    │
+    ├── refresh/                        ⭐ Bài REFRESH/optimize content cũ
+    │   ├── {slug-bai-refresh}.md
+    │   └── ...
+    │
+    ├── research/                       ⭐ Keyword research + Content brief
+    │   ├── keyword-research.md
+    │   ├── keyword-research-{cluster}.md
+    │   ├── brief-{slug-bai}.md
+    │   └── ...
+    │
+    ├── audit/                          ⭐ Topical + Content audit
+    │   ├── audit-{yyyy-mm-dd}.md
+    │   ├── audit-{cluster}-{yyyy-mm-dd}.md
+    │   └── ...
+    │
+    ├── technical/                      ⭐ Technical SEO audit + Schema snippets
+    │   ├── audit-{yyyy-mm-dd}.md
+    │   ├── schema-Article.json
+    │   ├── schema-Organization.json
+    │   ├── schema-ProfilePage.json
+    │   ├── sitemap-plan.md
+    │   └── robots-policy.md
+    │
+    ├── brand-distribution/             (giữ nguyên — GBP + FB + Zalo + Local SEO)
+    │   ├── index.md
+    │   ├── master-plan.md
+    │   └── plan-tuan-{X}-thang-{M}-{YYYY}.md
+    │
+    └── archive/                        ⭐ Memory rotation + lưu trữ
+        ├── memory-{YYYY-MM}.md         ← Memory cũ khi rotate (đọc skills/project-memory/SKILL.md)
+        └── ...
 ```
+
+**4 file lõi ở root** (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`) — AI auto-load ở Session Bootstrap. **Mọi output khác PHẢI vào subfolder**.
 
 ### Content Output Format (Markdown)
 
@@ -400,22 +444,45 @@ projects/
 
 **AI Actions**:
 1. Detect project: "Thép Bảo Tín" → `thep-bao-tin`
-2. Create folder: `projects/thep-bao-tin/`
-3. **Load context**: profile.md + topical.md (xác định cluster, role) + keywords-urls.md (URL sẵn có cho internal link)
+2. Create folder: `projects/thep-bao-tin/` + subfolder `writing/` nếu chưa có
+3. **Load context**: memory.md → profile.md + topical.md (cluster, role) + keywords-urls.md (URL sẵn có cho internal link)
 4. Activate skills: `skills/content/Blog Content`, `skills/on-page/Content Optimization`
-5. Generate: `projects/thep-bao-tin/ong-thep-duc-la-gi.md`
-6. **Post-publish**: Cập nhật keywords-urls.md (thêm keyword + URL mới)
+5. Generate: `projects/thep-bao-tin/writing/ong-thep-duc-la-gi.md`  ⭐ vào subfolder writing/
+6. **Post-publish**: Cập nhật `keywords-urls.md` ở root (thêm keyword + URL mới) + Session End update `memory.md`
 7. Return: File path + summary
+
+**Request**: "Refresh bài thep-ong-duc-phi-127 của Thép Bảo Tín"
+
+**AI Actions**:
+1. Detect project: `thep-bao-tin`
+2. Load memory.md + read bài cũ
+3. Activate skill: `skills/content/Content Refresh`
+4. Generate: `projects/thep-bao-tin/refresh/thep-ong-duc-phi-127.md`  ⭐ vào subfolder refresh/
+5. Session End: cập nhật memory.md (Recent Articles + Key Decisions: "refreshed bài X, kết quả Win/Flat/Loss sau 30d")
 
 **Request**: "Tạo topical map về ống thép cho Thép Bảo Tín"
 
 **AI Actions**:
-1. Detect project: "Thép Bảo Tín" → `thep-bao-tin`
-2. Folder exists: `projects/thep-bao-tin/`
+1. Detect project: `thep-bao-tin`
+2. Folder exists
 3. Activate skills: `skills/strategy/Keyword Clustering`, `skills/content/Topic Clusters`
-4. Generate: `projects/thep-bao-tin/topical.md` (sơ đồ topical map)
-5. Generate: `projects/thep-bao-tin/keywords-urls.md` (danh sách keyword + URL)
-6. Return: File path + cluster summary
+4. Generate: `projects/thep-bao-tin/topical.md` (root — file lõi)
+5. Generate: `projects/thep-bao-tin/research/keyword-research-{cluster}.md` (research/)
+6. Update: `projects/thep-bao-tin/keywords-urls.md` (root — file lõi)
+7. Return: File paths + cluster summary
+
+**Request**: "Audit topical cluster ống thép đúc của Thép Bảo Tín"
+
+**AI Actions**:
+1. Detect project: `thep-bao-tin`
+2. Activate skill: `skills/content/Topical Audit`
+3. Generate: `projects/thep-bao-tin/audit/audit-ong-thep-duc-2026-05-27.md`  ⭐ vào subfolder audit/
+
+**Request**: "Generate JSON-LD schema cho thep-bao-tin"
+
+**AI Actions**:
+1. Activate skill: `skills/technical/Schema Markup`
+2. Generate: `projects/thep-bao-tin/technical/schema-Article.json` + `schema-Organization.json`  ⭐ vào subfolder technical/
 
 ---
 
