@@ -389,16 +389,21 @@ Với mỗi bài top 5, ghi nhận:
 - **Góc tiếp cận**: Viết cho ai? Giọng điệu thế nào?
 - **CTA**: Họ muốn người đọc làm gì sau khi đọc?
 
-#### Bước 0.3. Xác định Information Gain + Rare Attribute
+#### Bước 0.3. Xác định Information Gain + Rare Attribute + AI Overview SERP
 
-Trả lời 4 câu hỏi:
+Trả lời 5 câu hỏi (bổ sung 2026):
 
 | Câu hỏi | Ghi chú |
 |---------|---------|
 | **Top 10 đang thiếu gì?** | Câu hỏi nào chưa được trả lời? Góc nhìn nào bị bỏ qua? |
+| **AI Overview đang tổng hợp ý nào?** ⭐ 2026 | Search target_keyword ẩn danh (incognito) → note 5-7 ý AI Overview đã đưa ra → dàn ý phải bao phủ + thêm 1-2 ý AI không tự sinh được |
 | **Mình có gì họ không có?** | Kinh nghiệm thực, số liệu riêng, góc nhìn chuyên gia, ví dụ cụ thể |
 | **Mình sẽ làm tốt hơn ở đâu?** | Cấu trúc rõ hơn, giải thích dễ hiểu hơn, cập nhật hơn |
 | **⭐ Rare Attribute nào mình có?** | Thông tin hiếm, dữ liệu gốc, kinh nghiệm độc đáo mà ít ai viết |
+
+> **2026 — Information Gain = ý mới so với AI Overview**, không chỉ so với Top 10 nữa. Nếu AI Overview đã tổng hợp đúng ý bạn định viết → bài bạn sẽ bị AI trích dẫn nhưng không được click → zero-click. Phải thêm góc AI không tự sinh được (kinh nghiệm thực chiến, dữ liệu nội bộ, case study có ảnh+video).
+>
+> Chi tiết Anonymous AI Overview Analysis: `knowledge/16-seo-trends-2026.md` mục 3.7.
 
 > **Rare Attribute** là thông tin hiếm, độc đáo, ít người viết nhưng có giá trị thực và xác thực. Google thu thập các attribute này để xây dựng Knowledge Graph — được chấm điểm cao hơn rất nhiều so với thông tin phổ biến.
 >
@@ -486,15 +491,18 @@ Trả lời 4 câu hỏi:
 | Vị trí trong bài | Keyword nào | Cách chèn |
 |-------------------|-------------|-----------|
 | Title (H1) | Primary keyword | Đặt gần đầu, tự nhiên |
-| Meta title | Primary + brand | 50-60 ký tự |
-| Meta description | Primary + secondary | 150-160 ký tự, có CTA |
+| Meta title | Primary + brand | 50-60 ký tự, **<550 pixels** (2026) |
+| Meta description | Primary + secondary | **≤ 135 ký tự** (2026, mobile-first), có imperative CTA |
+| Summary chunk (sau H1) ⭐ | Primary | 40-60 chữ, trả lời trực diện, cho AI Overview trích dẫn |
 | First 100 words | Primary keyword | Trong câu trả lời answer-first |
 | H2 headings | Secondary keywords | 2-3 H2 chứa secondary keyword |
 | H3 headings | Long-tail keywords | FAQ, sub-sections |
-| Body text | LSI/semantic terms | Rải tự nhiên, không nhồi |
+| Body text | LSI/semantic terms + entities | Rải tự nhiên, không nhồi. **Entity Mapping** thay mật độ (2026) |
 | Image alt text | Primary/secondary | Mô tả ảnh + keyword tự nhiên |
-| FAQ section | PAA questions | Trả lời trực tiếp từng câu |
+| FAQ section | PAA questions + **Conversational Queries** 10-20 từ (2026) | Trả lời trực tiếp từng câu |
 | Anchor text internal links | Secondary/long-tail | Descriptive, chứa keyword |
+
+> **Bổ sung 2026 — Entity Mapping**: Trước khi viết, liệt kê **5-10 entity chính** (thực thể) liên quan target_keyword — người, tổ chức, sản phẩm, khái niệm chuyên ngành, địa điểm. Chèn entity tự nhiên vào body → Google dùng Vector Search hiểu ngữ cảnh sâu, không đếm keyword density nữa. Ghi entities vào frontmatter blockquote (xem Phase 6).
 
 > ⚠️ **KHÔNG NHỒI KEYWORD**. Keyword density không có con số cố định. Quy tắc: đọc lại bài — nếu keyword lặp đến mức gượng ép → cắt bớt. Dùng biến thể (synonym, related terms) thay vì lặp cùng 1 cụm từ.
 
@@ -596,6 +604,30 @@ Outline không theo "H2 là gì, H2 tại sao, H2 cách làm" — mà theo **hà
 
 #### Nguyên tắc viết
 
+**0. Summary Chunk 40-60 chữ cho AI Overview (⭐ bắt buộc 2026)**
+
+Ngay sau H1 + SEO Metadata blockquote, trước H2 đầu tiên, chèn 1 **Summary Chunk 40-60 chữ** trả lời trực diện target_keyword. Mục đích: AI Overview / ChatGPT / Perplexity trích dẫn làm nguồn.
+
+```markdown
+# {Tiêu đề H1}
+
+> **SEO Metadata** ... (blockquote)
+
+> **Tóm tắt nhanh** (cho AI Overview):
+> Thép hình U VinaOne là dạng thép định hình mặt cắt chữ U, dùng làm khung kết cấu công nghiệp. Có 3 mác phổ biến (SS400/SS540/CT38), quy cách 50x40 đến 250x90, dung sai JIS G3192 hoặc TCVN 7571. Liên hệ Thép Bảo Tín báo giá đại lý.
+
+## {H2 đầu tiên}
+...
+```
+
+Đặc điểm Summary Chunk:
+- 40-60 chữ (~50 chữ là chuẩn)
+- Trả lời trực diện câu hỏi chính (intent của target_keyword)
+- Chứa 1-2 entity quan trọng + brand
+- KHÔNG dùng câu mở "Trong bài viết này...", "Hãy cùng tìm hiểu..."
+
+Mỗi H2 quan trọng (ít nhất 3 H2 đầu) cũng cần có 1 **Bite-sized answer < 50 chữ** + list/bảng ngay sau → AI Overview dễ trích dẫn từng section.
+
 **1. Hook trong 100 từ đầu**
 
 ❌ SAI:
@@ -660,44 +692,66 @@ Không viết để "có đủ H2". Mỗi H2 phải trả lời được: "Đọ
 
 ### Phase 4: EEAT & GEO Check (15 phút)
 
-#### EEAT Checklist
+#### EEAT Checklist (nâng cấp 2026 — "E" là vũ khí)
 
 ```markdown
 ## EEAT Check
 
-### Experience
+### Experience ⭐ (vu khi 2026)
 - [ ] Có ít nhất 1 case study/ví dụ thực tế
 - [ ] Có chi tiết cụ thể (tên, số, ngày, địa điểm)
 - [ ] Có "behind the scenes" / góc nhìn insider
+- [ ] Giọng văn ngôi 1 ("Tôi/Chúng tôi") + miêu tả cảm quan ("Khi tôi thử nghiệm...", "Thực tế tại thị trường VN...")
+- [ ] **Proof of Experience — ít nhất 2/4 loại**:
+  - [ ] Ảnh gốc (Original Image) tác giả tự chụp/thiết kế (KHÔNG stock)
+  - [ ] Screenshot có annotation (mũi tên / circle highlight dữ liệu thực)
+  - [ ] Short-form video tác giả tự quay (TikTok/YouTube Shorts) nhúng trong bài
+  - [ ] Quote trực tiếp từ experience (cụ thể dự án, không generic)
 
 ### Expertise
 - [ ] Giải thích kỹ thuật chính xác
 - [ ] Cite tiêu chuẩn/nguồn uy tín
 - [ ] Không có thông tin sai
 
-### Authoritativeness
+### Authoritativeness (bổ sung 2026 — Author Entity)
 - [ ] Author có tên thật + bio + credentials
 - [ ] Công ty có thông tin liên hệ rõ ràng
-- [ ] Có link tới profile/portfolio
+- [ ] **`ProfilePage` schema JSON-LD** gắn vào page tác giả (sameAs LinkedIn/Twitter)
+- [ ] Author có **Digital Footprint** về chủ đề đó (ít nhất 3-5 bài dưới tên tác giả ở platform khác)
+- [ ] Link author tới profile/portfolio
 
 ### Trust
 - [ ] Có nguồn trích dẫn cho số liệu
-- [ ] Hình ảnh thực (không stock)
+- [ ] Hình ảnh thực (KHÔNG stock — EEAT "E" 2026)
 - [ ] Có social proof (review, testimonial)
 - [ ] Chính sách rõ ràng (nếu là trang bán hàng)
 ```
 
-#### GEO Checklist
+#### GEO Checklist (nâng cấp 2026 — AI Overview ready)
 
 ```markdown
 ## GEO Check (AI Citation Ready)
 
 - [ ] 50-100 từ đầu trả lời thẳng câu hỏi
+- [ ] **Summary Chunk 40-60 chữ sau H1** (trước H2 đầu tiên) — cho AI Overview trích dẫn
+- [ ] Mỗi H2 quan trọng có Bite-sized answer < 50 chữ + list/bảng
 - [ ] Có định nghĩa rõ ràng, cite-able
 - [ ] Có ít nhất 1 list/table dễ trích xuất
 - [ ] Không dùng pronoun mơ hồ (nó, điều này, việc đó)
 - [ ] Có original data/insight (không chỉ tổng hợp)
-- [ ] Entity chính được mention đủ (không thiếu, không thừa)
+- [ ] Entity chính được mention đủ (Entity Mapping 5-10 entity)
+- [ ] Đã phân tích AI Overview SERP ẩn danh trước khi viết
+- [ ] Conversational Queries 10-20 từ được trả lời (FAQ dạng hội thoại)
+
+## Multimodal Check (2026)
+- [ ] Bài có ít nhất 1 short-form video (TikTok/YouTube Shorts) do business tự sản xuất — hoặc đánh dấu `[CẦN BỔ SUNG VIDEO]`
+- [ ] Ảnh trong bài là Original Image, không stock
+- [ ] Nếu nhúng video → có schema `VideoObject` + caption + thumbnail
+
+## INP Check (Core Web Vitals 2026)
+- [ ] FAQ accordion / TOC menu / nhúng video — INP < 200ms
+- [ ] Không dependency JS block main thread
+- [ ] Test bằng Chrome DevTools → PageSpeed Insights
 
 ## Rare Attribute Check
 - [ ] Có ít nhất 1-2 rare attributes (thông tin hiếm, dữ liệu gốc, kinh nghiệm độc đáo)
@@ -717,6 +771,14 @@ Không viết để "có đủ H2". Mỗi H2 phải trả lời được: "Đọ
 - [ ] PAA questions: ít nhất 3-5 câu được trả lời (trong FAQ hoặc body)
 - [ ] Không nhồi keyword: đọc lại, nếu cùng cụm từ lặp > 3 lần/1000 từ → thay biến thể
 - [ ] Image alt text có chứa keyword phù hợp (mô tả ảnh + keyword tự nhiên)
+
+## Metadata 2026 Check (xem `knowledge/18-metadata-sop-2026.md`)
+- [ ] meta_title: 50-60 ký tự + < 550 pixels (test SERP Simulator)
+- [ ] meta_title theo 1 trong 4 mẫu intent (Info / How-to / Product / Comparison)
+- [ ] meta_description: ≤ 135 ký tự (mobile-first), imperative CTA cuối
+- [ ] Tránh ALL-CAPS, dùng `&` thay `and`, dùng `:` hoặc `\|` thay `-` `—`
+- [ ] Title-H1 alignment (lệch → bounce ↑)
+- [ ] meta blockquote chứa thêm: summary_chunk + entities + author (ProfilePage URL) + embed_video_url + aio_readiness
 ```
 
 ---
@@ -960,6 +1022,10 @@ Top 5 SERP đang thiếu gì? Mình sẽ làm tốt hơn ở đâu?
 - ❌ Dùng `---` (horizontal rule) trong bài viết — tạo thẻ `<hr>` gây rối layout
 - ❌ Dùng YAML frontmatter (`---`) thay vì blockquote (`>`) — hiển thị chữ rất to khi render
 - ❌ Thiếu `meta_title` và `meta_description` trong SEO Metadata
+- ❌ (2026) meta_description vượt 135 ký tự / dùng `-` `—` thay vì `:` `\|` / dùng ALL-CAPS
+- ❌ (2026) Thiếu summary_chunk 40-60 chữ đầu bài → AI Overview không trích dẫn
+- ❌ (2026) Dùng ảnh stock thay vì Original Image → EEAT "E" fail
+- ❌ (2026) Thiếu ProfilePage schema cho tác giả → mất Author Entity
 - ❌ Dùng `title` (H1) làm title tag luôn — meta_title phải riêng, tối ưu cho SERP
 - ❌ Meta description > 160 ký tự hoặc không có CTA
 - ❌ Thiếu các trường bắt buộc: slug, cluster, role, target_keyword, semantic_keywords, search_intent
@@ -1021,16 +1087,16 @@ Top 5 SERP đang thiếu gì? Mình sẽ làm tốt hơn ở đâu?
 
 **Đầu ra của skill này**: Mỗi bài content đều bắt đầu từ Competitor Research + User Psychology Brief (nội bộ), viết đúng vấn đề người đọc cần, có giọng văn riêng, đạt chuẩn EEAT + GEO. **Bài viết hoàn chỉnh KHÔNG chứa các phần research nội bộ.**
 
-### ⚠️ SEO Metadata bắt buộc cho bài viết hoàn chỉnh
+### ⚠️ SEO Metadata bắt buộc cho bài viết hoàn chỉnh (chuẩn 2026)
 
 Mỗi bài viết output **phải có** block SEO Metadata dạng blockquote đầu bài, theo `projects/content-template.md`:
 
 ```markdown
 > **SEO Metadata**
-> - **title**: "{Tiêu đề bài viết}"
+> - **title**: "{Tiêu đề bài viết — H1}"
 > - **slug**: "{slug-url}"
-> - **meta_title**: "{SEO title 50-60 ký tự, keyword đầu, brand cuối}"
-> - **meta_description**: "{Meta description 150-160 ký tự, value-prop + CTA}"
+> - **meta_title**: "{Title tag 50-60 ký tự, <550 pixels, theo 1/4 mẫu intent}"
+> - **meta_description**: "{Mô tả ≤ 135 ký tự (2026, mobile-first), value-prop + imperative CTA}"
 > - **project**: "{tên dự án}"
 > - **cluster**: "{tên cluster / head keyword}"
 > - **role**: "pillar | supporting"
@@ -1039,9 +1105,16 @@ Mỗi bài viết output **phải có** block SEO Metadata dạng blockquote đ�
 > - **search_intent**: "I | N | C | T"
 > - **word_count**: {số từ thực tế}
 > - **created**: "{YYYY-MM-DD}"
+> - **summary_chunk**: "{40-60 chữ trả lời trực diện target_keyword — cho AI Overview}"
+> - **entities**: "{5-10 entity chính, phân cách bằng dấu phẩy}"
+> - **author**: "{Tên tác giả} | {URL ProfilePage / LinkedIn}"
+> - **embed_video_url**: "{TikTok/Shorts URL nếu có, '' nếu không}"
+> - **aio_readiness**: "true | false"
 ```
 
 ⚠️ **KHÔNG dùng YAML frontmatter** (`---` mở/đóng) — khi render Markdown sẽ hiển thị chữ rất to. Dùng blockquote (`>`) để metadata hiển thị đẹp.
+
+⚠️ **5 trường 2026 mới thêm** (summary_chunk + entities + author + embed_video_url + aio_readiness) là bắt buộc cho bài mới. Bài cũ chỉ bổ sung khi refresh.
 
 ### ⚠️ Sau khi publish — Cập nhật keywords-urls.md
 
@@ -1049,10 +1122,17 @@ Sau khi bài viết hoàn chỉnh và publish, **BẮT BUỘC** cập nhật `pr
 1. Thêm row mới: keyword + URL + cluster + vai trò + search intent + trạng thái ✅ published
 2. Kiểm tra các bài cũ cùng cluster → cập nhật internal link trỏ về bài mới (nếu ngữ nghĩa phù hợp)
 
-**Lưu ý quan trọng:**
-- `meta_title` ≠ `title`. Title là H1 hiển thị trên trang. Meta title là title tag hiển thị trên SERP.
-- `meta_title`: 50-60 ký tự, keyword đặt đầu, thêm brand cuối nếu còn chỗ. Viết CTR-driven.
-- `meta_description`: 150-160 ký tự, nêu value proposition + CTA ngắn. Không keyword stuff.
+**Lưu ý quan trọng (2026):**
+- `meta_title` ≠ `title`. Title là H1 hiển thị trên trang (Title-H1 alignment). Meta title là title tag hiển thị trên SERP + làm **AI Anchor Text** khi LLM trích dẫn.
+- `meta_title`: 50-60 ký tự + **< 550 pixels** (test Semrush SERP Simulator). Theo 1 trong 4 mẫu intent: Info / How-to / Product / Comparison. Keyword 1 lần duy nhất.
+- `meta_description`: **≤ 135 ký tự** (2026, mobile-first). Tránh ALL-CAPS. Dùng `&` thay `and`, `:` hoặc `\|` thay `-` `—`. Imperative CTA cuối. Không keyword stuff.
+- `summary_chunk`: 40-60 chữ, trả lời trực diện, render trong bài dưới dạng blockquote `> **Tóm tắt nhanh**:` ngay sau H1.
+- `entities`: liệt kê Entity Mapping (5-10 entity chính) — Google dùng Vector Search.
+- `author`: tên thật + URL ProfilePage / LinkedIn (Author Entity verify).
+- `embed_video_url`: short-form video tự sản xuất — bắt buộc cho Multimodal SEO 2026 (nếu chưa có → đánh dấu `[CẦN BỔ SUNG VIDEO]`).
+- `aio_readiness`: `true` nếu đã đủ summary_chunk + bite-sized H2 + ProfilePage schema + video; ngược lại `false`.
+
+Xem chi tiết Metadata SOP 2026: `knowledge/18-metadata-sop-2026.md`.
 
 ---
 

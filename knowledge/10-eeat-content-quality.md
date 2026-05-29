@@ -8,14 +8,35 @@
 
 ## Khái niệm cốt lõi
 
-### E-E-A-T Framework
+### E-E-A-T Framework (2026 — "E" đầu tiên là vũ khí)
+
+> **Bổ sung 2026**: Trong 4 chữ E-E-A-T, chữ **E đầu tiên — Experience (Trải nghiệm thực tế)** là vũ khí duy nhất để bài viết vượt qua nội dung do AI viết. Việc gắn profile tác giả và không phóng đại tiêu đề chỉ là bề nổi.
 
 | Yếu tố | Định nghĩa | Signal cần có |
 |---------|------------|---------------|
-| **Experience** | Tác giả có trải nghiệm thực với chủ đề | Case study, ảnh thực, "tôi đã thử", timeline cá nhân |
+| **Experience** ⭐ | Tác giả có trải nghiệm thực với chủ đề | Case study, ảnh gốc tác giả tự chụp, screenshot có annotation, video quá trình thực tế, "khi tôi thử nghiệm...", "thực tế tại thị trường VN cho thấy...", timeline cá nhân |
 | **Expertise** | Tác giả có kiến thức chuyên sâu | Giải thích chính xác, cite nguồn uy tín, dùng thuật ngữ đúng |
-| **Authoritativeness** | Tác giả/site được công nhận trong ngành | Author byline + credentials, backlink từ site uy tín, được cite bởi người khác 
-| **Trustworthiness** | Nội dung đáng tin cậy | Proof (số liệu, hình ảnh thực), cite nguồn, transparent about limitations |
+| **Authoritativeness** | Tác giả/site được công nhận trong ngành | Author byline + credentials, backlink từ site uy tín, **ProfilePage schema** + sameAs LinkedIn/Twitter, được cite bởi người khác |
+| **Trustworthiness** | Nội dung đáng tin cậy | Proof (số liệu, hình ảnh gốc), cite nguồn, transparent about limitations |
+
+### Proof of Experience (bắt buộc 2026)
+
+Mỗi bài phải có ít nhất 2 trong 4 loại Proof:
+
+1. **Ảnh gốc (Original Image)** — tác giả tự chụp / thiết kế, có chi tiết chuyên ngành. **Từ chối hoàn toàn ảnh Stock vô hồn.**
+2. **Screenshot có annotation** — chụp màn hình dữ liệu thực, mũi tên / circle highlight
+3. **Video quá trình** — short-form (TikTok / YouTube Shorts) tác giả quay trực tiếp (ưu tiên nhúng để có Multimodal SEO + VideoObject schema)
+4. **Quote trực tiếp từ experience** — "Khi tôi phân phối cho công trình X, lỗi thường gặp là..." — cụ thể, không generic
+
+### Author Entity Verification (Authoritativeness 2026)
+
+Profile tác giả dưới chân mỗi bài PHẢI có:
+- Liên kết chéo **LinkedIn** + (Twitter hoặc platform chuyên ngành)
+- Mã định danh rõ ràng (URL profile có tên thật, không ẩn danh)
+- **Digital Footprint** về chủ đề đó trên Internet (ít nhất 3-5 bài dưới tên tác giả ở các platform khác)
+- Schema **`ProfilePage`** JSON-LD gắn vào page tác giả, link `sameAs` tới tất cả platform
+
+Thiếu 1 trong 4 → Google + LLM có thể coi bài như anonymous content → EEAT thiết hụt.
 
 ### Tiêu chuẩn "Nội dung hữu ích" của Google (Helpful Content)
 
@@ -38,12 +59,14 @@ Hệ thống xếp hạng của Google ưu tiên nội dung mang lại lợi íc
 ### Content Quality Rules — Bắt buộc
 
 **PHẢI có:**
-- Author byline + credentials rõ ràng
+- Author byline + credentials rõ ràng + ProfilePage schema (2026)
 - Last-updated date visible
 - Cite nguồn khi đề cập số liệu/nghiên cứu
 - Case study / ví dụ thực tế (không generic)
-- Answer-first: trả lời câu hỏi chính trong 50-100 từ đầu
+- Answer-first: trả lời câu hỏi chính trong 50-100 từ đầu (summary chunk để AI Overview trích dẫn)
 - Original insight / data mà đối thủ không có
+- Ít nhất 2/4 Proof of Experience (ảnh gốc / screenshot annotation / video / quote experience)
+- Giọng văn ngôi 1 ("Tôi/Chúng tôi") kết hợp từ miêu tả cảm quan ("khi tôi thử nghiệm...")
 
 **KHÔNG được:**
 - Copy structure + thay chữ từ top 10
@@ -51,6 +74,8 @@ Hệ thống xếp hạng của Google ưu tiên nội dung mang lại lợi íc
 - Viết về topic không có experience/expertise
 - Generic filler ("Trong thời đại số ngày nay...")
 - AI generate full không edit → footprint detect
+- Dùng ảnh stock vô hồn thay vì ảnh gốc (2026 → EEAT “E” fail)
+- Tác giả ẩn danh / không có LinkedIn / Digital Footprint → mất Author Entity
 
 ### Khung "Who – How – Why" (Sự minh bạch theo Google)
 Để minh bạch và xây dựng lòng tin, Google khuyến nghị làm rõ 3 yếu tố này trong nội dung:
@@ -65,18 +90,19 @@ Mỗi bài nếu trả lời rõ 3 câu này → tăng mạnh độ Trust.
 - Google đánh giá E-E-A-T nghiêm ngặt hơn cho YMYL
 - Bắt buộc: cite nguồn chính thức, author có credentials, review bởi expert
 
-## Workflow — EEAT Check per article
+## Workflow — EEAT Check per article (cập nhật 2026)
 
-1. Verify author có experience/expertise với topic
+1. Verify author có experience/expertise với topic + **Digital Footprint có thực**
 2. Check author byline + credentials hiển thị trên page
-3. Check Person schema + sameAs links
+3. Check **`ProfilePage` schema** + `sameAs` links (LinkedIn / Twitter / báo chí)
 4. Verify mọi số liệu có cite nguồn
-5. Check có case study / ví dụ thực tế không
-6. Check answer-first (50-100 từ đầu trả lời câu hỏi chính)
-7. Check information gain vs top 10 (có gì mới?)
+5. Check có ít nhất 2/4 **Proof of Experience** (ảnh gốc / screenshot / video / quote)
+6. Check answer-first (50-100 từ đầu = Summary Chunk cho AI Overview)
+7. Check information gain vs top 10 + **vs AI Overview** (có gì mới AI không tự sinh được?)
 8. Check last-updated date visible
-9. Check không có generic filler / AI footprint
-10. YMYL check: nếu topic YMYL → verify expert review
+9. Check không có generic filler / AI footprint / ảnh stock
+10. Check giọng văn ngôi 1 ("Tôi/Chúng tôi" + miêu tả cảm quan)
+11. YMYL check: nếu topic YMYL → verify expert review
 
 ## Khi nào dùng
 

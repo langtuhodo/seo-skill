@@ -9,14 +9,26 @@ Tối ưu mọi yếu tố trên trang để Google hiểu + user click + dwell 
 ## Khái niệm cốt lõi
 
 ### Title Tag
-- 50-60 ký tự, keyword đầu, brand cuối
+- 50-60 ký tự **VÀ < 550 pixels** (Google bôi đậm keyword trùng truy vấn → tăng diện tích pixel; bắt buộc test SERP Simulator)
+- Keyword chính đầu, brand cuối, **chèn 1 lần duy nhất** (không stuff)
 - CTR-driven: phải hấp dẫn click, không chỉ chèn keyword
 - A/B variant: test 2 title format cho cùng intent
+- **Title-H1 alignment**: title phải tương đồng H1 trên trang (lệch → bounce ↑ → Navboost negative)
+- **AI Anchor Text**: LLM (ChatGPT/Claude/Perplexity) dùng title làm văn bản neo khi trích dẫn → viết brand-aware, không generic
+- **4 mẫu theo intent** (xem `knowledge/18-metadata-sop-2026.md`):
+  - Informational: `{Keyword} là gì? {Lợi ích} ({Năm})`
+  - How-to: `Cách {nhiệm vụ}: {Số bước} ({Đặc điểm})`
+  - Sản phẩm: `{Tên SP} — {Lợi ích} \| {Thương hiệu}`
+  - So sánh: `{A} vs {B}: {Tiêu chí}? ({Năm})`
 
 ### Meta Description
-- 150-160 ký tự, value-prop + CTA
-- Không keyword stuff — Google thường tự generate nếu không relevant
-- Mục tiêu: tăng CTR, không ảnh hưởng trực tiếp ranking
+- **Tối đa 135 ký tự** (chuẩn 2026, mobile-first — trung bình mobile 135.87 ký tự); 150-160 là legacy desktop
+- Value-prop trong 80 ký tự đầu + imperative CTA cuối (Khám phá / Tải / So sánh / Đặt)
+- Không keyword stuff — Google bỏ qua mô tả meta ~**72% trường hợp** để tự tạo snippet phù hợp intent
+- Mục tiêu: **CRO factor** (tăng CTR), KHÔNG phải ranking factor trực tiếp
+- UX rules: tránh ALL-CAPS, dùng `&` thay `and`, dùng `:` hoặc `\|` thay `-` `—` (tiết kiệm pixel + tránh em dash AI-signal)
+- Dùng `nosnippet` nếu cần khoá Google overwrite (chỉ cho bài nhạy cảm hoặc test A/B)
+- **Bắt buộc** test trên Semrush Google SERP Simulator (Mobile + Desktop) trước khi triển khai
 
 ### Header Structure
 - 1 H1 duy nhất, gần với title, mô tả chính xác chủ đề
@@ -63,8 +75,8 @@ Tối ưu mọi yếu tố trên trang để Google hiểu + user click + dwell 
 
 ## Sub-skills
 
-1. **Title** — 50-60 chars, keyword front, CTR-driven
-2. **Descriptions** — 150-160 chars, value-prop + CTA
+1. **Title** — 50-60 chars, < 550 pixels, keyword front, CTR-driven, AI Anchor Text
+2. **Descriptions** — ≤ 135 chars (2026), value-prop + CTA, CRO-focused
 3. **Header Structure** — 1 H1, hierarchy H2-H6
 4. **URL Structure** — short, lowercase, hyphen
 5. **Internal Linking** — equity flow, anchor descriptive
@@ -107,6 +119,7 @@ Tối ưu mọi yếu tố trên trang để Google hiểu + user click + dwell 
 
 - `skills/on-page/Title/SKILL.md`
 - `skills/on-page/Descriptions/SKILL.md`
+- ⭐ `knowledge/18-metadata-sop-2026.md` — SOP đầy đủ Navboost + 4 intent template + pixel + 135 chars + GA4 regex AI traffic
 - `skills/on-page/Header Structure/SKILL.md`
 - `skills/on-page/URL Structure/SKILL.md`
 - `skills/on-page/Internal Linking/SKILL.md`
@@ -117,7 +130,10 @@ Tối ưu mọi yếu tố trên trang để Google hiểu + user click + dwell 
 
 - Multi H1 / heading skip level
 - Title quá keyword stuff, không CTR-driven
-- Description tự generated bởi Google → không control snippet
+- Title-H1 lệch nhau → user thấy bị lừa click → bounce ↑
+- Description vẫn dùng 150-160 ký tự → cắt trên mobile (chuẩn 2026 = 135)
+- Dùng ALL-CAPS / em dash trong title-description → tốn pixel + AI-signal
+- Description tự generated bởi Google → không control snippet (cân nhắc nosnippet)
 - URL có date / parameter → sticky cũ
 - Internal link "click here" anchor → không truyền context
 - Image stock không alt → mất Image Pack opportunity

@@ -1,5 +1,7 @@
 # Content Refresh — Cập nhật nội dung
 
+> **Chuẩn 2026 bắt buộc**: Mỗi lần refresh là cơ hội đưa bài cũ lên chuẩn 2026. **Bài cũ chỉ rewrite meta khi refresh** (không batch update retroactive). Khi refresh: thêm Summary Chunk 40-60 chữ + Bite-sized H2 + Entity Mapping + meta_description ≤ 135 chars + ProfilePage schema cho tác giả + nhúng short-form video. Xem `knowledge/18-metadata-sop-2026.md` mục 9.
+
 ## 1. Purpose / Mục đích
 Content refresh là **một trong 3 đòn bẩy SEO ROI cao nhất** (cùng với internal linking và title rewrite). Refresh đúng cách thường mang lại traffic uplift 50–200% trong 30–60 ngày, với chi phí 1/3 viết bài mới. Skill này định nghĩa khi nào, refresh thế nào, và đo lường impact.
 

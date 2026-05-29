@@ -1,5 +1,7 @@
 # Topical Audit — Đánh giá sức khỏe nội dung theo cụm chủ đề
 
+> **Chuẩn 2026 — Scoring reweight (S2)**: Thay vì 15đ "Giọng văn", chia 15 điểm này thành 3 tiêu chí 2026 — **AIO-readiness (5đ)** + **Proof of Experience (5đ)** + **Author Entity (5đ)**. Tổng vẫn 100đ. Mục đích: đánh giá được khả năng bài được AI Overview trích dẫn + Proof of Experience bắt buộc (ảnh gốc / video / screenshot / quote) + Author Entity verify (ProfilePage schema). Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/10-eeat-content-quality.md`. Tiêu chí "Giọng văn" được trừu tượng hoá vào EEAT mục Experience (kiểm "ngôi 1 + miêu tả cảm quan").
+
 ## 1. Purpose / Mục đích
 
 Đánh giá chi tiết tất cả bài viết trong 1 cluster để trả lời câu hỏi: **Chủ đề này đã đủ mạnh chưa?**
@@ -59,7 +61,7 @@ Topical Audit ra Key Decisions lớn (merge/delete bài, gợi ý subtopic mới
 | 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Key Decisions → cluster nào đã audit, quyết định merge/delete đã chốt | ✅ ĐỌC TRƯỚC TIÊN |
 | 2 | `projects/{project}/topical.md` | Cluster boundary + pillar/supporting hiện có → input chính của audit | ✅ BẮT BUỘC |
 | 3 | `projects/{project}/keywords-urls.md` | URL portfolio → cross-check với cluster file | ✅ Nếu tồn tại |
-| 4 | `projects/{project}/profile.md` | Brand voice (cho tiêu chí Giọng văn 15đ) | ✅ Nếu memory không đủ |
+| 4 | `projects/{project}/profile.md` | Brand voice + Author Entity (cho tiêu chí EEAT Experience + Author Entity 2026) | ✅ Nếu memory không đủ |
 
 > ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem Phase 6 bên dưới).
 >
@@ -130,19 +132,23 @@ CLUSTER: {tên cluster}
 
 ### Phase 2: Review từng bài — Scoring 100đ
 
-Với mỗi bài trong cluster, đánh giá 6 tiêu chí. Mỗi tiêu chí có trọng số cụ thể → tổng 100 điểm.
+Với mỗi bài trong cluster, đánh giá 7 tiêu chí (cập nhật 2026 — S2 reweight). Mỗi tiêu chí có trọng số cụ thể → tổng 100 điểm.
 
-#### Bảng trọng số
+#### Bảng trọng số (2026)
 
 | # | Tiêu chí | Trọng số | Cách tính |
 |---|----------|---------|-----------|
 | 1 | Intent Match | **20đ** | ĐẠT = 20đ, KHÔNG ĐẠT = 0đ |
 | 2 | EEAT | **25đ** | (X/12) × 25, làm tròn |
 | 3 | GEO Readiness | **15đ** | (X/6) × 15, làm tròn |
-| 4 | Giọng văn | **15đ** | (X/12) × 15, làm tròn |
-| 5 | Structure | **15đ** | Theo rubric 5 bậc (0/4/8/12/15) |
-| 6 | Vai trò cluster | **10đ** | CẦN THIẾT = 10đ, TRÙNG LẶP = 3đ, THỪA = 0đ |
+| 4 | Structure | **15đ** | Theo rubric 5 bậc (0/4/8/12/15) |
+| 5 | Vai trò cluster | **10đ** | CẦN THIẾT = 10đ, TRÙNG LẶP = 3đ, THỪA = 0đ |
+| 6 | **AIO-readiness** ⭐ 2026 | **5đ** | (X/5) × 5, làm tròn |
+| 7 | **Proof of Experience** ⭐ 2026 | **5đ** | (X/4) × 5, làm tròn |
+| 8 | **Author Entity** ⭐ 2026 | **5đ** | (X/4) × 5, làm tròn |
 | | **TỔNG** | **100đ** | |
+
+> **Note S2 (2026)**: Tiêu chí "Giọng văn 15đ" cũ đã bị **gỡ ra** và 15 điểm được chia 3 nhóm 5đ: AIO-readiness + Proof of Experience + Author Entity. Phần kiểm tra ngôi 1 / cảm quan trải nghiệm vẫn còn nhưng được trừu tượng vào **EEAT mục Experience** (xem Tiêu chí 2). Tổng vẫn 100đ — KHÔNG có bonus.
 
 #### Ngưỡng verdict
 
@@ -217,39 +223,7 @@ Nội dung có đúng với `search_intent` declared trong frontmatter không?
 
 ---
 
-#### Tiêu chí 4: Giọng văn (15đ)
-
-Đánh giá theo Voice checklist (12 items):
-
-**Câu mở đầu section** (3 items):
-- [ ] Không bắt đầu bằng "Như chúng ta đã biết..."
-- [ ] Không bắt đầu bằng "Trong thời đại..."
-- [ ] Không bắt đầu bằng "Điều quan trọng là..."
-
-**Cấu trúc câu** (3 items):
-- [ ] Câu trung bình < 20 từ
-- [ ] Đoạn trung bình 2-4 dòng
-- [ ] Không có câu > 40 từ
-
-**Giọng điệu** (3 items):
-- [ ] Có dùng "tôi", "bạn", "chúng tôi"
-- [ ] Có ít nhất 1 quan điểm cá nhân
-- [ ] Có ít nhất 1 câu thể hiện cảm xúc
-
-**Chi tiết cụ thể** (3 items):
-- [ ] Có tên người/công ty/địa điểm thực
-- [ ] Có số liệu cụ thể (không "nhiều", "một số")
-- [ ] Có ngày/thời gian cụ thể
-
-**Score**: (X/12) × 15, làm tròn. Ví dụ: 10/12 = 13đ, 6/12 = 8đ.
-
-**Ngưỡng tham khảo**: ≥ 10đ (8/12) = TỐT. < 10đ = CẦN CẢI THIỆN.
-
-**Lưu ý**: Nếu có ≥ 3 câu mở đầu AI generic → tự động trừ thêm 3đ.
-
----
-
-#### Tiêu chí 5: Structure (15đ)
+#### Tiêu chí 4: Structure (15đ)
 
 Đánh giá theo rubric 5 bậc:
 
@@ -270,7 +244,7 @@ Nội dung có đúng với `search_intent` declared trong frontmatter không?
 
 ---
 
-#### Tiêu chí 6: Vai trò trong cluster (10đ)
+#### Tiêu chí 5: Vai trò trong cluster (10đ)
 
 Đánh giá bài này trong context cả cluster:
 
@@ -288,18 +262,75 @@ Nội dung có đúng với `search_intent` declared trong frontmatter không?
 
 ---
 
+#### Tiêu chí 6: AIO-readiness (5đ) ⭐ 2026
+
+Đánh giá khả năng bài được AI Overview (Google) / ChatGPT / Perplexity trích dẫn. Check 5 items:
+
+- [ ] Có **Summary Chunk 40-60 chữ** ngay sau H1 (trước H2 đầu tiên), trả lời trực diện target_keyword
+- [ ] Mỗi H2 quan trọng (ít nhất 3 H2 đầu) có **Bite-sized answer < 50 chữ** + list/bảng ngay sau
+- [ ] KHÔNG mở đầu bằng "Trong bài viết này…", "Hãy cùng tìm hiểu…" (LLM bỏ qua)
+- [ ] Có ít nhất 1 **bảng so sánh / data table** dễ AI trích xuất
+- [ ] **Information Gain check**: Bài có ít nhất 1-2 ý mới mà AI Overview hiện tại chưa cover (tự search ẩn danh + đối chiếu)
+
+**Score**: (X/5) × 5, làm tròn. Ví dụ: 5/5 = 5đ, 3/5 = 3đ.
+
+**Ngưỡng tham khảo**: ≥ 4đ = TỐT. < 3đ = CẦN CẢI THIỆN cho AI citation.
+
+---
+
+#### Tiêu chí 7: Proof of Experience (5đ) ⭐ 2026
+
+E-E-A-T 2026 yêu cầu chữ "E" đầu tiên (Experience) — bằng chứng trực tiếp tác giả đã làm. Mỗi bài cần **ít nhất 2 trong 4** loại Proof:
+
+- [ ] **Ảnh gốc (Original Image)** — tác giả/team tự chụp, tự thiết kế, có chi tiết chuyên ngành (KHÔNG stock photo)
+- [ ] **Screenshot có annotation** — chụp dashboard / công cụ / kết quả test, có mũi tên/highlight giải thích
+- [ ] **Video quá trình thực tế** — TikTok / YouTube Shorts / Reels ngắn (15-90s) chứng minh quá trình (nhúng inline trong bài)
+- [ ] **Quote trực tiếp từ trải nghiệm** — "Khi tôi thử nghiệm…", "Thực tế tại thị trường VN cho thấy…", "Chúng tôi đo được {số liệu}…" — có context cụ thể
+
+**Score**:
+- 4/4 items = 5đ
+- 3/4 items = 4đ
+- 2/4 items (đạt ngưỡng tối thiểu) = 3đ
+- 1/4 item = 1đ
+- 0/4 = 0đ (auto verdict ≤ CẦN OPTIMIZE bất kể tổng điểm)
+
+**Ngưỡng tham khảo**: ≥ 3đ (2 loại Proof) = ĐẠT NGƯỠNG TỐI THIỂU 2026.
+
+**Stock photo**: Nếu phát hiện ≥ 50% ảnh là stock → tự động giảm về 0đ và flag "STOCK-HEAVY".
+
+---
+
+#### Tiêu chí 8: Author Entity (5đ) ⭐ 2026
+
+Verify tác giả có Entity rõ ràng (Authoritativeness 2026). Check 4 items:
+
+- [ ] **Author Box dưới chân bài** có tên thật + bio ngắn + credential (không "Admin", không "Editor", không ẩn danh)
+- [ ] Link **LinkedIn** + (Twitter/X hoặc platform chuyên ngành tương ứng — Behance, GitHub, ResearchGate…)
+- [ ] **Schema `ProfilePage` JSON-LD** gắn vào trang author + `sameAs` link đầy đủ
+- [ ] **Digital Footprint** verify-able: tác giả có ít nhất **3-5 bài viết / phát biểu** về cùng topic trên platform khác (Medium, LinkedIn, podcast, conference, báo chí…)
+
+**Score**: (X/4) × 5, làm tròn. Ví dụ: 4/4 = 5đ, 3/4 = 4đ, 2/4 = 3đ.
+
+**Ngưỡng tham khảo**: ≥ 3đ (3/4 items) = ĐẠT.
+
+**Flag**: Nếu author là "Admin"/"Editor"/ẩn danh → tự động 0đ và flag "NO-AUTHOR-ENTITY".
+
+---
+
 ### Phase 2 Output: Scorecard từng bài
 
-Tổng hợp 6 tiêu chí → score + verdict cho mỗi bài:
+Tổng hợp 8 tiêu chí → score + verdict cho mỗi bài:
 
 ```
 {filename} — SCORE: {X}/100 — Verdict: {VERDICT}
-├── Intent Match:    {X}/20  — {ĐẠT/KHÔNG ĐẠT}
-├── EEAT:            {X}/25  — {X}/12 items
-├── GEO:             {X}/15  — {X}/6 items
-├── Giọng văn:       {X}/15  — {X}/12 items
-├── Structure:       {X}/15  — {rubric level}
-└── Vai trò cluster: {X}/10  — {CẦN THIẾT/TRÙNG/THỪA}
+├── Intent Match:       {X}/20  — {ĐẠT/KHÔNG ĐẠT}
+├── EEAT:               {X}/25  — {X}/12 items
+├── GEO:                {X}/15  — {X}/6 items
+├── Structure:          {X}/15  — {rubric level}
+├── Vai trò cluster:    {X}/10  — {CẦN THIẾT/TRÙNG/THỪA}
+├── AIO-readiness:      {X}/5   — {X}/5 items  ⭐ 2026
+├── Proof of Experience:{X}/5   — {X}/4 loại   ⭐ 2026
+└── Author Entity:      {X}/5   — {X}/4 items  ⭐ 2026
 ```
 
 ---
@@ -543,9 +574,11 @@ subtopics_missing: {N}
 | Intent Match | {X}/20 | {ĐẠT/KHÔNG ĐẠT — lý do} |
 | EEAT | {X}/25 | {X}/12 items — Thiếu: {items} |
 | GEO | {X}/15 | {X}/6 items — Thiếu: {items} |
-| Giọng văn | {X}/15 | {X}/12 items — Vấn đề: {mô tả} |
 | Structure | {X}/15 | {rubric level — vấn đề} |
 | Vai trò cluster | {X}/10 | {CẦN THIẾT/TRÙNG/THỪA — giải thích} |
+| AIO-readiness ⭐ 2026 | {X}/5 | {X}/5 items — Thiếu: {items} |
+| Proof of Experience ⭐ 2026 | {X}/5 | {X}/4 loại — Thiếu: {loại nào} |
+| Author Entity ⭐ 2026 | {X}/5 | {X}/4 items — Thiếu: {items} |
 
 **Tóm tắt**: {1-2 câu mô tả vấn đề chính của bài này}
 

@@ -5,12 +5,15 @@ Title tag là **yếu tố on-page có ROI cao nhất** sau content quality. Nó
 
 ## 2. Core Concepts / Khái niệm cốt lõi
 
-- **Title tag (`<title>`)** ≠ H1. Title hiển thị trên SERP/tab; H1 hiển thị trên trang. Hai cái có thể khác nhau (và nên khác nhau khi cần tối ưu CTR).
-- **Pixel width**, không phải số ký tự. Mobile/desktop khác nhau. Ngưỡng an toàn: ~580px (~50–60 ký tự Latin, ~30–40 ký tự tiếng Việt có dấu).
-- **Google rewrite**: từ 2021 Google rewrite ~60% title. Nguyên nhân chính: title nhồi keyword, generic, hoặc không khớp content.
-- **Front-loading**: keyword chính ở đầu title được trọng số ranking cao hơn (theo nhiều test) và thu hút mắt trên SERP.
+- **Thẻ tiêu đề HTML (`<title>`)** ≠ H1. Title hiển thị trên SERP/tab; H1 hiển thị trên trang. **"Meta Title" sai về thuật ngữ** — không có thẻ `<meta name="title">`. (2026) Title-H1 phải **tương đồng** — lệch → user thấy lừa click → bounce ↑ → Navboost negative.
+- **AI Anchor Text (2026)**: LLM (ChatGPT/Claude/Perplexity) dùng title làm văn bản neo khi trích dẫn nguồn. Title generic → AI trích dẫn rời rạc, không brand-aware.
+- **Pixel width**, không phải số ký tự. Chuẩn 2026: **< 550 pixels** (50–60 ký tự Latin, 30–40 ký tự tiếng Việt có dấu). Google bôi đậm keyword trùng truy vấn → tăng diện tích pixel → cần trừ hao.
+- **Navboost (2026)**: Google ghi nhận CTR + dwell time + last good click. Title hấp dẫn → CTR ↑ → Navboost push ranking. **Metadata = điểm chạm chiến lược**, không phải khai báo kỹ thuật tĩnh.
+- **Google rewrite**: từ 2021 Google rewrite ~60% title (mô tả meta bỏ qua ~72%). Nguyên nhân: title nhồi keyword, generic, hoặc không khớp content/intent.
+- **Front-loading**: keyword chính ở đầu title được trọng số ranking cao hơn + thu hút mắt trên SERP. **Keyword 1 lần duy nhất**, không stuff.
 - **CTR curve**: position 1 ~30% CTR, vị trí 2 ~15%, vị trí 3 ~10%. Title tốt có thể đẩy CTR vượt benchmark theo position.
-- **Branded suffix**: thêm "| Brand" cuối title. Có lợi cho brand awareness, hơi tốn pixel.
+- **Branded suffix**: thêm `\| Brand` cuối title (dùng `\|` thay vì `-` hoặc `—` — tiết kiệm pixel + tránh em dash AI-signal). Có lợi cho brand awareness.
+- **UX rules 2026**: tránh ALL-CAPS (tốn pixel + giảm uy tín), dùng `&` thay `and`.
 
 ## 3. When to use
 - Mỗi khi tạo trang mới.
@@ -25,37 +28,44 @@ Title tag là **yếu tố on-page có ROI cao nhất** sau content quality. Nó
 - Intent đã xác định ở skill Search Intent.
 - Position hiện tại quyết định độ "aggressive": top 10 thì rewrite cho CTR; top 30+ thì rewrite cho ranking signal trước.
 
-### Bước 2. Viết 5 phương án title theo công thức
+### Bước 2. Viết title theo 4 mẫu intent (2026 — bắt buộc)
 
-Công thức phổ biến (dùng được cho tiếng Việt):
-1. `{Keyword chính}: {Số/Năm} {Benefit/Differentiator}`
-   - "SEO On-page: 12 Yếu Tố Quan Trọng Nhất 2025"
-2. `How to {Keyword}: {Outcome} in {Timeframe}`
-   - "Cách viết Title chuẩn SEO: tăng CTR 30% trong 1 tuần"
-3. `{Number} {Keyword} {Benefit}`
-   - "9 mẫu title tag tăng CTR cho ecommerce VN"
-4. `{Keyword} vs {Alternative}: {Recommendation}`
-   - "Ahrefs vs Semrush: nên chọn cái nào năm 2025?"
-5. `{Keyword} for {Persona/Use case}`
-   - "Keyword research cho ngành F&B: hướng dẫn 2025"
+Mẫu cấu trúc chuẩn 2026 theo Search Intent (xem `knowledge/18-metadata-sop-2026.md`):
 
-### Bước 3. Áp dụng nguyên tắc CTR
-- **Số cụ thể**: "12", "2025", "30%" → click magnet.
+| Intent | Mẫu | Ví dụ (tiếng Việt) |
+|--------|------|---------------------|
+| **Informational (What is)** | `{Keyword} là gì? {Lợi ích/Đặc điểm} ({Năm})` | "Thép hình U là gì? Quy cách & ứng dụng (2026)" |
+| **How-to** | `Cách {nhiệm vụ}: {Số bước} ({Đặc điểm})` | "Cách chọn thép hình U: 5 bước (kèm bảng quy cách)" |
+| **Sản phẩm (Transactional)** | `{Tên SP} — {Lợi ích} \| {Thương hiệu}` | "Thép hình U VinaOne — Giá CK đại lý \| Thép Bảo Tín" |
+| **So sánh (Commercial)** | `{A} vs {B}: {Tiêu chí}? ({Năm})` | "Thép U SS400 vs SS540: chọn loại nào? (2026)" |
+
+Khớp mẫu với `search_intent` (I/N/C/T) trong SEO Metadata blockquote.
+
+Mẫu bổ sung khi 4 mẫu trên không khớp:
+1. `{Number} {Keyword} {Benefit}` — "9 mẫu title tag tăng CTR cho ecommerce VN"
+2. `{Keyword} for {Persona/Use case}` — "Keyword research cho ngành F&B: hướng dẫn 2026"
+
+### Bước 3. Áp dụng nguyên tắc CTR + Imperative Verb (2026)
+- **Imperative Verb** (câu mệnh lệnh): "Khám phá", "Tải", "So sánh", "Đặt", "Tính" — thúc đẩy click (ưu tiên cho mẫu Product / Comparison).
+- **Số cụ thể**: "5", "2026", "30%" → click magnet.
 - **Power word**: "Hoàn chỉnh", "Cuối cùng", "Mới nhất", "Miễn phí", "Bí mật" — dùng tiết chế, đừng clickbait.
-- **Brackets/parens** `(Updated 2025)` `[Free Template]` — tăng CTR ~10–20% trong A/B test.
+- **Brackets/parens** `(Updated 2026)` `[Free Template]` — tăng CTR ~10–20% trong A/B test.
 - **Promise + Trade-off**: "Without Coding", "No Budget", "Trong 7 ngày".
-- Tránh tất cả CAPS, emoji có thể bị Google strip.
+- Tránh ALL-CAPS, em dash `—`, emoji (Google có thể strip).
 
-### Bước 4. Kiểm tra pixel width
-- Dùng Mangools SERP Simulator / Yoast preview.
-- Tiếng Việt có dấu chiếm pixel hơn → cần ngắn hơn.
+### Bước 4. Kiểm tra pixel width (bắt buộc — SERP Simulator)
+- **Bắt buộc** dùng **Semrush Google SERP Simulator** (mobile + desktop) trước khi triển khai.
+- Mô phỏng được cả keyword được bôi đậm → thay đổi pixel thực.
+- Tiếng Việt có dấu chiếm pixel hơn → cần ngắn hơn (~30-40 ký tự thay vì 60).
+- Ngưỡng an toàn: **< 550 pixels** (đường "…" cắt).
 - Đảm bảo keyword chính nằm trong phần hiển thị (không bị "…").
 
 ### Bước 5. Differentiate với top 10 SERP hiện tại
 - Search keyword → đọc 10 title đối thủ.
 - Nếu top toàn dùng "Best X 2025" → dùng angle khác: "X for Beginners (2025)", "X Without Y", "X cho doanh nghiệp Việt".
 
-### Bước 6. Đảm bảo khớp content
+### Bước 6. Đảm bảo Title-H1 alignment + khớp content (2026)
+- Title và H1 phải **tương đồng** (gần như nhau, không cần 100% identical). Lệch → user cảm giác bị lừa → bounce → Navboost negative.
 - Title hứa gì, H1/intro/body phải deliver y vậy.
 - Mismatch → Google rewrite + bounce rate cao.
 
@@ -103,6 +113,15 @@ Trả về dạng bảng: title | công thức | điểm CTR ước tính (1-10)
 - Nhồi 3-4 keyword vào title → spam, Google rewrite.
 - Title generic ("Trang chủ", "Bài viết", "Untitled").
 - Trùng title giữa nhiều trang (duplicate).
+- (2026) Title và H1 lệch nhau → user thấy lừa click → bounce ↑.
+- (2026) Dùng `-` hoặc `—` thay vì `\|` hoặc `:` → tốn pixel + em dash là AI signal.
+- (2026) ALL-CAPS / viết hoa toàn bộ → tốn pixel + giảm uy tín brand.
+- (2026) Không theo 4 mẫu intent → không khớp search_intent → CTR thấp.
+- (2026) Không test Semrush SERP Simulator trước triển khai → phát hiện cắt pixel sau khi publish.
+
+## 9. Tham chiếu chuẩn 2026
+- `knowledge/18-metadata-sop-2026.md` — SOP đầy đủ: Navboost, AI Anchor Text, 4 mẫu intent, pixel, SERP Simulator, GA4 regex AI traffic
+- `knowledge/03-on-page-seo.md` — tóm tắt khi gặp keyword "title tag"
 - Title không khớp H1/content → user bounce.
 - Đặt brand đầu title cho mọi trang → tốn pixel của keyword.
 - Quên mobile preview → title bị cut ở mobile.
