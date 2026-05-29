@@ -1,15 +1,22 @@
-# Meta Description — Mô tả meta
+# Meta Description — Mô tả meta (chuẩn 2026)
 
 ## 1. Purpose / Mục đích
-Meta description **không phải ranking factor trực tiếp**, nhưng là yếu tố quyết định **CTR thứ 2 sau title**. Meta tốt = thêm 5–15% CTR so với Google tự generate. Skill này tập trung vào persuasion + SERP differentiation, không phải nhồi keyword.
+Meta description **không phải ranking factor trực tiếp**, mà là **yếu tố tối ưu tỷ lệ chuyển đổi (CRO factor)** trên SERP — quyết định CTR thứ 2 sau title. Meta tốt = thêm 5–15% CTR so với Google tự generate. Skill này tập trung vào persuasion + SERP differentiation, KHÔNG nhồi keyword.
 
-## 2. Core Concepts / Khái niệm cốt lõi
+## 2. Core Concepts / Khái niệm cốt lõi (2026)
 
-- **Pixel/Char limit**: ~155–160 ký tự Latin desktop, ~120 mobile. Tiếng Việt có dấu nên giữ ~120–140.
-- **Google rewrite**: ~70% meta bị Google rewrite (cao hơn title). Lý do: meta không trả lời query cụ thể, thiếu context, hoặc Google muốn extract đoạn khớp query hơn.
-- **Bold matching**: keyword trong query được Google bold trong snippet → tăng CTR. Đảm bảo description chứa keyword chính + biến thể.
-- **Action language**: meta là mini-ad. Phải có verb + benefit + urgency/USP.
+- **Char limit 2026: ≤ 135 ký tự** (mobile-first, đồng bộ chuẩn SOP 2026). Legacy desktop 150-160 chars vẫn dùng được nhưng sẽ bị cắt ở mobile. Tiếng Việt có dấu nên giữ ≤ 120 ký tự.
+- **Google bỏ qua ~72% meta** để tự tạo snippet trùng query. Mục tiêu của ta: viết meta tốt để CHÍNH meta được Google hiển thị (đảm bảo brand-controlled message).
+- **CRO factor, không phải ranking**: Meta không ảnh hưởng ranking trực tiếp, nhưng CTR cao → Navboost ghi nhận → ranking gián tiếp tăng.
+- **80 ký tự đầu = giá trị cốt lõi**: User scan SERP đọc lướt 80 ký tự đầu, phần sau bị cắt ở mobile. Đặt value-prop trong 80 ký tự đầu, CTA imperative cuối.
+- **Bold matching**: keyword trong query được Google bold trong snippet → tăng CTR. Đảm bảo description chứa keyword chính 1 lần + 1 biến thể (KHÔNG stuff).
+- **Imperative CTA bắt buộc**: meta là mini-ad. Câu cuối là động từ mệnh lệnh — "Đặt", "Tải", "So sánh", "Xem", "Tính ngay" — không "đọc thêm".
 - **Khác title**: title tả "đây là trang gì", description tả "bạn sẽ đạt được gì khi click".
+- **UX rules 2026** (tiết kiệm pixel + tránh AI signal):
+  - Tránh ALL-CAPS (tốn pixel + giảm uy tín)
+  - Dùng `&` thay `and` (tiết kiệm 2 ký tự)
+  - Dùng `:` hoặc `\|` thay vì `-` hoặc `—` (em dash là AI signal mạnh)
+- **nosnippet** chỉ dùng cho trang nhạy cảm hoặc A/B test — KHÔNG dùng đại trà.
 
 ## 3. When to use
 - Mỗi trang publish mới.
@@ -46,9 +53,11 @@ Meta description **không phải ranking factor trực tiếp**, nhưng là yế
 - Đọc 10 meta đối thủ → tránh ngôn từ giống hệt.
 - Tìm angle khác: persona ("dành cho freelancer"), trade-off ("không cần code"), authority ("từ chuyên gia 10 năm"), data ("đã test trên 100 site").
 
-### Bước 5. Mobile preview
+### Bước 5. Mobile preview + SERP Simulator (bắt buộc)
+- Dùng **Semrush Google SERP Simulator** (mobile + desktop) trước khi triển khai.
 - Chrome DevTools mobile mode + tool simulator.
-- 120 ký tự đầu là phần ai-cũng-thấy → câu chính phải nằm trong 120 ký tự đầu.
+- (2026) Description **≤ 135 ký tự** — vượt sẽ bị cắt mobile.
+- 80 ký tự đầu là phần ai-cũng-thấy → câu value-prop phải nằm trong 80 ký tự đầu, CTA imperative cuối.
 
 ### Bước 6. Audit định kỳ
 - 28 ngày sau publish: GSC → query nào Google bold? Có nên rewrite để bold thêm không?
@@ -108,6 +117,14 @@ Trả về bảng: meta | char count | hook chính.
 - Meta giống nhau trên nhiều trang (pattern templated mà không tuỳ biến).
 - Hứa quá → bounce cao + Google học và rewrite.
 - Không có CTA hoặc CTA mơ hồ ("đọc thêm" thay vì "tải checklist miễn phí").
+- (2026) Vượt 135 ký tự → cắt mobile, mất CTA.
+- (2026) Dùng `-` hoặc em dash `—` thay vì `:` hoặc `\|` → tốn pixel + AI signal.
+- (2026) ALL-CAPS / viết hoa toàn bộ → mất uy tín brand.
+- (2026) Dùng `nosnippet` đại trà → mất snippet hiển thị (chỉ dùng cho trang nhạy cảm).
+
+## 9. Tham chiếu chuẩn 2026
+- `knowledge/18-metadata-sop-2026.md` — SOP đầy đủ: 135 chars, 80-chữ-đầu-value-prop, imperative CTA, UX rules, SERP Simulator, GA4 regex AI traffic, AIO Inclusion Rate KPI
+- `knowledge/03-on-page-seo.md` — tóm tắt khi gặp keyword "meta description"
 
 ---
 **Đầu ra**: mỗi URL có meta thủ công, được tracked CTR, có version history khi rewrite.

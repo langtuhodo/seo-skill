@@ -1,5 +1,7 @@
 # Programmatic SEO — SEO lập trình hàng loạt
 
+> **Chuẩn 2026 bắt buộc**: pSEO 2026 = template phải sinh **Summary Chunk theo data row** + meta_description ≤ 135 chars (mobile-first) + Entity Mapping per row + Original Image (không stock). Tránh nhồi keyword density (Vector Search 2026). Mỗi page có ít nhất 1 Bite-sized answer + bảng/list. Xem `knowledge/18-metadata-sop-2026.md`.
+
 ## 1. Purpose / Mục đích
 Programmatic SEO (pSEO) là **tự động generate hàng nghìn/triệu landing page** từ template + data nguồn, để chiếm long-tail keyword scale. Mô hình thắng quy mô lớn ở Zapier (`/integrations/X-with-Y`), Wise (`/X-to-Y exchange rate`), Tripadvisor (`/{city}/restaurants`), G2 (`/{tool}-vs-{tool}`). Skill này hướng dẫn build đúng cách — vì làm sai sẽ tạo "spam pages" và bị Google de-index hàng loạt.
 

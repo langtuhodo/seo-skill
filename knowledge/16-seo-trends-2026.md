@@ -134,6 +134,83 @@
 
 ---
 
+## 3.7. GEO & AI Overview Optimization (Generative Engine Optimization)
+
+Năm 2026, content phải tối ưu cho cả 2 thực thể: Bot tìm kiếm truyền thống + LLMs (Google AI Overview, ChatGPT, Perplexity, Claude, Gemini).
+
+### Summary Chunks & Bite-sized Format
+- **Summary Chunk 40-60 chữ** ngay sau H1 (trước H2 đầu tiên): trả lời trực diện target_keyword
+- Mỗi H2 quan trọng có 1 **Bite-sized answer** dưới 50 chữ + list/bảng → AI Overview dễ trích dẫn làm nguồn
+- KHÔNG dùng câu mở "Trong bài viết này...", "Hãy cùng tìm hiểu..." → LLM bỏ qua, không trích dẫn
+
+### Conversational Queries
+- Bên cạnh long-tail (3-5 từ), bổ sung **truy vấn hội thoại 10-20 từ**: "làm sao để chọn... khi...", "tại sao... gây ra...", "so sánh A vs B trong tình huống..."
+- LLM hiểu intent từ câu hỏi đầy đủ, không từ keyword rời rạc
+
+### Phân tích AI Overview SERP (Anonymous Search)
+1. Search target_keyword ẩn danh (incognito) trên Google → xem AI Overview tổng hợp ý nào
+2. Note 5-7 ý chính AI đã đưa ra
+3. Dàn ý mới phải **bao phủ tất cả ý đó + thêm 1-2 ý AI không tự sinh được** (kinh nghiệm thực, dữ liệu nội bộ, case study)
+4. Information Gain = ý mới so với AI Overview, không phải so với Top 10 nữa
+
+### Entity Mapping (Vector Search)
+- Bỏ rule "lặp keyword mỗi 300-350 từ" — Google 2026 dùng Vector Search, không đếm
+- Liệt kê **5-10 entity chính** liên quan target_keyword trước khi viết
+- Chèn entity tự nhiên vào body → giúp Google hiểu ngữ cảnh sâu
+
+## 3.8. Multimodal SEO (Short-form Video Bắt Buộc)
+
+Google SERP 2026 ưu tiên hiển thị video ngắn ngay trong kết quả tìm kiếm web. Bài chỉ chữ + ảnh tĩnh đang mất lợi thế.
+
+### Yêu cầu
+- **Bắt buộc nhúng 1 short-form video** (TikTok / YouTube Shorts) do business tự sản xuất
+- Ảnh trong bài phải là **Original Image** (tự chụp/thiết kế, có annotation), từ chối ảnh Stock
+- Video phải gắn schema **`VideoObject`** + caption + thumbnail
+
+### Lý do
+- AI không sinh được video xác thực với watermark + bối cảnh thật
+- Video clip ngắn ranks trong "Videos" tab + có thể xuất hiện trong AI Overview
+- Tăng INP (Interaction to Next Paint) tốt hơn → Core Web Vitals 2026
+
+## 3.9. Core Web Vitals 2026 (INP Thay FID)
+
+Google đã thay First Input Delay (FID) bằng **Interaction to Next Paint (INP)**.
+
+### Tiêu chuẩn
+- **INP < 200ms** = good (target 2026)
+- 200-500ms = needs improvement
+- > 500ms = poor
+
+### Element ảnh hưởng INP trong bài viết
+- Nút bấm CTA, form submit
+- **Accordion FAQ** (mở/đóng)
+- **Menu mục lục (TOC)** scroll-to-anchor
+- Embed video (lazy-load để không block main thread)
+- Chart tương tác
+
+→ Mọi widget JS trong bài phải đo INP qua Chrome DevTools / PageSpeed Insights → tối ưu nếu > 200ms.
+
+## 3.10. KPI 2026 (Bổ Sung)
+
+Ngoài Traffic, CTR, Time on Site, bổ sung 3 chỉ số định tính:
+
+| KPI | Định nghĩa | Cách đo |
+|-----|-----------|---------|
+| **AIO Inclusion Rate** | % bài được AI Overview trích dẫn làm nguồn | Search target_keyword ẩn danh hàng tuần → đếm bài xuất hiện trong AI Overview / tổng bài cluster |
+| **Brand Mentions & Branded Search** | Search "keyword + tên thương hiệu" sau khi tiếp xúc content | GSC > Performance > Filter query contains "{brand}" |
+| **Engagement Content Matrix** | Tỷ lệ tương tác với block đa phương tiện (video play, click biểu đồ, FAQ expand) | GA4 custom events trên các interactive elements |
+
+### GA4 Regex Track AI Traffic
+Trong **Traffic acquisition** report, filter `Session source/medium` bằng regex:
+
+```
+.*(chatgpt\.com|openai\.com|perplexity\.ai|claude\.ai|gemini\.google\.com|bard\.google\.com|you\.com|search\.brave\.com|copilot\.microsoft\.com).*
+```
+
+→ Đo được lưu lượng từ AI agents → quyết định đầu tư content cho AI citation.
+
+---
+
 ## 4. Áp Dụng Vào Content Skills
 
 ### Khi viết bài mới (Content Writing)
@@ -161,14 +238,28 @@
 
 ## 5. Checklist Áp Dụng Cho Mọi Dự Án
 
-Mỗi bài viết output phải đáp ứng:
+Mỗi bài viết output 2026 phải đáp ứng:
 
+**Core 2025 (giữ nguyên)**:
 - [ ] Có ít nhất 1-2 Rare Attributes (thông tin hiếm, dữ liệu gốc, kinh nghiệm thực tế)
 - [ ] Topical Context linking: mở bài + body kết nối với category hierarchy (2-3 đoạn)
 - [ ] Content mà AI không thể replicate: kinh nghiệm, quan điểm, dữ liệu riêng
 - [ ] User-first: viết cho user, không viết vì "Google wants to see it"
 - [ ] Nếu bài đã publish: lên kế hoạch Phantom Keywords (1 tháng/lần)
 - [ ] Platform diversification: có plan repurpose cho social/newsletter nếu phù hợp
+
+**Bổ sung 2026 (GEO + Multimodal + EEAT "E")**:
+- [ ] Summary Chunk 40-60 chữ sau H1 (trả lời trực diện cho AI Overview)
+- [ ] Mỗi H2 quan trọng có Bite-sized answer < 50 chữ + list/bảng
+- [ ] Đã phân tích AI Overview SERP ẩn danh trước khi viết
+- [ ] Có Entity Mapping (5-10 entity chính) trong frontmatter
+- [ ] Bài có ít nhất 1 short-form video do business tự sản xuất (TikTok/Shorts)
+- [ ] Ảnh trong bài là Original Image (tự chụp/thiết kế), không stock
+- [ ] Có ít nhất 2/4 Proof of Experience (ảnh gốc / screenshot annotation / video / quote thực)
+- [ ] Author Entity verify: ProfilePage schema + LinkedIn sameAs + Digital Footprint
+- [ ] Meta description ≤ 135 ký tự (xem `knowledge/18-metadata-sop-2026.md`)
+- [ ] Title < 550 pixels + theo 1 trong 4 mẫu intent (Info/How-to/Product/Compare)
+- [ ] Track AIO Inclusion Rate sau publish + GA4 regex AI traffic
 
 ---
 

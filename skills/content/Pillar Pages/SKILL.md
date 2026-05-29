@@ -1,5 +1,7 @@
 # Pillar Pages — Trang trụ cột
 
+> **Chuẩn 2026 bắt buộc**: Pillar page là trang quan trọng nhất cluster → phải có Summary Chunk + Bite-sized H2 cho mỗi sub-topic + Entity Mapping 5-10 entity + Original Image + short-form video + ProfilePage schema. meta_description ≤ 135 chars. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/16-seo-trends-2026.md` (mục 3.7-3.10).
+
 ## 1. Purpose / Mục đích
 Pillar page là trang **"hub" cho 1 cluster topic**, cover topic ở mức tổng quát + link xuống các supporting article chuyên sâu. Đây là vũ khí chính để build topical authority, chiếm head keyword khó, và tạo flow PageRank nội bộ. Một pillar page tốt thường rank top cho 50–500 keyword cùng lúc.
 
