@@ -27,33 +27,39 @@ Skill này giúp bạn:
 
 ---
 
-## 2. Tích hợp với Content Writing Workflow
+## 2. Tích hợp với Content Writing Workflow (v1.6)
 
-**Style Mimicker là lớp cuối cùng trong quy trình viết nội dung:**
+**Style Mimicker là lớp áp dụng giọng ở Phase 5 — vào giữa workflow Project Memory → Content Writing → Session End:**
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    WORKFLOW VIẾT NỘI DUNG                       │
+│                    WORKFLOW VIẾT NỘI DUNG v1.6                  │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Phase 0: COMPETITOR RESEARCH ← Content Writing Skill           │
-│  Phase 1: USER RESEARCH       ← Content Writing Skill           │
-│  Phase 2: OUTLINE             ← Content Writing Skill           │
-│  Phase 3: VIẾT DRAFT          ← Content Writing Skill           │
-│  Phase 4: EEAT & GEO CHECK    ← Content Writing Skill           │
-│  Phase 5: VOICE POLISH        ← **STYLE MIMICKER SKILL**        │
+│  Phase -1: LOAD PROJECT CONTEXT ← Project Memory + memory.md    │
+│             ← detect project + load style profile mapping       │
+│                                                                 │
+│  Phase 0:  COMPETITOR RESEARCH + Semantic ← Content Writing     │
+│  Phase 1:  USER RESEARCH       ← Content Writing Skill          │
+│  Phase 2:  OUTLINE             ← Content Writing Skill          │
+│  Phase 3:  VIẾT DRAFT          ← Content Writing Skill          │
+│  Phase 4:  EEAT + GEO + Rare Attribute ← Content Writing Skill  │
+│  Phase 5:  VOICE POLISH        ← **STYLE MIMICKER SKILL**       │
+│             ← áp dụng style profile JSON + 4 Rulesets Anti-AI   │
+│  Phase 6:  INTERNAL LINK + SEO META ← Content Writing Skill     │
+│  Phase 7:  SESSION END → update memory.md ← Project Memory      │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Khi nào kích hoạt Style Mimicker?**
-- Sau khi đã có draft từ Content Writing skill
-- Khi user chỉ định tên profile cụ thể (VD: "viết theo phong cách BinhNN Digital")
-- Khi cần đảm bảo giọng văn nhất quán cho một dự án
+**Khi nào kích hoạt Style Mimicker?** (xem Activation Rule phía dưới cho mẫu cụ thể)
+- Sau khi đã có draft từ Content Writing Phase 4
+- Khi user explicit gọi tên style profile (VD: "viết theo phong cách BinhNN Digital")
+- **HOẶC** khi task gắn 1 project có style mapping sẵn (xem section 3 "Auto-apply Rule")
 
 ---
 
-## 3. Project-Style Mapping
+## 3. Project-Style Mapping (Auto-apply when project context detected)
 
 Mỗi dự án trong `projects/` có thể được gán một Style Profile mặc định:
 
@@ -63,7 +69,18 @@ Mỗi dự án trong `projects/` có thể được gán một Style Profile m�
 | binhnn-digital | BinhnnDigital | `profiles/binhnn-digital.json` |
 | hatcapherangxay | HatCaPheRangXay | `profiles/hatcapherangxay.json` |
 
-**Auto-apply rule**: Khi viết content cho một project đã có style mapping, tự động áp dụng style profile tương ứng (trừ khi user chỉ định khác).
+### Auto-apply Rule (làm rõ để tránh mâu thuẫn với Activation Rule bên dưới)
+
+Skill này kích hoạt **tự động** trong trường hợp sau (ngoài trường hợp user explicit):
+
+1. Task của user **gắn 1 project cụ thể** (project detect từ keyword: tên brand, tên folder `projects/{name}/`, alias trong profile.md).
+2. Project đó có entry trong bảng mapping trên hoặc trong `COMPILED-CONTEXT.md` section 2.4.
+3. Profile JSON tương ứng tồn tại trong `skills/style-mimicker/profiles/`.
+4. User KHÔNG chỉ định style khác trong câu yêu cầu.
+
+→ Khi 4 điều kiện trên khớp, AI **tự động apply style profile** ở Phase 5 của Content Writing mà không cần user gõ chữ "style" trong câu yêu cầu.
+
+→ Activation Rule bên dưới vẫn áp dụng cho CAPTURE MODE và cho user trigger explicit ngoài project context.
 
 ---
 
@@ -71,7 +88,7 @@ Mỗi dự án trong `projects/` có thể được gán một Style Profile m�
 
 ## ⚠️ Activation Rule (MANDATORY)
 
-This skill has **explicit opt-in only** activation. It must NOT be triggered by generic writing or editing requests.
+This skill has **opt-in activation**. It triggers when (a) user explicitly names a style profile, (b) CAPTURE command is given, OR (c) the task is bound to a project with a configured style profile mapping (see section 3 "Auto-apply Rule"). It must NOT be triggered by **generic** writing/editing requests with no project + no style name.
 
 ### ✅ ACTIVATE when the user's message contains:
 - **A named Style Profile + the word `style` or `writing style`**
@@ -80,16 +97,22 @@ This skill has **explicit opt-in only** activation. It must NOT be triggered by 
   - `"Coffee Warmth style"` → ACTIVATE with profile `coffee-warmth`
   - `"viết theo phong cách BinhNN Digital"` → ACTIVATE
   - `"dùng phong cách [Name]"` → ACTIVATE
+- **A project name with a configured style mapping** (Auto-apply — see section 3)
+  - `"viết blog cho thep-bao-tin về ống thép đúc"` → ACTIVATE with profile `thep-bao-tin` (project detected by name)
+  - `"tạo pillar page cho BinhNN Digital"` → ACTIVATE with profile `binhnn-digital`
+  - `"refresh bài {URL} cho hatcapherangxay"` → ACTIVATE with profile `hatcapherangxay`
+  - `"audit cluster thép hình cho Thép Bảo Tín"` → ACTIVATE with profile `thep-bao-tin`
 - **A CAPTURE command** with a named target:
   - `"save this style as [Name]"` → CAPTURE MODE
   - `"analyze my writing style and save as [Name]"` → CAPTURE MODE
   - `"lưu phong cách viết này với tên [Name]"` → CAPTURE MODE
 
 ### ❌ DO NOT ACTIVATE for:
-- `"write an article about SEO"` — no style name specified
-- `"rewrite this paragraph"` — no style name specified
+- `"write an article about SEO"` — no style name specified, no project detected
+- `"rewrite this paragraph"` — no style name specified, no project context
 - `"edit this copy"` — use `copy-editing` skill instead
 - `"mimic this style"` (without naming a saved profile) — ask user to name the style first
+- Any request where neither (a) an explicit profile name, (b) a project with style mapping, nor (c) a CAPTURE command is present
 
 ### 🤔 If style name is ambiguous:
 If there is a style-like name in the request but no profile JSON exists for it, ask:

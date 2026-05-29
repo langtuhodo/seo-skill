@@ -18,12 +18,20 @@ Blog là kênh chính để chiếm TOFU/MOFU traffic, build topical authority, 
 - Khi onboard writer mới (skill này = SOP).
 - Khi audit pipeline (vì đâu publish chậm? quality không đều?).
 
-## 3.5. Load Project Context (nếu viết cho dự án cụ thể)
+## 3.5. Load Project Context (BẮT BUỘC nếu viết cho dự án cụ thể)
 
-Trước khi bắt đầu workflow, đọc:
-1. `projects/{project}/topical.md` → xác định bài thuộc cluster nào, role (pillar/supporting), category hierarchy
-2. `projects/{project}/keywords-urls.md` → biết URL sẵn có cho internal link
-3. `projects/{project}/profile.md` → brand voice, business context
+Đọc theo thứ tự ưu tiên — đồng bộ với Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions → 80% context AI cần | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/profile.md` | Brand voice, business context (chi tiết) | ✅ Nếu memory.md không đủ |
+| 3 | `projects/{project}/topical.md` | Cluster hierarchy, role (pillar/supporting) | ✅ (nếu tồn tại) |
+| 4 | `projects/{project}/keywords-urls.md` | Keywords đã publish → chèn internal link | ✅ (nếu tồn tại) |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
 
 ## 4. Workflow 9 bước
 
@@ -196,6 +204,22 @@ Speed target: writer mid-level: 1500–2000 từ / ngày sau khi brief đủ.
 - Thiếu Key Takeaways box đầu bài → mất cơ hội AI citation + reader bounce cao.
 
 > ⚠️ **Anti-AI Detection**: Mọi bài blog PHẢI tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), Structural Replacement (2A-2F), Humanization Patterns (3.1-3.6), Self-Correction + Red Flag Check (Ruleset 4). MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: `skills/content/Content Writing/SKILL.md` (section 2.4). Đọc style profile trước khi viết.
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Trước khi report task completion cho user, AI BẮT BUỘC update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append entry mới vào Session History (date, CLI/model, task done, files touched, pending carry-over)
+[ ] Append article vừa publish vào Recent Articles (date, title, URL, cluster, role)
+[ ] Edit Active Context (cluster đang ưu tiên, content type focus, last_updated)
+[ ] Edit Pending Tasks (xóa done, thêm mới phát sinh)
+[ ] Append Key Decisions (style/kỹ thuật đã chốt phiên này)
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi (80% case: KHÔNG cần)
+[ ] Commit memory.md trong cùng commit với bài viết (tránh memory dirty)
+```
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
 **Đầu ra**: editorial calendar chạy đều, mỗi bài đi qua brief + workflow + measure, content quality + velocity tăng theo thời gian.

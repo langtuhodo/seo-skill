@@ -22,12 +22,20 @@ Pillar page là trang **"hub" cho 1 cluster topic**, cover topic ở mức tổn
 - Khi build thương hiệu chuyên môn quanh 1 ngách.
 - Khi launch resource hub / academy.
 
-## 3.5. Load Project Context (nếu viết cho dự án cụ thể)
+## 3.5. Load Project Context (BẮT BUỘC nếu viết cho dự án cụ thể)
 
-Pillar page là bài trung tâm của cluster → **BẮT BUỘC đọc topical map trước khi viết**:
-1. `projects/{project}/topical.md` → xác định cluster, tất cả supporting liên quan, category hierarchy cho Topical Context Linking
-2. `projects/{project}/keywords-urls.md` → biết supporting nào đã publish → chèn link xuống mỗi supporting 1 lần
-3. `projects/{project}/profile.md` → brand voice, business context
+Pillar là bài trung tâm cluster → cần càng nhiều context càng tốt. Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions → 80% context AI cần | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/topical.md` | Cả cluster + tất cả supporting + hierarchy cho Topical Context Linking | ✅ PILLAR BẮT BUỘC |
+| 3 | `projects/{project}/keywords-urls.md` | Supporting nào đã publish → chèn link xuống mỗi supporting 1 lần | ✅ |
+| 4 | `projects/{project}/profile.md` | Brand voice, business context (chi tiết) | ✅ Nếu memory.md không đủ |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
 
 ## 4. Workflow xây pillar page
 
@@ -196,6 +204,22 @@ KPI 90 ngày: position, traffic, RD, conversion
 - Thiếu Key Takeaways box + answer-first sections → mất AI citation opportunity.
 
 > ⚠️ **Anti-AI Detection**: Pillar là bài quan trọng nhất — PHẢI có kinh nghiệm cá nhân, case study thực, quan điểm rõ ràng. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), Structural Replacement (2A-2F), Humanization (3.1-3.6), Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: `skills/content/Content Writing/SKILL.md` (section 2.4).
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Pillar publish là mốc quan trọng → PHẢI update `projects/{project}/memory.md`. Checklist 7 điểm (đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, task done, files touched)
+[ ] Append Recent Articles — PILLAR URL + cluster + role=pillar (đánh dấu quan trọng)
+[ ] Edit Active Context — cập nhật "Pillar publish xong, sprint sau focus: bonus supporting"
+[ ] Edit Pending Tasks — xóa pillar done, thêm supporting còn thiếu trong cluster
+[ ] Append Key Decisions — cấu trúc pillar (mega-guide/hub/course), URL slug, format đã chốt
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi (hiếm)
+[ ] Commit memory.md trong cùng commit với pillar (tránh memory dirty)
+```
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
 

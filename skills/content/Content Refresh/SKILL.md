@@ -28,6 +28,21 @@ Không refresh khi:
 - Bài news/event đã hết relevance.
 - Bài duplicate trong cluster (consolidate thay vì refresh).
 
+## 3.5. Load Project Context (BẮT BUỘC nếu refresh cho dự án cụ thể)
+
+Content Refresh là **task lặp định kỳ** (thường hằng quý hoặc bổ sung Phantom Keywords 1 tháng/lần). Memory.md cực quan trọng vì **nếu không nhớ bài nào đã refresh, AI sẽ refresh trùng**. Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Session History + Key Decisions → bài nào đã refresh, kết quả Win/Flat/Loss, lessons learned | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/keywords-urls.md` | URL portfolio + last_refresh date → tiêu chí identify candidates | ✅ BẮT BUỘC |
+| 3 | `projects/{project}/profile.md` | Brand voice → refresh phải giữ giọng nhất quán | ✅ Nếu memory.md không đủ |
+| 4 | `projects/{project}/topical.md` | Cluster context → refresh phải giữ vai trò (pillar/supporting) | ✅ Nếu tồn tại |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới). Cực kỳ quan trọng với Content Refresh vì task lặp định kỳ.
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
+
 ## 4. Workflow refresh 7 bước
 
 ### Bước 1. Identify candidates
@@ -236,6 +251,24 @@ Phân tích:
 > ⚠️ **Anti-AI Detection**: Khi refresh, đây là cơ hội tốt nhất để humanize nội dung — thêm kinh nghiệm cá nhân, case study mới, quan điểm rõ ràng. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), loại bỏ từ cấm + mẫu câu AI, Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: section 2.4 trong `skills/content/Content Writing/SKILL.md`.
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Content Refresh là task lặp định kỳ → **không persist kết quả = không học được pattern nào hiệu quả**. Update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, "refresh {URL slug} — type Light/Medium/Heavy", files touched)
+[ ] Append Recent Articles — KHÔNG thêm URL mới (URL cũ); thay vào ghép note vào entry hiện có "refreshed YYYY-MM-DD type=L/M/H"
+[ ] Edit Active Context — "Đang refresh batch {sprint}, top decay {N} bài"
+[ ] Edit Pending Tasks — schedule measure 28/60/90 ngày, schedule Phantom Keywords 1 tháng/lần
+[ ] Append Key Decisions — type refresh, bài nào **đã refresh** (tránh trùng phiên sau), result Win/Flat/Loss khi có
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi
+[ ] Commit memory.md cùng commit với bài refresh
+```
+
+> ⭐ **Quan trọng với Refresh**: Key Decisions PHẢI ghi rõ "Đã refresh: {URL} — {date} — type — result" để phiên sau AI biết không refresh lại bài đó trong vòng 6 tháng (trừ khi traffic tiếp tục decay).
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 ---
 **Đầu ra**: refresh backlog quarterly, win rate ≥ 60%, contribute lớn vào tổng growth không cần publish thêm bài mới.

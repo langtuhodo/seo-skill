@@ -18,6 +18,21 @@ Topic Cluster là **mô hình content tổ chức theo cụm**: 1 pillar + N sup
 - Khi expand sang ngách mới.
 - Khi audit content cũ rời rạc — re-organize thành cluster.
 
+## 3.5. Load Project Context (BẮT BUỘC nếu viết cho dự án cụ thể)
+
+Tạo topical map = quyết định kiến trúc cluster cho cả dự án. Trước khi tạo mới PHẢI biết cluster nào đã có, tránh duplicate. Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Active Context (cluster đang focus) + Key Decisions cluster-related | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/topical.md` | Cluster hiện có → tránh duplicate, xác định cluster boundary | ✅ Nếu tồn tại |
+| 3 | `projects/{project}/profile.md` | Business context, ICP → cluster phải map tới pain/goal thực | ✅ Nếu memory không đủ |
+| 4 | `projects/{project}/keywords-urls.md` | URL đã publish — gắn vào cluster tương ứng | ✅ Nếu tồn tại |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
+
 ## 4. Workflow xây cluster
 
 ### Lưu trữ Output
@@ -185,6 +200,22 @@ Trả về dạng table + tree.
 > ⚠️ **Anti-AI Detection**: Mỗi bài trong cluster PHẢI có giọng văn người thật, ví dụ cụ thể, quan điểm rõ ràng. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), Structural Replacement (2A-2F), Humanization (3.1-3.6), Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: section 2.4 trong `skills/content/Content Writing/SKILL.md`.
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Tạo topical map là Key Decision lớn cho cả dự án → PHẢI update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, "tạo/cập nhật topical map cluster X", files touched)
+[ ] Append Recent Articles (KHÔNG áp dụng — topical map không phải article)
+[ ] Edit Active Context — "Cluster đang focus: {tên cluster mới}, production order: 5 supporting trước → pillar"
+[ ] Edit Pending Tasks — append từng supporting cần viết theo production order
+[ ] Append Key Decisions — cluster boundary, head keyword pillar, số supporting dự kiến, internal link strategy
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi (hiếm)
+[ ] Commit memory.md trong cùng commit với topical.md / keywords-urls.md
+```
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 ---
 **Đầu ra**: Cluster Map có pillar + supporting + internal link plan + production schedule + audit cadence.

@@ -19,6 +19,21 @@ Tools content là **trang tương tác (calculator, generator, checker, converte
 - Khi muốn kiếm backlink quy mô passively.
 - Khi muốn chiếm "{tool} keyword" volume cao.
 
+## 3.5. Load Project Context (BẮT BUỘC nếu build tool cho dự án cụ thể)
+
+Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/profile.md` | Brand voice, ICP, conversion path → tool phải dẫn tới business offering | ✅ Nếu memory.md không đủ |
+| 3 | `projects/{project}/topical.md` | Cluster tương ứng → tool phải thuộc 1 cluster có sẵn hoặc mở cluster mới | ✅ Nếu tồn tại |
+| 4 | `projects/{project}/keywords-urls.md` | URL pillar/supporting đã publish → chèn internal link từ trang tool 1 lần mỗi URL | ✅ Nếu tồn tại |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
+
 ## 4. Workflow build tools content
 
 ### Bước 1. Discovery — keyword tool
@@ -197,6 +212,22 @@ KPI 90 ngày: visits, embed count, RD, conversion
 > ⚠️ **Anti-AI Detection**: Content layer đi kèm tool PHẢI có giọng văn người thật, ví dụ cụ thể. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), Structural Replacement (2A-2F), Humanization (3.1-3.6), Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: section 2.4 trong `skills/content/Content Writing/SKILL.md`.
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Tool launch = asset lớn, cần persist quyết định để phát triển tiếp ở phiên sau. Update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, "build/update tool {ten-tool}", files touched)
+[ ] Append Recent Articles — tool URL + đánh dấu type="tool" trong note
+[ ] Edit Active Context — "Tool launched: {name}, next: distribution + 3 content surround"
+[ ] Edit Pending Tasks — backlink campaign, 3 bài content surround, programmatic expansion (nếu có)
+[ ] Append Key Decisions — tool stack (no-code/code), schema dec, conversion path, free vs paid
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi
+[ ] Commit memory.md cùng commit với tool deliverable
+```
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 ---
 **Đầu ra**: tools content như asset SEO bền vững, có schema + content layer + distribution + conversion path.

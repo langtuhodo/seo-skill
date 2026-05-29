@@ -50,7 +50,24 @@ Không rewrite — việc sửa bài dùng skill Content Writing riêng.
 
 ---
 
-## 4. Workflow — 5 Phase
+## 3.5. Load Project Context (BẮT BUỘC nếu audit cho dự án cụ thể)
+
+Topical Audit ra Key Decisions lớn (merge/delete bài, gợi ý subtopic mới). Memory.md giúp biết cluster nào đã audit gần đây, tránh audit trùng. Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Key Decisions → cluster nào đã audit, quyết định merge/delete đã chốt | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/topical.md` | Cluster boundary + pillar/supporting hiện có → input chính của audit | ✅ BẮT BUỘC |
+| 3 | `projects/{project}/keywords-urls.md` | URL portfolio → cross-check với cluster file | ✅ Nếu tồn tại |
+| 4 | `projects/{project}/profile.md` | Brand voice (cho tiêu chí Giọng văn 15đ) | ✅ Nếu memory không đủ |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem Phase 6 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
+
+---
+
+## 4. Workflow — 6 Phase
 
 ---
 
@@ -457,6 +474,26 @@ Sau khi audit xong, tổng hợp thành **Topical Map** cho toàn bộ cluster:
 
 ---
 
+### Phase 6: Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+Audit ra **nhiều Key Decisions** (merge/delete bài, gợi ý subtopic mới, cập nhật verdict scoring). Không persist vào memory = audit bị "rơi" sau phiên. Update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, "audit cluster {X} — cluster_health={MẠNH/TRUNG BÌNH/YẾU}", files touched)
+[ ] Append Recent Articles — KHÔNG áp dụng (audit không publish bài)
+[ ] Edit Active Context — "Đã audit cluster {X}, tiếp theo focus: fix Priority 1 + bổ sung {N} subtopic"
+[ ] Edit Pending Tasks — append từng action từ Priority 1+2+3+4 (merge/delete/optimize/rewrite/viết mới/liên kết)
+[ ] Append Key Decisions — cluster_health verdict, avg_score, danh sách merge "A → B", delete URL, subtopic cần viết mới
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi (hiếm)
+[ ] Commit memory.md cùng commit với audit report
+```
+
+> ⭐ **Quan trọng với Audit**: Mỗi quyết định merge/delete phải ghi rõ trong Key Decisions để phiên sau AI biết và không "hồi sinh" bài đã quyết định xoá.
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
+
+---
+
 ## 5. Template — Audit Report Output
 
 ```markdown
@@ -581,6 +618,7 @@ subtopics_missing: {N}
 
 | Khi cần | Dùng skill |
 |---------|-----------|
+| **Load context trước audit + persist decisions sau audit** | `skills/project-memory/SKILL.md` ⭐ |
 | Rewrite bài sau audit | `skills/content/Content Writing/SKILL.md` |
 | Viết subtopic mới (bổ sung gap) | `skills/content/Content Writing/SKILL.md` |
 | Kiểm tra intent classification | `skills/strategy/Search Intent/SKILL.md` |

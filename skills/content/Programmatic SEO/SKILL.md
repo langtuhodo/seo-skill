@@ -23,6 +23,21 @@ KHÔNG dùng khi:
 - Topic cần expert-written content (YMYL).
 - Không có way to differentiate vs đối thủ.
 
+## 3.5. Load Project Context (BẮT BUỘC nếu pSEO cho dự án cụ thể)
+
+pSEO scale hàng trăm/nghìn URL → quyết định template + data source là Key Decision lớn. Đọc theo thứ tự ưu tiên — đồng bộ Content Writing Phase -1 (v1.6):
+
+| Thứ tự | File | Mục đích | Bắt buộc? |
+|--------|------|----------|-----------|
+| 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Key Decisions → biết pSEO portfolio đã có, tránh pattern duplicate | ✅ ĐỌC TRƯỚC TIÊN |
+| 2 | `projects/{project}/profile.md` | Business model → pSEO phải có conversion path tới product/service | ✅ Nếu memory.md không đủ |
+| 3 | `projects/{project}/topical.md` | Cluster hiện có → pSEO thường là supporting layer cho cluster hoặc hub riêng | ✅ Nếu tồn tại |
+| 4 | `projects/{project}/keywords-urls.md` | Hub/pillar URL → mỗi pSEO page link lên hub (1 URL 1 lần) | ✅ Nếu tồn tại |
+
+> ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới).
+>
+> Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -1 + `skills/project-memory/SKILL.md`.
+
 ## 4. Workflow build pSEO
 
 ### Bước 1. Discovery — modifier pattern
@@ -173,6 +188,22 @@ KPI: 90 ngày indexed ≥ 30%, traffic ≥ X
 > ⚠️ **Anti-AI Detection**: pSEO đặc biệt dễ bị phát hiện AI vì scale lớn. Mỗi template PHẢI có unique data layer + human-edited intro/outro. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), tránh mẫu câu AI (2A-2F), Humanization. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: section 2.4 trong `skills/content/Content Writing/SKILL.md`.
 
 > ⚠️ **Markdown Rule**: KHÔNG dùng `---` (horizontal rule / thẻ `<hr>`) trong bài viết output. Dùng heading (`##`, `###`) để tách section, hoặc 1 dòng trống.
+
+## 8.5. Session End Protocol — Update Memory (BẮT BUỘC cuối phiên)
+
+pSEO portfolio = nhiều URL cùng pattern → phải persist template + data source + pruning rule để maintain. Update `projects/{project}/memory.md` (checklist 7 điểm — đồng bộ Content Writing Phase 7):
+
+```
+[ ] Append Session History (date, CLI/model, "build pSEO pattern {A}-to-{B}, beta {N} pages", files touched)
+[ ] Append Recent Articles — KHÔNG liệt kê từng URL pSEO (quá nhiều); ghi hồ sơ portfolio ("+50 pages /converters/" 1 dòng)
+[ ] Edit Active Context — "pSEO portfolio: {pattern} (beta) → monitoring 30 ngày"
+[ ] Edit Pending Tasks — review beta 30 ngày, scale nếu đạt quality gate, prune URL 0 traffic 6 tháng
+[ ] Append Key Decisions — template spec, data source, quality gate (≥ 300 unique words), pruning rule, sitemap split
+[ ] Refresh Quick Facts CHỈ KHI profile.md đổi
+[ ] Commit memory.md cùng commit với template + spec pSEO
+```
+
+Chi tiết: `skills/project-memory/SKILL.md` + `skills/content/Content Writing/SKILL.md` Phase 7.
 
 ---
 **Đầu ra**: pSEO portfolio có quality gate, sitemap riêng, monitoring + pruning runbook — scale traffic mà không bị penalty.
