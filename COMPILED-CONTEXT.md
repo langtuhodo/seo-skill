@@ -1,6 +1,6 @@
 # COMPILED CONTEXT — Fast-Lane Skill Digest
 
-> **AI assistant đọc file này TRƯỚC TIÊN mỗi phiên** thay vì tải 60 skill + 16 knowledge notes.
+> **AI assistant đọc file này TRƯỚC TIÊN mỗi phiên** thay vì tải 61 skill + 17 knowledge notes.
 > Mục tiêu: bootstrap context < 5k token. Chỉ deep-dive `SKILL.md` cụ thể KHI cần workflow chi tiết.
 >
 > File này được duy trì thủ công. Khi `skills/` hoặc `knowledge/` thay đổi đáng kể → cập nhật ở đây.
@@ -69,9 +69,18 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 | Viết bất kỳ bài nào | `skills/content/Content Writing/SKILL.md` ⭐ |
 | Áp dụng phong cách viết theo dự án | `skills/style-mimicker/SKILL.md` ⭐ |
 | Quản lý trạng thái dự án giữa các phiên | `skills/project-memory/SKILL.md` ⭐ |
-| Audit topical | `skills/content/Topical Audit/SKILL.md` |
+| Audit 1 bài đơn lẻ (E-E-A-T & SEO) — command `/audit` | `skills/content/Content Evaluation/SKILL.md` ⭐ |
+| Audit topical (cluster-level) | `skills/content/Topical Audit/SKILL.md` |
 | Tạo topical map | `skills/content/Topic Clusters/SKILL.md` |
 | Brand distribution end-to-end | `playbooks/07-brand-distribution-workflow.md` |
+
+### 2.2.1. Slash Commands (hoạt động ưu tiên cao hơn keyword match)
+
+| Command | Skill kích hoạt | Mục đích |
+|---------|-----------------|---------|
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026, output `audit/evaluation-{slug}-{date}.md` |
+
+**Anti-collision**: `/audit` LUÔN route đến `Content Evaluation`. KHÔNG nhầm sang `Topical Audit` (cluster-level) hay `Content Refresh` (decay-level).
 
 ### 2.3. Playbooks End-to-End (7 cái)
 
