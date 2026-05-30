@@ -6,7 +6,7 @@
 
 ```
 seo-skills/
-├── skills/                 # 60 skills theo 12 categories
+├── skills/                 # 62 skills theo 12 categories
 │   ├── strategy/
 │   ├── on-page/
 │   ├── technical/
@@ -35,7 +35,7 @@ seo-skills/
 
 **Đầu mỗi phiên, AI làm 3 bước theo thứ tự:**
 
-1. **Đọc `COMPILED-CONTEXT.md`** — skill digest gọn (~4k token) thay vì load 60 skill + 17 knowledge notes
+1. **Đọc `COMPILED-CONTEXT.md`** — skill digest gọn (~4k token) thay vì load 62 skill + 18 knowledge notes
 2. **NẾU task gắn 1 dự án cụ thể**: Đọc `projects/{ten-du-an}/memory.md` TRƯỚC TIÊN — cache trạng thái dự án (Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions)
 3. **CHỈ deep-dive `SKILL.md` / `profile.md` / `topical.md` / `keywords-urls.md` cụ thể** khi 2 file trên không đủ context
 
@@ -76,7 +76,17 @@ Khi nhận task SEO, AI assistant sẽ:
 | 16 | **SEO Trends 2026** | rare attribute, topical authority, phantom keywords, keyword phụ, platform diversification, zero-click, AI Overviews, owned community, user-first content, agentic SEO | `knowledge/16-seo-trends-2026.md` |
 | 17 | **Project Memory** | project memory, session memory, context cache, COMPILED-CONTEXT, memory.md, session end protocol, ghi nhớ ngữ cảnh, bộ nhớ dự án, giảm token bootstrap, lưu trạng thái dự án | `knowledge/17-project-memory.md` |
 
-## 60 Skills — Full Index
+## Slash Commands — Quick Activation
+
+Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên hơn keyword match, KHÔNG được nhầm sang skill khác):
+
+| Command | Skill kích hoạt | Mục đích |
+|---------|-----------------|---------|
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` | Audit 1 bài viết theo chuẩn E-E-A-T & SEO (single-article) |
+
+**Anti-collision**: `/audit` LUÔN route đến `Content Evaluation` (bài đơn). Audit cluster vẫn dùng `Topical Audit` qua keyword "audit cluster" — không có command riêng.
+
+## 62 Skills — Full Index
 
 ### Strategy (5 skills)
 - `skills/strategy/Keyword Research/SKILL.md` — discover demand, volume + KD + intent + business value
@@ -102,7 +112,7 @@ Khi nhận task SEO, AI assistant sẽ:
 - `skills/technical/Canonical Tags/SKILL.md` — consolidate URL variants
 - `skills/technical/XML Sitemaps/SKILL.md` — lastmod, multi sitemap
 
-### Content (9 skills)
+### Content (10 skills)
 - `skills/content/Content Writing/SKILL.md` — **User Psychology + EEAT + GEO + giọng văn có hồn** ⭐ BẮT BUỘC TRƯỚC KHI VIẾT
 - `skills/content/Blog Content/SKILL.md` — editorial calendar, brief, workflow
 - `skills/content/Pillar Pages/SKILL.md` — hub-and-spoke, mega-guide
@@ -112,6 +122,7 @@ Khi nhận task SEO, AI assistant sẽ:
 - `skills/content/Programmatic SEO/SKILL.md` — template + data, quality gate
 - `skills/content/Content Refresh/SKILL.md` — striking distance, light/medium/heavy
 - `skills/content/Topical Audit/SKILL.md` — audit cluster + page scoring 100đ + topical map + coverage gap + recommendations
+- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit`
 
 ### Style (1 skill)
 - `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING
