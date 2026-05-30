@@ -1,5 +1,13 @@
 # Keyword Research — Nghiên cứu từ khoá
 
+> **Output path 2026 (folder-scoped)**:
+> - **Keyword research toàn project** → `projects/{project}/research/keyword-research.md`
+> - **Keyword research theo cluster** → `projects/{project}/research/keyword-research-{cluster}.md`
+> - **Content brief sau research** → `projects/{project}/research/brief-{slug-bai}.md`
+> - **Cập nhật keyword + URL portfolio** → `projects/{project}/keywords-urls.md` (root — file lõi)
+>
+> Tạo folder `research/` nếu chưa có. KHÔNG lưu keyword-research.md trực tiếp ở root project. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT" + `COMPILED-CONTEXT.md` mục 9.
+
 ## 1. Purpose / Mục đích
 Keyword Research là bước **xác định nhu cầu tìm kiếm thật** mà người dùng đang gõ vào Google/Bing/AI search, từ đó chọn ra các truy vấn (queries) đáng đầu tư nội dung. Một bộ keyword tốt là bản đồ giúp toàn bộ chiến lược SEO (content, on-page, internal link, link building) bám vào nhu cầu người dùng có thật, có volume, và có khả năng chuyển đổi — thay vì viết theo cảm tính.
 

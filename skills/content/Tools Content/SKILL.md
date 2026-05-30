@@ -2,6 +2,8 @@
 
 > **Chuẩn 2026 bắt buộc**: Trang tool là widget JS phức tạp → ưu tiên **INP < 200ms** (Core Web Vitals 2026). Mỗi tool có Summary Chunk 40-60 chữ giải thích cách dùng + Bite-sized FAQ + meta_description ≤ 135 chars. Tool kết quả có ProfilePage schema cho tác giả. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/16-seo-trends-2026.md` (mục 3.9 INP).
 
+> **Output path 2026 (folder-scoped)**: Trang tool (markdown spec / brief / launch plan) lưu vào `projects/{project}/writing/{slug-tool}.md`. JSON-LD schema cho tool / SoftwareApplication / FAQ → `projects/{project}/technical/schema-{Type}.json`. KHÔNG lưu trực tiếp ở root project. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Tools content là **trang tương tác (calculator, generator, checker, converter)** thay cho article tĩnh. Đặc tính: traffic ổn định + bền theo năm, backlink magnet, conversion cao (vì user đang trong moment-of-need), và là asset riêng đối thủ khó copy. Một tool tốt có thể kéo 100k+ traffic/tháng + 500+ RD trong 12 tháng — vượt trội bất kỳ blog nào.
 

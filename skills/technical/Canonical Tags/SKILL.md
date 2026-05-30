@@ -1,5 +1,7 @@
 # Canonical Tags — Thẻ canonical
 
+> **Output path 2026 (folder-scoped)**: Canonical audit + duplicate analysis → `projects/{project}/technical/canonical-audit-{yyyy-mm-dd}.md`. Canonical mapping table → `projects/{project}/technical/canonical-map.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Canonical tag (`<link rel="canonical" href="..."/>`) cho Google biết **URL chính** (master) khi có nhiều URL hiển thị cùng/gần cùng nội dung. Implement đúng giúp consolidate ranking signal, tránh duplicate, tránh bị Google chọn nhầm canonical. Implement sai có thể làm trang biến mất khỏi index.
 

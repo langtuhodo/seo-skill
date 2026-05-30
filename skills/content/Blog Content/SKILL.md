@@ -2,6 +2,8 @@
 
 > **Chuẩn 2026 bắt buộc**: Mọi bài blog phải có Summary Chunk 40-60 chữ + Bite-sized H2 + Original Image (no stock) + ProfilePage schema + meta_description ≤ 135 chars. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/16-seo-trends-2026.md` (mục 3.7–3.10) + `knowledge/04-content-seo.md` (Bổ sung 2026).
 
+> **Output path 2026 (folder-scoped)**: Bài blog lưu vào `projects/{project}/writing/{slug-tieu-de}.md`. Tạo folder `writing/` nếu chưa có. KHÔNG lưu trực tiếp ở root project. Chi tiết: `skills/content/Content Writing/SKILL.md` mục "Output path bắt buộc" + `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Blog là kênh chính để chiếm TOFU/MOFU traffic, build topical authority, và nuôi dưỡng audience trước khi convert. Skill này định nghĩa **quy trình từ ý tưởng → publish → distribute → measure** cho 1 bài blog SEO chuẩn — không phải lý thuyết, mà là quy trình chạy được hằng tuần ở quy mô team.
 

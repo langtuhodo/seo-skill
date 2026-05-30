@@ -223,23 +223,39 @@ Chi tiết: `knowledge/16-seo-trends-2026.md`.
 - Pillar → link xuống mỗi supporting 1 lần
 - Link ngang trong cùng cluster: chỉ khi thực sự liên quan ngữ nghĩa
 
-## 9. PROJECT FOLDER STRUCTURE
+## 9. PROJECT FOLDER STRUCTURE (2026 — folder-scoped)
 
 ```
 projects/{ten-du-an}/
-├── memory.md            ← MỚI: bộ nhớ giữa các phiên (đọc TRƯỚC TIÊN)
-├── profile.md           ← WHO: brand, USP, business context
-├── topical.md           ← WHAT: sơ đồ topical map
-├── keywords-urls.md     ← WHERE: keyword + URL đã publish
-├── {bai-viet}.md        ← OUTPUT
-└── brand-distribution/  ← GBP / FB / Zalo plans
+├── memory.md            ← Bộ nhớ giữa các phiên (đọc TRƯỚC TIÊN, file lõi root)
+├── profile.md           ← Brand voice + USP + business context (file lõi root)
+├── topical.md           ← Sơ đồ topical map (file lõi root)
+├── keywords-urls.md     ← Keyword + URL đã publish (file lõi root)
+│
+├── writing/             ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
+├── refresh/             ⭐ Bài REFRESH/optimize content cũ
+├── research/            ⭐ Keyword research + Content brief
+├── audit/               ⭐ Topical + Content audit
+├── technical/           ⭐ Technical SEO audit + JSON-LD schema snippets
+├── brand-distribution/  GBP / FB / Zalo plans (giữ nguyên)
+└── archive/             ⭐ Memory rotation + lưu trữ
 ```
 
-Naming convention output:
-- Content: `{slug-tieu-de}.md`
-- Brief: `brief-{slug-tieu-de}.md`
-- Audit: `audit-{yyyy-mm-dd}.md`
-- Weekly plan: `brand-distribution/plan-tuan-{X}-thang-{M}-{YYYY}.md`
+**Quy tắc**: 4 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`) ở ROOT. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project.
+
+Naming convention output (full path):
+
+| Deliverable | Path |
+|-------------|------|
+| Bài viết mới | `projects/{project}/writing/{slug-tieu-de}.md` |
+| Bài refresh | `projects/{project}/refresh/{slug-tieu-de}.md` |
+| Keyword research | `projects/{project}/research/keyword-research.md` hoặc `research/keyword-research-{cluster}.md` |
+| Content brief | `projects/{project}/research/brief-{slug-tieu-de}.md` |
+| Topical/content audit | `projects/{project}/audit/audit-{yyyy-mm-dd}.md` |
+| Technical audit | `projects/{project}/technical/audit-{yyyy-mm-dd}.md` |
+| JSON-LD schema | `projects/{project}/technical/schema-{Type}.json` |
+| Weekly plan brand | `projects/{project}/brand-distribution/plan-tuan-{X}-thang-{M}-{YYYY}.md` |
+| Memory rotation | `projects/{project}/archive/memory-{YYYY-MM}.md` |
 
 ## 10. SESSION END PROTOCOL — Bắt buộc cuối phiên
 

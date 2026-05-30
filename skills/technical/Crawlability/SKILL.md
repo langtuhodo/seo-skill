@@ -1,5 +1,7 @@
 # Crawlability — Khả năng thu thập của bot
 
+> **Output path 2026 (folder-scoped)**: Audit report + crawl analysis lưu vào `projects/{project}/technical/crawl-audit-{yyyy-mm-dd}.md`. robots.txt policy → `projects/{project}/technical/robots-policy.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Crawlability là **khả năng bot tìm kiếm (Googlebot, Bingbot, GPTBot, …) tiếp cận và đọc URL của site**. Không crawl được → không index → không rank, dù content có hay tới đâu. Skill này đảm bảo bot có thể vào, đi đúng hướng, không lãng phí crawl budget vào URL rác.
 

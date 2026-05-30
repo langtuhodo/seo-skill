@@ -1,5 +1,11 @@
 # Schema Markup — Dữ liệu có cấu trúc
 
+> **Output path 2026 (folder-scoped)**:
+> - **JSON-LD snippets** → `projects/{project}/technical/schema-{Type}.json` (Article, FAQPage, Product, Organization, BreadcrumbList, ProfilePage, SoftwareApplication...)
+> - **Schema strategy document** → `projects/{project}/technical/schema-strategy.md`
+>
+> Tạo folder `technical/` nếu chưa có. KHÔNG lưu schema-*.json hoặc audit technical trực tiếp ở root project. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Schema (structured data) cho phép Google + AI Search hiểu content theo **entity + relationship**, kích hoạt **rich result** (FAQ, How-to, Review star, Product price, Recipe, Breadcrumb, Organization knowledge panel). Schema không phải ranking factor trực tiếp nhưng (1) tăng CTR 10–30% nhờ rich snippet, (2) giúp AI Overview / LLM cite content chính xác, (3) là tín hiệu chuyên nghiệp + EEAT.
 

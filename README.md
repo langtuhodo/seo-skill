@@ -106,9 +106,21 @@ Mỗi file kỹ năng tuân theo cấu trúc 8 phần:
 
 ## Projects (`projects/`)
 
-Output được tổ chức theo dự án. Khi yêu cầu task SEO cho một website/công ty cụ thể, AI sẽ tự động:
-1. Tạo folder `projects/{ten-du-an}/`
-2. Lưu output vào folder đó với naming convention chuẩn
+Output được tổ chức theo dự án + folder-scoped (chuẩn 2026). Khi yêu cầu task SEO cho một website/công ty cụ thể, AI tự động tạo & lưu vào subfolder tương ứng:
+
+```
+projects/{ten-du-an}/
+├── memory.md, profile.md, topical.md, keywords-urls.md  ← 4 file lõi ở ROOT
+├── writing/{slug}.md          ⭐ bài viết mới (blog/pillar/supporting/tools/evergreen/pSEO)
+├── refresh/{slug}.md          ⭐ bài refresh/optimize content cũ
+├── research/                  ⭐ keyword research + content brief
+├── audit/audit-{date}.md      ⭐ topical/content audit
+├── technical/                 ⭐ technical SEO audit + JSON-LD schema snippets
+├── brand-distribution/        GBP + FB + Zalo plans (giữ nguyên)
+└── archive/                   ⭐ memory rotation + lưu trữ
+```
+
+Chi tiết path convention cho từng loại output: xem `AGENTS.md` Section "GENERATE OUTPUT" và `COMPILED-CONTEXT.md` mục 9.
 
 ## IDE/CLI Support
 
@@ -137,12 +149,14 @@ Bộ skill này auto-load với các tool sau:
 - ✅ v1.4: 15 Knowledge Notes + Entity SEO + E-E-A-T & Quality + SEO Foundations
 - ✅ v1.5: Brand Distribution (4 skills) + 7 Playbooks + Project Profile workflow
 - ✅ v1.6: ⭐ Project Memory System (COMPILED-CONTEXT digest + per-project memory.md + Session End Protocol)
-- 🔲 v1.7: Dashboard mẫu (Looker Studio / GA4 / GSC)
-- 🔲 v1.8: Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
+- ✅ v1.7: SEO 2026 Migration (M1+S2+D1) — Metadata SOP, AIO-readiness, Title <550px, Meta ≤135 chars, Topical Audit 100đ reweight
+- ✅ v1.8: Folder-scoped Project Structure — writing/, refresh/, research/, audit/, technical/, archive/ subfolders cho mỗi project
+- 🔲 v1.9: Dashboard mẫu (Looker Studio / GA4 / GSC)
+- 🔲 v2.0: Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
 
 ---
 
-*SEO Skills Library v1.6 — 61 skills, 17 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory*
-*Maintained for AI SEO 2025+*
+*SEO Skills Library v1.8 — 61 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output*
+*Maintained for AI SEO 2026+*
 
 *Maintained as a senior SEO assistant playbook. Cập nhật theo guideline mới của Google & xu hướng AI SEO 2025+.*

@@ -3,6 +3,17 @@
 > Copy file này thành `projects/{ten-du-an}/memory.md` cho mỗi dự án. AI đọc file này TRƯỚC TIÊN ở Phase -1 và cập nhật cuối mỗi phiên (Session End Protocol).
 >
 > Đầy đủ quy trình: xem `skills/project-memory/SKILL.md`
+>
+> **Cấu trúc folder dự án (2026)**: Khi tạo dự án mới, tạo các subfolder rỗng sau (sẽ fill dần khi có output):
+> - `projects/{project}/writing/` — bài viết mới
+> - `projects/{project}/refresh/` — bài optimize/refresh
+> - `projects/{project}/research/` — keyword research + brief
+> - `projects/{project}/audit/` — topical/content audit
+> - `projects/{project}/technical/` — technical SEO + JSON-LD schema
+> - `projects/{project}/brand-distribution/` — GBP + FB + Zalo
+> - `projects/{project}/archive/` — memory rotation + lưu trữ
+>
+> 4 file lõi giữ ở root: `memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`. Chi tiết: `AGENTS.md` Section "Project Folder Structure".
 
 ---
 
@@ -40,7 +51,7 @@ Trạng thái "đang làm gì" của dự án TẠI THỜI ĐIỂM HIỆN TẠI.
 
 ## Session History (10 phiên gần nhất)
 
-Append 1 dòng mỗi phiên. Giữ tối đa 10. Khi đầy → archive vào `memory-archive-{YYYY-QN}.md`.
+Append 1 dòng mỗi phiên. Giữ tối đa 10. Khi đầy → archive vào `projects/{project}/archive/memory-{YYYY-MM}.md` (subfolder `archive/` — chuẩn 2026).
 
 | Date | CLI / Model | Task Done | Files Touched | Pending Carry-over |
 |------|-------------|-----------|---------------|---------------------|

@@ -2,6 +2,13 @@
 
 > **Chuẩn 2026 bắt buộc**: Topic Cluster 2026 = Entity Mapping (Vector Search thay keyword density) + Topical Context Linking (cha→con→cháu) + mỗi bài có Summary Chunk + Conversational Queries 10-20 từ. Xem `knowledge/04-content-seo.md` (Bổ sung 2026) + `knowledge/16-seo-trends-2026.md` (mục 3.7).
 
+> **Output path 2026 (folder-scoped)**:
+> - **Topical map** (sơ đồ cluster + pillar/supporting) → `projects/{project}/topical.md` (root — file lõi, giữ nguyên).
+> - **Keyword research per cluster** → `projects/{project}/research/keyword-research-{cluster}.md` (subfolder `research/`).
+> - **Bài viết của từng node trong cluster** (khi viết) → `projects/{project}/writing/{slug-bai}.md` (subfolder `writing/`).
+>
+> KHÔNG lưu output cluster trực tiếp ở root project (ngoại trừ `topical.md`). Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 Topic Cluster là **mô hình content tổ chức theo cụm**: 1 pillar + N supporting + mạng lưới internal link kết nối. Đây là "ngôn ngữ" mà Google thực sự đánh giá site (theo entity + topical authority), thay vì xem từng bài rời rạc. Site có cluster mạnh outrank site rời rạc dù DR thấp hơn.
 

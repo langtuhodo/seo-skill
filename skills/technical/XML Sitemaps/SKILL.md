@@ -1,5 +1,7 @@
 # XML Sitemaps — Sitemap XML
 
+> **Output path 2026 (folder-scoped)**: Sitemap strategy + structure plan → `projects/{project}/technical/sitemap-plan.md`. Sitemap audit / health check → `projects/{project}/technical/sitemap-audit-{yyyy-mm-dd}.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".
+
 ## 1. Purpose / Mục đích
 XML sitemap là "danh sách URL bạn muốn Google biết". Là kênh phụ giúp khám phá URL (discovery) — đặc biệt với site lớn, URL sâu, hoặc trang ít internal link. Sitemap đúng còn cung cấp signal `lastmod` để Google biết khi nào cần re-crawl. Skill này đảm bảo sitemap clean, accurate, được submit đúng cách.
 
