@@ -82,7 +82,7 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 
 | Command | Skill kích hoạt | Mục đích |
 |---------|-----------------|---------|
-| `/audit` | `skills/content/Content Evaluation/SKILL.md` | Audit 1 bài viết theo chuẩn E-E-A-T & SEO (single-article) |
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.1 | Audit 1 bài viết theo chuẩn E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ |
 
 **Anti-collision**: `/audit` LUÔN route đến `Content Evaluation` (bài đơn). Audit cluster vẫn dùng `Topical Audit` qua keyword "audit cluster" — không có command riêng.
 
@@ -122,7 +122,7 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 - `skills/content/Programmatic SEO/SKILL.md` — template + data, quality gate
 - `skills/content/Content Refresh/SKILL.md` — striking distance, light/medium/heavy
 - `skills/content/Topical Audit/SKILL.md` — audit cluster + page scoring 100đ + topical map + coverage gap + recommendations
-- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit`
+- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit` v1.1 (+ Duplicate Detection + Verdict 4 trạng thái)
 
 ### Style (1 skill)
 - `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING

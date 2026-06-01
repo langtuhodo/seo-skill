@@ -152,11 +152,12 @@ Bộ skill này auto-load với các tool sau:
 - ✅ v1.7: SEO 2026 Migration (M1+S2+D1) — Metadata SOP, AIO-readiness, Title <550px, Meta ≤135 chars, Topical Audit 100đ reweight
 - ✅ v1.8: Folder-scoped Project Structure — writing/, refresh/, research/, audit/, technical/, archive/ subfolders cho mỗi project
 - ✅ v1.9: Content Evaluation skill + `/audit` command — audit 1 bài đơn lẻ theo E-E-A-T & SEO 2026 với 6-section report
+- ✅ v1.9.1: Content Evaluation v1.1 — Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ. Schema `keywords-urls.md` migrate từ 8 cột → 7 cột (bỏ `Trạng thái`, thêm `Tiêu đề`).
 - 🔲 v2.0: Dashboard mẫu (Looker Studio / GA4 / GSC) + Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
 
 ---
 
-*SEO Skills Library v1.9 — 62 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output + `/audit` command*
+*SEO Skills Library v1.9.1 — 62 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output + `/audit` v1.1 (Duplicate Detection + Verdict 4 trạng thái) + keywords-urls.md schema v1.1 (7 cột)*
 *Maintained for AI SEO 2026+*
 
 *Maintained as a senior SEO assistant playbook. Cập nhật theo guideline mới của Google & xu hướng AI SEO 2025+.*
