@@ -1,20 +1,23 @@
 # Content Evaluation — Audit 1 bài viết theo chuẩn E-E-A-T & SEO (`/audit`)
 
-> **Persona kích hoạt**: AI nhập vai **Technical SEO Director kiêm Google Quality Rater cấp cao**. Không chào hỏi, không lan man, đi thẳng vào báo cáo 6 phần.
+> **Version**: v1.1 (2026-05-27) — thêm Duplicate Detection (Phase 3) + Verdict 4 trạng thái (Section 0) + chuẩn hóa thang 100đ cho verdict.
+>
+> **Persona kích hoạt**: AI nhập vai **Technical SEO Director kiêm Google Quality Rater cấp cao**. Không chào hỏi, không lan man, đi thẳng vào báo cáo.
 >
 > **Command kích hoạt chính**: `/audit` (xem mục 4 — Activation).
 >
-> Skill này KHÁC `Topical Audit` (cluster-level, scoring 100đ) và KHÁC `Content Refresh` (decay/striking-distance để optimize). `Content Evaluation` chỉ chấm **1 bài đơn lẻ** (draft hoặc đã publish) theo thang 5×10đ + checklist sửa đổi. Không rewrite — chỉ ra "sai ở đâu, sửa thế nào". Người dùng tự fix bằng skill khác.
+> Skill này KHÁC `Topical Audit` (cluster-level, scoring 100đ) và KHÁC `Content Refresh` (decay/striking-distance để optimize). `Content Evaluation` chỉ chấm **1 bài đơn lẻ** (draft hoặc đã publish) theo thang 5×10đ (= 100đ chuẩn hóa) + duplicate check vs `keywords-urls.md` + verdict 4 trạng thái + checklist sửa đổi. Không rewrite — chỉ ra "sai ở đâu, sửa thế nào, nên làm gì tiếp (giữ/cập nhật/làm mới/xóa)". Người dùng tự fix bằng skill khác.
 
 ## 1. Purpose / Mục đích
 
 `Content Evaluation` trả lời 1 câu hỏi duy nhất: **"Bài viết này có đạt chuẩn E-E-A-T & SEO 2026 chưa? Sai gì? Sửa thế nào?"**
 
-- Input: 1 bài viết (draft hoặc đã publish) + 6 thông số đầu vào (keyword, intent, title, meta...).
-- Output: 1 file báo cáo audit `audit/evaluation-{slug}-{yyyy-mm-dd}.md` gồm 6 phần.
-- Verdict: bảng điểm 5 tiêu chí × 10đ + action plan cầm tay chỉ việc.
+- Input: 1 bài viết (draft hoặc đã publish) + 6 thông số đầu vào (keyword, intent, title, meta...) + (tuỳ chọn) project context có `keywords-urls.md`.
+- Output: 1 file báo cáo audit `audit/evaluation-{slug}-{yyyy-mm-dd}.md` gồm Section 0 (Verdict) + 6 phần chính + 5.5 Duplicate Detection (nếu có project).
+- Verdict: 1 trong 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) — tự động theo thang 100đ (= raw 50đ × 2) và Duplicate Detection.
+- Action plan: cầm tay chỉ việc (chỉ viết khi Verdict = 🟡 hoặc 🟠).
 
-Không phải optimize, không phải rewrite. Audit thuần touy.
+Không phải optimize, không phải rewrite. Audit thuần tuý.
 
 ## 2. Core Concepts / Khái niệm cốt lõi
 
@@ -128,7 +131,7 @@ KHÔNG đoán, KHÔNG suy luận, KHÔNG audit thiếu trường.
 **Trường tối thiểu BẮT BUỘC** (5/7): `TỪ KHÓA CHÍNH`, `URL DỰ KIẾN`, `TIÊU ĐỀ SEO`, `SEARCH INTENT`, `NỘI DUNG BÀI VIẾT`.
 **Trường khuyến nghị** (2/7): `TỪ KHÓA PHỤ/LSI`, `MÔ TẢ SEO`. Thiếu 2 trường này AI vẫn audit nhưng note rõ ở phần 2 "Kiểm toán On-page".
 
-## 6. Load Project Context (tuỳ chọn — nếu bài thuộc 1 dự án cụ thể)
+## 6. Load Project Context (nếu bài thuộc 1 dự án cụ thể)
 
 Nếu user đề cập tên dự án (vd "audit bài thep-u của dự án thep-bao-tin") → AI đọc theo thứ tự:
 
@@ -136,16 +139,31 @@ Nếu user đề cập tên dự án (vd "audit bài thep-u của dự án thep-
 |--------|------|----------|-----------|
 | 1 | `projects/{project}/memory.md` | Active Context + Key Decisions → có decision gì ảnh hưởng tới audit không | ✅ Nếu có project |
 | 2 | `projects/{project}/profile.md` | Brand voice + Author Entity (cho EEAT) | ✅ Nếu có project |
-| 3 | `projects/{project}/topical.md` | Cluster của bài → kiểm role (pillar/supporting) | ☑️ Tùy |
-| 4 | `projects/{project}/keywords-urls.md` | Internal link check (bài có cần link tới URL nào) | ☑️ Tùy |
+| 3 | `projects/{project}/keywords-urls.md` (7 cột: `#`, `Keyword`, `Tiêu đề`, `URL`, `Cluster`, `Vai trò`, `Intent`) | **Duplicate Detection** (xem Phase 3 mới) + Internal link check | ✅ **Bắt buộc nếu có project** (không có file này → skip duplicate check + warn user trong report) |
+| 4 | `projects/{project}/topical.md` | Cluster của bài → kiểm role (pillar/supporting) | ☑️ Tùy |
 
-Nếu audit bài **không thuộc dự án nào** (vd audit bài đối thủ, audit bài demo) → skip Phase này.
+Nếu audit bài **không thuộc dự án nào** (vd audit bài đối thủ, audit bài demo) → skip Phase này, cũng skip Duplicate Detection (Phase 3) vì không có dữ liệu so sánh.
 
-## 7. Output — Báo cáo audit 6 phần
+### 6.1. Duplicate Detection — Quy tắc đọc `keywords-urls.md` (mới từ v1.1)
+
+Khi audit bài thuộc project, AI MUST parse `keywords-urls.md` và chạy **4 check** sau:
+
+| # | Check | Cách thực hiện | Output |
+|---|-------|------------------|--------|
+| 1 | **Trùng URL** | So `[URL DỰ KIẾN]` input với cột URL trong file (exact match, normalize trailing slash) | Nếu match → 🔴 **Hard duplicate** — bài này đã có trong project, cần làm rõ: audit bài đã publish hay overwrite? |
+| 2 | **Trùng Keyword chính** | So `[TỪ KHÓA CHÍNH]` input với cột Keyword (case-insensitive, normalize whitespace + dauthuong) | Nếu match URL khác → 🔴 **Keyword duplicate** — đã có bài khác target cùng keyword → cạnh tranh nội bộ (keyword cannibalization) |
+| 3 | **Trùng Tiêu đề ≥ 60% từ** | Tích từ Title input vs Tiêu đề file. Tính Jaccard similarity trên tập từ (bỏ stopwords tiếng Việt: của/và/cho/...). Nếu ≥ 0.60 và URL khác | 🟠 **Soft duplicate** — tiêu đề tương đồng. Có thể overlap nội dung. Cần verify content. |
+| 4 | **Cùng Cluster + cùng Intent** | So Cluster (từ topical.md hoặc đoán từ keyword) và Intent input với các row trong file | Nếu có ≥ 1 row trùng cả cluster + intent và URL khác → 🟠 **Intent overlap** — liệt kê các bài liên quan, cân nhắc merge hoặc phân hoá sub-intent |
+
+**Output của 4 check này in vào Section 5.5 mới của báo cáo** (xem 7.1). Nếu có bất kỳ 🔴 hard duplicate nào → Verdict tự động đặt = `🔴 XÓA / 301` (bất kể điểm số).
+
+Nếu file `keywords-urls.md` có row với cột `Tiêu đề = —` (placeholder migration) → skip check #3 cho row đó và note trong report: "Project keywords-urls.md còn {N} entry chưa điền Tiêu đề — đề nghị bổ sung để duplicate-by-title chính xác hơn."
+
+## 7. Output — Báo cáo audit (Section 0 Verdict + 6 phần chính + Section 5.5 Duplicate)
 
 ### 7.1. Format chuẩn
 
-AI BẮT BUỘC trả về ĐÚNG cấu trúc 6 phần dưới đây. Không thêm phần phụ, không bớt.
+AI BẮT BUỘC trả về ĐÚNG cấu trúc dưới đây. Section 0 Verdict + 6 phần chính + Section 5.5 Duplicate (nếu có project + `keywords-urls.md`). Không thêm phần phụ, không bớt.
 
 ```markdown
 > **Audit Metadata**
@@ -155,9 +173,19 @@ AI BẮT BUỘC trả về ĐÚNG cấu trúc 6 phần dưới đây. Không th�
 > - **search_intent**: {I | N | C | T}
 > - **project**: {tên dự án nếu có, NULL nếu không}
 > - **word_count**: {số từ bài}
-> - **auditor**: Content Evaluation Skill v1.0
+> - **auditor**: Content Evaluation Skill v1.1
 
 # Audit Report — {target_keyword}
+
+## 0. VERDICT (Tự động theo điểm + duplicate)
+
+{Chọn ĐÚNG 1 trong 4 verdict dưới đây. In tag màu + 1 dòng lý do.}
+
+**🟢 GIỮ NGUYÊN** | **🟡 CẬP NHẬT** (Refresh) | **🟠 LÀM MỚI** (Rewrite) | **🔴 XÓA / 301**
+
+> **Lý do (1 dòng)**: Tổng {raw}/50 (= {raw×2}/100). {nên 1 câu: điểm mạnh/yếu chính + flag duplicate nếu có}.
+>
+> **Action chính** (1 dòng): {vd "Route sang Content Refresh — bổ sung data 2026 + Author Entity" | "Route sang Content Writing Phase 0 — rewrite từ đầu" | "301 redirect sang {URL đích từ keywords-urls.md}" | "Không làm gì, re-audit sau 6 tháng"}.
 
 ## 1. BẢNG ĐIỂM (Thang 1-10)
 
@@ -169,7 +197,7 @@ Chỉ ghi điểm số, không giải thích.
 - Tiêu chuẩn E-E-A-T & Information Gain: {x}/10
 - Sẵn sàng cho AI Overviews (SGE): {x}/10
 
-**Tổng**: {sum}/50
+**Tổng raw**: {sum}/50 — **Chuẩn hóa 100đ**: {sum×2}/100 — dùng cho Verdict (xem Section 0).
 
 ## 2. KIỂM TOÁN ON-PAGE
 
@@ -220,9 +248,25 @@ Trích **nguyên văn** tối đa 3 câu/đoạn AI sáo rỗng cần xóa bỏ.
 
 Nếu bài KHÔNG có câu AI sáo rỗng → ghi đúng 1 dòng: "Không phát hiện câu AI sáo rỗng. Văn phong đạt."
 
+## 5.5. DUPLICATE DETECTION (chỉ hiện nếu có project + keywords-urls.md)
+
+Nếu không có project hoặc file `keywords-urls.md` không tồn tại → bỏ section này và ghi 1 dòng: "Skip Duplicate Detection — không có project context hoặc keywords-urls.md."
+
+Nếu có, chạy 4 check theo Phase 3 (xem 6.1) và in kết quả:
+
+- **Trùng URL**: {None | 🔴 Hard duplicate — row #N: keyword=`...`, URL=`...`}
+- **Trùng Keyword chính**: {None | 🔴 Keyword duplicate — row #N: keyword=`...`, URL khác=`...` → keyword cannibalization}
+- **Trùng Tiêu đề ≥ 60%**: {None | 🟠 Soft duplicate — row #N: tiêu đề=`...`, similarity={x.xx}, URL khác=`...`}
+- **Cùng Cluster + Intent**: {None | 🟠 Overlap — liệt kê: row #N (`keyword 1`, URL 1), row #M (`keyword 2`, URL 2). Cân nhắc merge hoặc phân hoá sub-intent.}
+
+**Ảnh hưởng đến Verdict** (Section 0):
+- Có ≥ 1 🔴 hard duplicate → Verdict tự động = 🔴 **XÓA / 301** (override điểm số).
+- Chỉ có 🟠 soft → Verdict vẫn tính theo điểm, nhưng add warn vào lý do.
+- Không có gì → Verdict hoàn toàn theo điểm số.
+
 ## 6. CHECKLIST SỬA ĐỔI (Action Plan)
 
-Danh sách gạch đầu dòng các hành động sửa đổi cụ thể. Cầm tay chỉ việc.
+Danh sách gạch đầu dòng các hành động sửa đổi cụ thể. Cầm tay chỉ việc. **Gắn với Verdict Section 0**: P1/P2/P3 chỉ cần thiết khi Verdict = 🟡 CẬP NHẬT hoặc 🟠 LÀM MỚI. Nếu Verdict = 🟢 GIỮ NGUYÊN → ghi "Không có action bắt buộc. Re-audit sau 6 tháng." Nếu Verdict = 🔴 XÓA / 301 → ghi "301 redirect sang {URL đích từ keywords-urls.md} HOẶC xóa (nếu không có URL đích phù hợp)."
 
 **Priority 1 — BẮT BUỘC sửa trước khi publish/republish** (≤ 24h):
 - [ ] {Action 1: vd "Cắt đoạn từ dòng 45-67 — duplicate với H2 'Quy cách'"}
@@ -279,10 +323,10 @@ Nếu audit bài **không thuộc dự án nào** → output ngay trong message 
 
 1. **Không dài dòng**: KHÔNG chào hỏi, KHÔNG "dạ vâng", KHÔNG mở bài giải thích. Trả lời ngay vào báo cáo 6 phần.
 2. **Chính xác & Thực tế**: KHÔNG bịa đặt. Nếu thông số đầu vào thiếu dữ liệu quan trọng → output ĐÚNG: `"Tôi không đủ dữ liệu. Thiếu trường: [...]."` và dừng.
-3. **Phạm vi nghiêm ngặt**: CHỈ trả lời theo cấu trúc 6 phần ở mục 7.1. Tuyệt đối KHÔNG mở rộng, KHÔNG lời khuyên suông, KHÔNG hứa hẹn thiếu bằng chứng.
+3. **Phạm vi nghiêm ngặt**: CHỈ trả lời theo cấu trúc Section 0 + 6 phần (+ 5.5 nếu có project) ở mục 7.1. Tuyệt đối KHÔNG mở rộng, KHÔNG lời khuyên suông, KHÔNG hứa hẹn thiếu bằng chứng.
 4. **Văn phong**: 100% con người thực chiến. Chuyên nghiệp, rành mạch, dứt khoát, không hàn lâm. Tránh tuyệt đối câu văn AI sáo rỗng / bay bổng / tính từ cảm xúc. Đi thẳng vào trọng tâm kỹ thuật.
 
-## 9. Workflow chi tiết — 6 Phase
+## 9. Workflow chi tiết — 7 Phase (v1.1)
 
 ### Phase 1: Parse Input
 - Đọc 7 trường thông số đầu vào (từ inline hoặc file template).
@@ -292,9 +336,22 @@ Nếu audit bài **không thuộc dự án nào** → output ngay trong message 
 ### Phase 2: Load Project Context (nếu có dự án)
 - Đọc `memory.md` → biết Active Context + Key Decisions.
 - Đọc `profile.md` → Brand voice + Author Entity.
-- Đọc `keywords-urls.md` → kiểm internal link.
+- Đọc `keywords-urls.md` (schema 7 cột v1.1: `#`, `Keyword`, `Tiêu đề`, `URL`, `Cluster`, `Vai trò`, `Intent`) → cache toàn bộ row vào in-memory list để Phase 3 dùng.
+- Nếu file không tồn tại → skip Phase 3 + ghi warn trong report.
 
-### Phase 3: Chấm 5 trục (10đ mỗi trục)
+### Phase 3: Duplicate Detection (mới từ v1.1, chỉ chạy khi có project + keywords-urls.md)
+
+Run 4 check (chi tiết ở mục 6.1):
+1. Match URL → 🔴 Hard duplicate
+2. Match Keyword chính (case-insensitive) → 🔴 Keyword duplicate (cannibalization)
+3. Jaccard similarity Tiêu đề ≥ 0.60 (loại stopwords tiếng Việt) → 🟠 Soft duplicate
+4. Cùng Cluster + Intent + URL khác → 🟠 Overlap
+
+Output vào Section 5.5 báo cáo.
+
+**Override**: Nếu có ≥ 1 🔴 → force Verdict = 🔴 XÓA / 301 (override Phase 6 verdict resolution).
+
+### Phase 4: Chấm 5 trục (10đ mỗi trục)
 
 **Trục 1 — Search Intent (10đ)**:
 - Khớp dominant intent SERP cho keyword chính?
@@ -326,7 +383,7 @@ Nếu audit bài **không thuộc dự án nào** → output ngay trong message 
 - FAQ schema cho Q&A block?
 - Entity reinforcement (Person, Organization, Article + mentions)?
 
-### Phase 4: Kiểm toán văn phong (anti-AI)
+### Phase 5: Kiểm toán văn phong (anti-AI)
 
 Quét bài tìm 14 red flags theo `knowledge/15-anti-ai-content-rules.md`:
 1. Từ cấm core (Đột phá, Cách mạng hóa, Toàn diện, Đa dạng, Vượt trội...).
@@ -337,7 +394,18 @@ Quét bài tìm 14 red flags theo `knowledge/15-anti-ai-content-rules.md`:
 
 Trích **NGUYÊN VĂN** tối đa 3 câu/đoạn AI sáo rỗng — không paraphrase, không bình luận chung.
 
-### Phase 5: Action Plan (cầm tay chỉ việc)
+### Phase 6: Verdict Resolution + Action Plan
+
+**B6.1. Verdict 4 trạng thái** (chuẩn hóa 100đ = raw × 2):
+
+| Verdict | Điều kiện | Action default |
+|---------|-----------|----------------|
+| 🟢 **GIỮ NGUYÊN** | Chuẩn hóa ≥ 80/100 (raw ≥ 40/50) + KHÔNG có 🔴 duplicate | Không action. Re-audit sau 6 tháng. |
+| 🟡 **CẬP NHẬT** (Refresh) | 60-79/100 (raw 30-39/50) + KHÔNG có 🔴 duplicate | Route sang `Content Refresh` (light/medium). Action P1+P2 chỉ ra mục cần cập nhật (data 2026, Author Entity, LSI). |
+| 🟠 **LÀM MỚI** (Rewrite) | 40-59/100 (raw 20-29/50) + KHÔNG có 🔴 duplicate | Route sang `Content Writing` Phase 0 (rewrite từ đầu). Action P1 liệt kê vấn đề gốc cần sửa khi viết lại. |
+| 🔴 **XÓA / 301** | < 40/100 (raw < 20/50) HOẶC có ≥ 1 🔴 hard duplicate (override điểm) | 301 redirect sang URL đích từ `keywords-urls.md` HOẶC xóa (nếu không có URL đích phù hợp). |
+
+**B6.2. Action Plan** (chỉ viết khi Verdict = 🟡 hoặc 🟠):
 
 Priority 1 (≤ 24h): 3-5 action BẮT BUỘC sửa trước publish.
 Priority 2 (≤ 48h): 2-3 action sửa sau P1.
@@ -350,9 +418,10 @@ Mỗi action phải có:
 
 KHÔNG ghi action mơ hồ kiểu "tối ưu lại bài", "cải thiện EEAT", "viết hấp dẫn hơn".
 
-### Phase 6: Output + Session End
+### Phase 7: Output + Session End
 - Tạo file `audit/evaluation-{slug}-{date}.md` (nếu có dự án) HOẶC reply inline (nếu không có dự án).
 - Nếu có dự án → append entry vào `memory.md` Session History theo Session End Protocol (`skills/project-memory/SKILL.md`).
+- Nếu Verdict = 🔴 XÓA → cập nhật `keywords-urls.md`: comment row đó `<!-- DELETED YYYY-MM-DD: 301 → {URL đích} -->`.
 
 ## 10. Liên kết skill khác
 
@@ -371,10 +440,13 @@ Sau khi user nhận report audit, các skill liên quan để fix:
 - ❌ Audit bài bằng cách paraphrase nội dung bài đó.
 - ❌ Đưa lời khuyên chung chung kiểu "nên tối ưu EEAT", "cần cải thiện văn phong".
 - ❌ Tự đoán thông số đầu vào khi user không cung cấp.
-- ❌ Output dạng bullet point dài 200 dòng — tuân thủ ĐÚNG 6 phần.
+- ❌ Output dạng bullet point dài 200 dòng — tuân thủ ĐÚNG cấu trúc 7.1 (Section 0 + 6 phần + 5.5 nếu có project).
 - ❌ Cho điểm cao (8-10) cho bài thiếu Information Gain hoặc thiếu Experience.
 - ❌ Audit theo "cảm tính" — mỗi điểm phải có evidence từ bài.
 - ❌ Route nhầm sang `Topical Audit` khi user chỉ audit 1 bài.
+- ❌ **(v1.1)** Bỏ qua Duplicate Detection khi có project + keywords-urls.md → BẮT BUỘC chạy 4 check.
+- ❌ **(v1.1)** Ra Verdict 🟢/🟡/🟠 khi có 🔴 hard duplicate → BẮT BUỘC override sang 🔴 XÓA / 301.
+- ❌ **(v1.1)** Tự đoán Tiêu đề trong keywords-urls.md khi cột giá trị là `—` → skip check #3 cho row đó, ghi note trong report.
 
 ## 12. Session End — Update Memory (nếu audit bài thuộc dự án)
 
@@ -387,3 +459,10 @@ Sau khi xuất file audit, BẮT BUỘC chạy Session End Protocol (`skills/pro
 5. Append `Key Decisions` nếu audit chốt decision lớn (vd "Quyết định không publish bài X vì Information Gain = 0").
 6. Cập nhật `Quick Facts → last_audit_date` (nếu memory template có trường này).
 7. Commit `memory.md` cùng commit với file audit.
+
+**(v1.1) Cập nhật `keywords-urls.md`** (nếu áp dụng):
+
+- Nếu bài audit là bài **vừa publish/draft mới** (chưa có entry trong file) → append row 7 cột: `| # | Keyword | Tiêu đề | URL | Cluster | Vai trò | Intent |`. Lấy giá trị từ input audit. Vai trò mặc định `supporting` (sửa thủ công nếu là `pillar`).
+- Nếu Verdict = 🔴 **XÓA / 301** → comment row tương ứng: `<!-- DELETED YYYY-MM-DD: 301 → {URL đích} -->`. Không xóa row khỏi file (giữ lịch sử).
+- Nếu Verdict = 🟠 **LÀM MỚI** với URL giữ nguyên → không sửa row, chỉ log trong Session History.
+- Nếu Verdict = 🟡 **CẬP NHẬT** → không sửa row.

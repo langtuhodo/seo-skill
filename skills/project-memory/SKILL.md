@@ -120,8 +120,18 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
    6) Refresh Quick Facts CHỈ KHI profile.md đổi (80% case: KHÔNG cần)
    7) Commit memory.md trong cùng commit với bài viết/output (tránh memory dirty)
 
+2.5. UPDATE keywords-urls.md (nếu phiên vừa publish bài mới HOẶC audit ra Verdict 🔴 XÓA):
+   - **Publish bài mới**: append row 7 cột vào cluster tương ứng:
+     `| # | Keyword | Tiêu đề | URL | Cluster | Vai trò | Intent |`
+     Lấy `Tiêu đề` = Title Tag thực tế của bài vừa publish. KHÔNG để `—` nếu bài đã publish.
+   - **Audit Verdict = 🔴 XÓA / 301**: comment row tương ứng:
+     `<!-- DELETED YYYY-MM-DD: 301 → {URL đích} -->`
+     KHÔNG xóa row khỏi file (giữ lịch sử).
+   - **Audit Verdict = 🟢/🟡/🟠**: không sửa `keywords-urls.md`, chỉ log vào Session History.
+   - **Backward compat**: Nếu file vẫn schema cũ (8 cột có Trạng thái) → cảnh báo user migrate sang v1.1 (7 cột, bỏ Trạng thái + thêm Tiêu đề).
+
 3. INFORM user:
-   - "Đã cập nhật memory.md: {section_thay_doi}"
+   - "Đã cập nhật memory.md: {section_thay_doi}" + (nếu có) "keywords-urls.md: thêm {N} entry / mở {N} entry xóa".
 ```
 
 > ⭐ **Source of truth**: Checklist 7 điểm này khớp từng điểm với `skills/content/Content Writing/SKILL.md` Phase 7 và với Session End block trong tất cả sub-skill content (Blog / Pillar / Topic Clusters / Tools / Evergreen / pSEO / Refresh / Audit — section 8.5 hoặc Phase 6 của mỗi skill).
@@ -150,6 +160,8 @@ Xem: `projects/memory-template.md`
 [ ] (5) Đã append Key Decisions (style / kỹ thuật / cluster boundary / merge-delete đã chốt phiên này)?
 [ ] (6) Refresh Quick Facts CHỈ KHI profile.md đổi (80% case: skip)?
 [ ] (7) Đã commit memory.md trong cùng commit với output?
+[ ] (v1.1, có điều kiện) Nếu phiên vừa publish bài → đã append entry 7 cột vào `keywords-urls.md`?
+[ ] (v1.1, có điều kiện) Nếu Audit Verdict = 🔴 XÓA → đã comment row + ghi 301 đích vào `keywords-urls.md`?
 ```
 
 > Checklist này là **source of truth** — mọi sub-skill content (Blog / Pillar / Topic / Tools / Evergreen / pSEO / Refresh / Audit) và Content Writing Phase 7 phải khớp 7 điểm này.

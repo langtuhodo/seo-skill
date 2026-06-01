@@ -69,7 +69,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 | Viết bất kỳ bài nào | `skills/content/Content Writing/SKILL.md` ⭐ |
 | Áp dụng phong cách viết theo dự án | `skills/style-mimicker/SKILL.md` ⭐ |
 | Quản lý trạng thái dự án giữa các phiên | `skills/project-memory/SKILL.md` ⭐ |
-| Audit 1 bài đơn lẻ (E-E-A-T & SEO) — command `/audit` | `skills/content/Content Evaluation/SKILL.md` ⭐ |
+| Audit 1 bài đơn lẻ (E-E-A-T & SEO) + Duplicate Detection vs `keywords-urls.md` + Verdict 4 trạng thái — command `/audit` v1.1 | `skills/content/Content Evaluation/SKILL.md` ⭐ |
 | Audit topical (cluster-level) | `skills/content/Topical Audit/SKILL.md` |
 | Tạo topical map | `skills/content/Topic Clusters/SKILL.md` |
 | Brand distribution end-to-end | `playbooks/07-brand-distribution-workflow.md` |
@@ -78,7 +78,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 
 | Command | Skill kích hoạt | Mục đích |
 |---------|-----------------|---------|
-| `/audit` | `skills/content/Content Evaluation/SKILL.md` | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026, output `audit/evaluation-{slug}-{date}.md` |
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.1 | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ → output `audit/evaluation-{slug}-{date}.md` |
 
 **Anti-collision**: `/audit` LUÔN route đến `Content Evaluation`. KHÔNG nhầm sang `Topical Audit` (cluster-level) hay `Content Refresh` (decay-level).
 

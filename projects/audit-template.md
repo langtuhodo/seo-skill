@@ -62,3 +62,23 @@ Trường khuyến nghị (2/7):
 - ☑️ MÔ TẢ SEO (nếu thiếu, AI sẽ ghi "Meta description không cung cấp" trong Phần 2)
 
 Thiếu 1 trong 5 trường BẮT BUỘC → AI trả về đúng 1 câu: `"Tôi không đủ dữ liệu. Thiếu trường: [...]"` và dừng.
+
+---
+
+## (v1.1) Yêu cầu Project Context — Duplicate Detection
+
+Nếu bài audit thuộc 1 dự án (có folder `projects/{project}/`), AI sẽ **tự động đọc thêm** `projects/{project}/keywords-urls.md` để chạy Duplicate Detection 4 check:
+
+| Check | So sánh | Verdict ảnh hưởng |
+|-------|---------|-------------------|
+| 1. Trùng URL | URL input vs cột URL | 🔴 Hard duplicate → override Verdict thành `🔴 XÓA / 301` |
+| 2. Trùng Keyword chính | Từ khóa input vs cột Keyword | 🔴 Keyword cannibalization → override Verdict thành `🔴 XÓA / 301` |
+| 3. Trùng Tiêu đề ≥ 60% | Jaccard similarity Title input vs cột Tiêu đề | 🟠 Soft duplicate → cảnh báo trong Section 5.5 |
+| 4. Cùng Cluster + Intent | Cluster + Intent input vs cột Cluster + Intent | 🟠 Overlap → cảnh báo |
+
+**Để Duplicate Detection chạy chính xác**:
+- File `keywords-urls.md` phải dùng schema v1.1 (7 cột): `| # | Keyword | Tiêu đề | URL | Cluster | Vai trò | Intent |`.
+- Cột Tiêu đề phải điền tiêu đề SEO thực tế của bài đã publish. Nếu để `—` (placeholder), check #3 sẽ skip cho row đó.
+- Khi audit bài mới đã publish, AI sẽ tự append entry mới vào `keywords-urls.md` (xem Section 12 trong SKILL).
+
+**Nếu bài audit KHÔNG thuộc dự án nào** (ad-hoc audit): AI bỏ qua Duplicate Detection và ghi 1 dòng note trong report.
