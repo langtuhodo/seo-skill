@@ -110,7 +110,7 @@ Output được tổ chức theo dự án + folder-scoped (chuẩn 2026). Khi y�
 
 ```
 projects/{ten-du-an}/
-├── memory.md, profile.md, topical.md, keywords-urls.md  ← 4 file lõi ở ROOT
+├── memory.md, profile.md, topical.md, keywords-urls.md, external-sources.md  ← 5 file lõi ở ROOT (external-sources.md tùy chọn, v1.2)
 ├── writing/{slug}.md          ⭐ bài viết mới (blog/pillar/supporting/tools/evergreen/pSEO)
 ├── refresh/{slug}.md          ⭐ bài refresh/optimize content cũ
 ├── research/                  ⭐ keyword research + content brief
@@ -153,11 +153,12 @@ Bộ skill này auto-load với các tool sau:
 - ✅ v1.8: Folder-scoped Project Structure — writing/, refresh/, research/, audit/, technical/, archive/ subfolders cho mỗi project
 - ✅ v1.9: Content Evaluation skill + `/audit` command — audit 1 bài đơn lẻ theo E-E-A-T & SEO 2026 với 6-section report
 - ✅ v1.9.1: Content Evaluation v1.1 — Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ. Schema `keywords-urls.md` migrate từ 8 cột → 7 cột (bỏ `Trạng thái`, thêm `Tiêu đề`).
+- ✅ v1.9.2: Content Evaluation v1.2 + Content Writing/Refresh v1.1 — **External Citation Whitelist** (`projects/{project}/external-sources.md` 3-tier: cơ quan / báo chí / chuyên gia). Anti-hallucination: AI chỉ cite từ whitelist, KHÔNG bịa URL nguồn ngoài. `/audit` thêm Section 5.6 External Citation Check + Phase 3.5. Populate sẵn: thep-bao-tin (Steel: ASTM/ISO/JIS/Worldsteel/VSA), binhnn-digital (Digital Marketing: Google Search Central/Moz/Backlinko/Neil Patel/HubSpot).
 - 🔲 v2.0: Dashboard mẫu (Looker Studio / GA4 / GSC) + Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
 
 ---
 
-*SEO Skills Library v1.9.1 — 62 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output + `/audit` v1.1 (Duplicate Detection + Verdict 4 trạng thái) + keywords-urls.md schema v1.1 (7 cột)*
+*SEO Skills Library v1.9.2 — 62 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output + `/audit` v1.2 (Duplicate Detection + Verdict 4 trạng thái + **External Citation Check**) + keywords-urls.md schema v1.1 (7 cột) + external-sources.md whitelist 3-tier (v1.2)*
 *Maintained for AI SEO 2026+*
 
 *Maintained as a senior SEO assistant playbook. Cập nhật theo guideline mới của Google & xu hướng AI SEO 2025+.*
