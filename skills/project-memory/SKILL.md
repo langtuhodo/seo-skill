@@ -130,8 +130,14 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
    - **Audit Verdict = 🟢/🟡/🟠**: không sửa `keywords-urls.md`, chỉ log vào Session History.
    - **Backward compat**: Nếu file vẫn schema cũ (8 cột có Trạng thái) → cảnh báo user migrate sang v1.1 (7 cột, bỏ Trạng thái + thêm Tiêu đề).
 
+2.6. (v1.2) ĐỀ XUẤT cập nhật external-sources.md (nếu phiên có dùng/phát hiện nguồn ngoài whitelist):
+   - **Phiên Content Writing/Refresh dùng nguồn không có trong whitelist** (vì project chưa fill, hoặc user paste link mới): AI hỏi user xác nhận trước khi cite. Nếu user đồng ý dùng → ghi vào Session History "Pending: thêm {domain} vào external-sources.md".
+   - **Phiên Content Evaluation phát hiện violation**: append vào Pending Tasks: "Review {N} URL ngoài whitelist (xem audit report Section 5.6)".
+   - **AI KHÔNG TỰ APPEND** vào `projects/{project}/external-sources.md`. User phải tự thêm thủ công sau khi review.
+   - Nếu project chưa có file `external-sources.md` → suggest 1 lần ở Session End: "Cân nhắc tạo `projects/{project}/external-sources.md` từ `projects/external-sources-template.md` để enable External Citation Check (Phase 3.5)."
+
 3. INFORM user:
-   - "Đã cập nhật memory.md: {section_thay_doi}" + (nếu có) "keywords-urls.md: thêm {N} entry / mở {N} entry xóa".
+   - "Đã cập nhật memory.md: {section_thay_doi}" + (nếu có) "keywords-urls.md: thêm {N} entry / mở {N} entry xóa" + (v1.2, nếu có) "Pending external-sources.md: {N} domain chờ user review".
 ```
 
 > ⭐ **Source of truth**: Checklist 7 điểm này khớp từng điểm với `skills/content/Content Writing/SKILL.md` Phase 7 và với Session End block trong tất cả sub-skill content (Blog / Pillar / Topic Clusters / Tools / Evergreen / pSEO / Refresh / Audit — section 8.5 hoặc Phase 6 của mỗi skill).

@@ -40,6 +40,7 @@ Content Refresh là **task lặp định kỳ** (thường hằng quý hoặc b�
 | 2 | `projects/{project}/keywords-urls.md` | URL portfolio + last_refresh date → tiêu chí identify candidates | ✅ BẮT BUỘC |
 | 3 | `projects/{project}/profile.md` | Brand voice → refresh phải giữ giọng nhất quán | ✅ Nếu memory.md không đủ |
 | 4 | `projects/{project}/topical.md` | Cluster context → refresh phải giữ vai trò (pillar/supporting) | ✅ Nếu tồn tại |
+| 5 | `projects/{project}/external-sources.md` ⭐ (v1.1) | Whitelist nguồn ngoài — khi refresh nâng EEAT Trust → chỉ cite từ whitelist này | ✅ Nếu tồn tại |
 
 > ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới). Cực kỳ quan trọng với Content Refresh vì task lặp định kỳ.
 >
@@ -131,6 +132,13 @@ Quy tắc:
   - Thêm PAA questions mới vào FAQ section
 - Bổ sung entity/term thiếu (NLP audit).
 - Refresh internal link IN/OUT. **Đảm bảo mỗi URL nội bộ chỉ xuất hiện 1 lần duy nhất** — loại bỏ link trùng lặp nếu có.
+- **⭐ (v1.1) Refresh external citations từ whitelist**:
+  - Đọc `projects/{project}/external-sources.md` nếu tồn tại
+  - Enumerate external link hiện có trong bài → đối chiếu whitelist
+  - Link KHÔNG có trong whitelist + không có `<!-- ad-hoc cite -->` comment → **xóa** (hoặc thay bằng link Tier 1 phù hợp từ whitelist)
+  - Phần data/tiêu chuẩn chưa cite → bổ sung Tier 1 (Bộ Công Thương, TCVN, ASTM, ISO, Google Search Central…) tùy lĩnh vực project
+  - Refresh year: nếu cite "Statista 2023" mà whitelist có URL Statista 2025 → update anchor + URL
+  - KHÔNG bịa link mới ngoài whitelist (anti-pattern v1.1)
 - Update schema (Article dateModified, BreadcrumbList nếu IA đổi).
 - Update author byline + last updated date.
 - **Kiểm tra + bổ sung frontmatter** theo `projects/content-template.md`: `meta_title` (50-60 ký tự) + `meta_description` (150-160 ký tự) nếu thiếu.
@@ -263,6 +271,8 @@ Phân tích:
 - Refresh sai bài (light cho bài cần heavy, hoặc ngược lại).
 - Không track post-result → không học pattern.
 - Refresh nhưng vẫn giữ giọng AI generic → cơ hội nâng EEAT bị bỏ phí.
+- **(v1.1) Bịa URL nguồn ngoài khi refresh EEAT Trust** — AI tự thêm URL Statista/Wikipedia mà không có trong `external-sources.md`. **CHỈ cite từ whitelist project**; thiếu → để trống hoặc thay claim.
+- **(v1.1) Không xóa link 404/ngoài whitelist trong bài cũ khi refresh** — link cũ broken/spam giữ lại = giảm Trust signal. Bước 5 BẮT BUỘC check enumerate external link.
 
 > ⚠️ **Anti-AI Detection**: Khi refresh, đây là cơ hội tốt nhất để humanize nội dung — thêm kinh nghiệm cá nhân, case study mới, quan điểm rõ ràng. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), loại bỏ từ cấm + mẫu câu AI, Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: section 2.4 trong `skills/content/Content Writing/SKILL.md`.
 

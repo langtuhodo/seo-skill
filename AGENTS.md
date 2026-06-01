@@ -37,7 +37,7 @@ seo-skills/
 
 1. **Đọc `COMPILED-CONTEXT.md`** — skill digest gọn (~4k token) thay vì load 62 skill + 18 knowledge notes
 2. **NẾU task gắn 1 dự án cụ thể**: Đọc `projects/{ten-du-an}/memory.md` TRƯỚC TIÊN — cache trạng thái dự án (Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions)
-3. **CHỈ deep-dive `SKILL.md` / `profile.md` / `topical.md` / `keywords-urls.md` cụ thể** khi 2 file trên không đủ context
+3. **CHỈ deep-dive `SKILL.md` / `profile.md` / `topical.md` / `keywords-urls.md` / `external-sources.md` cụ thể** khi 2 file trên không đủ context
 
 → Mục tiêu: bootstrap context < 8k token thay vì 30-50k token.
 
@@ -82,7 +82,7 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 
 | Command | Skill kích hoạt | Mục đích |
 |---------|-----------------|---------|
-| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.1 | Audit 1 bài viết theo chuẩn E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ |
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.2 | Audit 1 bài viết theo chuẩn E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ + **External Citation Check** (vs `external-sources.md` whitelist 3-tier, v1.2) |
 
 **Anti-collision**: `/audit` LUÔN route đến `Content Evaluation` (bài đơn). Audit cluster vẫn dùng `Topical Audit` qua keyword "audit cluster" — không có command riêng.
 
@@ -122,7 +122,7 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 - `skills/content/Programmatic SEO/SKILL.md` — template + data, quality gate
 - `skills/content/Content Refresh/SKILL.md` — striking distance, light/medium/heavy
 - `skills/content/Topical Audit/SKILL.md` — audit cluster + page scoring 100đ + topical map + coverage gap + recommendations
-- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit` v1.1 (+ Duplicate Detection + Verdict 4 trạng thái)
+- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit` v1.2 (+ Duplicate Detection + Verdict 4 trạng thái + External Citation Check)
 
 ### Style (1 skill)
 - `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING
@@ -316,6 +316,7 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
        └── projects/{ten-du-an}/profile.md → chủ thể, business context, brand voice (chi tiết)
        └── projects/{ten-du-an}/topical.md → topical map, cluster hierarchy, role (pillar/supporting)
        └── projects/{ten-du-an}/keywords-urls.md → keywords đã publish, URL sẵn có cho internal link
+       └── projects/{ten-du-an}/external-sources.md → whitelist nguồn ngoài (3-tier) để cite trong bài (v1.2) — nếu file thiếu thì skip External Citation Check
    └── Áp dụng context vào mọi output
 
 4. ACTIVATE RELEVANT SKILLS
@@ -330,6 +331,7 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
        - Profile: profile.md
        - Topical map: topical.md
        - Keywords & URLs: keywords-urls.md
+       - External sources whitelist: external-sources.md (v1.2)
 
    writing/ — bài viết mới (blog, pillar, supporting, tools, evergreen, pSEO):
        - writing/{slug-tieu-de}.md
@@ -373,6 +375,7 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
 projects/
 ├── memory-template.md                  ← Template memory.md cho dự án mới
 ├── keywords-urls-template.md           ← Template keywords-urls.md
+├── external-sources-template.md        ← (v1.2) Template external-sources.md (3-tier whitelist)
 │
 └── {ten-du-an}/                        ← Vd: thep-bao-tin, binhnn-digital
     │
@@ -380,6 +383,7 @@ projects/
     ├── profile.md                      ← Chủ thể + brand voice + business context
     ├── topical.md                      ← Sơ đồ topical map (pillar/cluster/sub-cluster)
     ├── keywords-urls.md                ← Keyword + URL đã publish (cho internal link)
+    ├── external-sources.md             ← (v1.2) Whitelist nguồn ngoài 3-tier để cite (cơ quan / báo chí / chuyên gia)
     │
     ├── writing/                        ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
     │   ├── {slug-bai-1}.md
@@ -419,7 +423,7 @@ projects/
         └── ...
 ```
 
-**4 file lõi ở root** (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`) — AI auto-load ở Session Bootstrap. **Mọi output khác PHẢI vào subfolder**.
+**5 file lõi ở root** (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) — AI auto-load ở Session Bootstrap. **Mọi output khác PHẢI vào subfolder**. File `external-sources.md` (v1.2) là tùy chọn — không có → AI skip External Citation Check (Phase 3.5 của `/audit`).
 
 ### Content Output Format (Markdown)
 
