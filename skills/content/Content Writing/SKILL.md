@@ -93,7 +93,14 @@ Trước khi viết BẤT KỲ bài nào, phải trả lời 4 câu hỏi:
 | **Experience** | Kể chuyện thực: "Tôi đã tư vấn cho 50+ công trình...", "Khách hàng A gặp tình huống này..." | Viết chung chung không có case cụ thể |
 | **Expertise** | Giải thích kỹ thuật dễ hiểu, dùng số liệu chính xác, cite tiêu chuẩn (TCVN, ASTM, JIS) | Copy Wikipedia, không hiểu mình đang viết gì |
 | **Authoritativeness** | Author có tên thật + bio + ảnh + LinkedIn, công ty có địa chỉ + SĐT + giấy phép | Không có author, không có thông tin công ty |
-| **Trust** | Có nguồn trích dẫn, có hình ảnh thực, có review khách hàng, có chính sách rõ ràng | Hứa hẹn không căn cứ, hình stock photo |
+| **Trust** | Có nguồn trích dẫn (từ `external-sources.md` của project), có hình ảnh thực, có review khách hàng, có chính sách rõ ràng | Hứa hẹn không căn cứ, hình stock photo, **bịa URL nguồn không có trong whitelist** |
+
+> **(v1.1) External Citation Rule — BẮT BUỘC**:
+> - Nếu project có file `projects/{project}/external-sources.md` (whitelist nguồn ngoài) → AI **CHỈ cite từ whitelist này**, KHÔNG tự thêm URL từ ngoài.
+> - Nếu câu cần cite mà không có nguồn phù hợp trong whitelist → viết lại câu để không cần cite, HOẶC để TODO `<!-- TODO: cite source (chưa có trong whitelist) -->` cho user fill sau.
+> - Ưu tiên Tier 1 (cơ quan chính thức/tiêu chuẩn) cho data/tiêu chuẩn; Tier 2 (báo cáo/case study) cho thị trường; Tier 3 (chuyên gia) cho quote/framework.
+> - Anchor text chứa tên nguồn cụ thể, KHÔNG dùng "click here", "tại đây".
+> - Chi tiết workflow + schema 3-tier: xem `projects/external-sources-template.md`.
 
 ### 2.3. GEO — Generative Engine Optimization
 
@@ -711,6 +718,8 @@ Không viết để "có đủ H2". Mỗi H2 phải trả lời được: "Đọ
 ### Expertise
 - [ ] Giải thích kỹ thuật chính xác
 - [ ] Cite tiêu chuẩn/nguồn uy tín
+- [ ] (v1.1) **Mọi external link đều từ `external-sources.md` whitelist** — KHÔNG có URL ngoài whitelist (kể cả khi AI "tưởng đúng")
+- [ ] (v1.1) Mỗi bài kỹ thuật/data có ≥ 1 cite Tier 1 (cơ quan chính thức/tiêu chuẩn)
 - [ ] Không có thông tin sai
 
 ### Authoritativeness (bổ sung 2026 — Author Entity)
@@ -999,6 +1008,8 @@ Top 5 SERP đang thiếu gì? Mình sẽ làm tốt hơn ở đâu?
 - ❌ Author ẩn danh hoặc không có credentials
 - ❌ Số liệu không có nguồn
 - ❌ Hình ảnh stock thay vì hình thực
+- ❌ **(v1.1) Bịa URL nguồn không có trong `external-sources.md` whitelist** — AI tự fabricate domain, paragraph 404, hoặc trộn URL không tồn tại. ABS phải cite **CHỈ** từ whitelist project; thiếu nguồn → viết lại câu hoặc để TODO comment.
+- ❌ Cite nguồn không phù hợp Tier (vd dùng Wikipedia làm tiêu chuẩn pháp lý thay vì TCVN)
 
 ### Sai về GEO
 - ❌ Vòng vo 200 từ mới vào vấn đề

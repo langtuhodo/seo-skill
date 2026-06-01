@@ -1,6 +1,8 @@
 # Content Evaluation — Audit 1 bài viết theo chuẩn E-E-A-T & SEO (`/audit`)
 
-> **Version**: v1.1 (2026-05-27) — thêm Duplicate Detection (Phase 3) + Verdict 4 trạng thái (Section 0) + chuẩn hóa thang 100đ cho verdict.
+> **Version**: v1.2 (2026-05-27) — thêm External Citation Check (Section 5.6) + load `external-sources.md` whitelist (Phase 2) + Trust deduction nếu cite ngoài whitelist.
+>
+> **Lịch sử**: v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
 >
 > **Persona kích hoạt**: AI nhập vai **Technical SEO Director kiêm Google Quality Rater cấp cao**. Không chào hỏi, không lan man, đi thẳng vào báo cáo.
 >
@@ -141,8 +143,9 @@ Nếu user đề cập tên dự án (vd "audit bài thep-u của dự án thep-
 | 2 | `projects/{project}/profile.md` | Brand voice + Author Entity (cho EEAT) | ✅ Nếu có project |
 | 3 | `projects/{project}/keywords-urls.md` (7 cột: `#`, `Keyword`, `Tiêu đề`, `URL`, `Cluster`, `Vai trò`, `Intent`) | **Duplicate Detection** (xem Phase 3 mới) + Internal link check | ✅ **Bắt buộc nếu có project** (không có file này → skip duplicate check + warn user trong report) |
 | 4 | `projects/{project}/topical.md` | Cluster của bài → kiểm role (pillar/supporting) | ☑️ Tùy |
+| 5 | `projects/{project}/external-sources.md` ⭐ (v1.2) | Whitelist nguồn ngoài (Tier 1/2/3) → **External Citation Check** (xem Section 5.6) | ☑️ Tùy (file thiếu → skip Section 5.6 + warn) |
 
-Nếu audit bài **không thuộc dự án nào** (vd audit bài đối thủ, audit bài demo) → skip Phase này, cũng skip Duplicate Detection (Phase 3) vì không có dữ liệu so sánh.
+Nếu audit bài **không thuộc dự án nào** (vd audit bài đối thủ, audit bài demo) → skip Phase này, cũng skip Duplicate Detection (Phase 3) + External Citation Check (Section 5.6) vì không có dữ liệu so sánh.
 
 ### 6.1. Duplicate Detection — Quy tắc đọc `keywords-urls.md` (mới từ v1.1)
 
@@ -159,11 +162,11 @@ Khi audit bài thuộc project, AI MUST parse `keywords-urls.md` và chạy **4 
 
 Nếu file `keywords-urls.md` có row với cột `Tiêu đề = —` (placeholder migration) → skip check #3 cho row đó và note trong report: "Project keywords-urls.md còn {N} entry chưa điền Tiêu đề — đề nghị bổ sung để duplicate-by-title chính xác hơn."
 
-## 7. Output — Báo cáo audit (Section 0 Verdict + 6 phần chính + Section 5.5 Duplicate)
+## 7. Output — Báo cáo audit (Section 0 Verdict + 6 phần chính + Section 5.5 Duplicate + Section 5.6 External Citation)
 
 ### 7.1. Format chuẩn
 
-AI BẮT BUỘC trả về ĐÚNG cấu trúc dưới đây. Section 0 Verdict + 6 phần chính + Section 5.5 Duplicate (nếu có project + `keywords-urls.md`). Không thêm phần phụ, không bớt.
+AI BẮT BUỘC trả về ĐÚNG cấu trúc dưới đây. Section 0 Verdict + 6 phần chính + Section 5.5 Duplicate (nếu có project + `keywords-urls.md`) + Section 5.6 External Citation (nếu có project + `external-sources.md`). Không thêm phần phụ, không bớt.
 
 ```markdown
 > **Audit Metadata**
@@ -173,7 +176,7 @@ AI BẮT BUỘC trả về ĐÚNG cấu trúc dưới đây. Section 0 Verdict +
 > - **search_intent**: {I | N | C | T}
 > - **project**: {tên dự án nếu có, NULL nếu không}
 > - **word_count**: {số từ bài}
-> - **auditor**: Content Evaluation Skill v1.1
+> - **auditor**: Content Evaluation Skill v1.2
 
 # Audit Report — {target_keyword}
 
@@ -264,6 +267,38 @@ Nếu có, chạy 4 check theo Phase 3 (xem 6.1) và in kết quả:
 - Chỉ có 🟠 soft → Verdict vẫn tính theo điểm, nhưng add warn vào lý do.
 - Không có gì → Verdict hoàn toàn theo điểm số.
 
+## 5.6. EXTERNAL CITATION CHECK (v1.2 — chỉ hiện nếu có project + `external-sources.md`)
+
+Nếu không có project hoặc file `external-sources.md` không tồn tại → bỏ section này và ghi 1 dòng: "Skip External Citation Check — không có project context hoặc external-sources.md."
+
+Nếu có, chạy theo Phase 3.5 (xem 9 dưới):
+
+**Cách chạy**: Enumerate **tất cả external link** trong bài input (link out trỏ ra ngoài domain hiện tại). Với mỗi link, đối chiếu với whitelist `external-sources.md`:
+- ✅ Domain match một row trong whitelist (Tier 1/2/3) → OK
+- ⚠️ Domain KHÔNG match nhưng có comment `<!-- ad-hoc cite -->` ngay sau link → OK (cảnh báo nhẹ, ghi nhận)
+- 🔴 Domain KHÔNG match và KHÔNG có ad-hoc comment → **Violation** (cite ngoài whitelist)
+
+**Output format**:
+
+- **Số external link** trong bài: {N}
+- **OK (trong whitelist)**: {X} link
+  - {liệt kê URL + Tier tương ứng}
+- **Ad-hoc** (có `<!-- ad-hoc cite -->` comment): {Y} link
+  - {liệt kê URL + lý do}
+- **🔴 Violation** (ngoài whitelist, không có ad-hoc): {Z} link
+  - {liệt kê URL + đề xuất thay thế từ whitelist nếu có, hoặc đề xuất xóa cite}
+- **Khuyến nghị thêm cite**: {nếu bài có phần data/tiêu chuẩn chưa cite → đề xuất 1-2 nguồn Tier 1 phù hợp từ whitelist}
+
+**Ảnh hưởng đến điểm Trust (trục E-E-A-T, Section 3)**:
+- 0 violation → giữ điểm Trust nguyên.
+- 1-2 violation → trừ 1đ (raw) khỏi điểm Trust.
+- ≥ 3 violation HOẶC tỉ lệ violation > 50% tổng external link → trừ 2đ (raw) khỏi điểm Trust + add note "Vi phạm whitelist nhiều, EEAT Trust kém".
+- Bài có data/tiêu chuẩn nhưng 0 external cite + project có whitelist Tier 1 sẵn → trừ 1đ khỏi điểm Trust + đề xuất bổ sung.
+
+**Ảnh hưởng đến Verdict** (Section 0):
+- Violation KHÔNG override Verdict (chỉ ảnh hưởng điểm). Nhưng nếu sau khi trừ điểm Trust tổng điểm rớt từ band cao xuống band thấp → Verdict tự cập nhật theo điểm mới.
+- Section 6 Action Plan add P1 item: "Xóa/thay {N} external link ngoài whitelist" nếu có violation.
+
 ## 6. CHECKLIST SỬA ĐỔI (Action Plan)
 
 Danh sách gạch đầu dòng các hành động sửa đổi cụ thể. Cầm tay chỉ việc. **Gắn với Verdict Section 0**: P1/P2/P3 chỉ cần thiết khi Verdict = 🟡 CẬP NHẬT hoặc 🟠 LÀM MỚI. Nếu Verdict = 🟢 GIỮ NGUYÊN → ghi "Không có action bắt buộc. Re-audit sau 6 tháng." Nếu Verdict = 🔴 XÓA / 301 → ghi "301 redirect sang {URL đích từ keywords-urls.md} HOẶC xóa (nếu không có URL đích phù hợp)."
@@ -337,7 +372,8 @@ Nếu audit bài **không thuộc dự án nào** → output ngay trong message 
 - Đọc `memory.md` → biết Active Context + Key Decisions.
 - Đọc `profile.md` → Brand voice + Author Entity.
 - Đọc `keywords-urls.md` (schema 7 cột v1.1: `#`, `Keyword`, `Tiêu đề`, `URL`, `Cluster`, `Vai trò`, `Intent`) → cache toàn bộ row vào in-memory list để Phase 3 dùng.
-- Nếu file không tồn tại → skip Phase 3 + ghi warn trong report.
+- **(v1.2) Đọc `external-sources.md`** nếu tồn tại → cache Tier 1/2/3 domain list để Phase 3.5 dùng. Nếu file không tồn tại → skip Phase 3.5 + ghi 1 dòng note trong report ("Project chưa có external-sources.md whitelist").
+- Nếu file `keywords-urls.md` không tồn tại → skip Phase 3 + ghi warn trong report.
 
 ### Phase 3: Duplicate Detection (mới từ v1.1, chỉ chạy khi có project + keywords-urls.md)
 
@@ -350,6 +386,26 @@ Run 4 check (chi tiết ở mục 6.1):
 Output vào Section 5.5 báo cáo.
 
 **Override**: Nếu có ≥ 1 🔴 → force Verdict = 🔴 XÓA / 301 (override Phase 6 verdict resolution).
+
+### Phase 3.5: External Citation Check (mới từ v1.2, chỉ chạy khi có project + `external-sources.md`)
+
+Run check whitelist (chi tiết ở Section 5.6):
+
+1. **Extract** tất cả external link trong bài input bằng regex markdown `\[([^\]]+)\]\(([^)]+)\)` + HTML `<a\s+href="([^"]+)"`. Filter chỉ link out (KHÔNG cùng domain với `[URL DỰ KIẾN]` input — sau khi normalize www/https).
+2. **Normalize domain**: lấy hostname (bỏ www, lowercase, bỏ trailing slash, không phân biệt path).
+3. **Match** với whitelist:
+   - For mỗi external link → check domain có nằm trong cột "Domain" của bất kỳ row Tier 1/2/3.
+   - Match = domain `endsWith` whitelist entry HOẶC equal (vd whitelist `worldsteel.org` match cả `https://worldsteel.org/case-studies/...`).
+   - Nếu link có comment `<!-- ad-hoc cite -->` ngay sau (trong 1-2 dòng kề) → đánh dấu Ad-hoc.
+4. **Phân loại** 3 nhóm: OK / Ad-hoc / Violation.
+5. **Tính điểm trừ Trust** theo rule Section 5.6.
+6. **Output** vào Section 5.6 báo cáo.
+
+**Không override Verdict**, chỉ ảnh hưởng điểm Trust. Nhưng điểm giảm có thể đẩy Verdict xuống band thấp hơn ở Phase 6.
+
+Edge case:
+- Bài 0 external link + project có whitelist Tier 1 + bài có data/tiêu chuẩn → trừ 1đ Trust + ghi note khuyến nghị bổ sung cite Tier 1.
+- `external-sources.md` tồn tại nhưng trống (0 row hoặc chỉ skeleton) → ghi note "whitelist trống, skip violation check, không trừ điểm" — vẫn cảnh báo user fill.
 
 ### Phase 4: Chấm 5 trục (10đ mỗi trục)
 
@@ -374,6 +430,7 @@ Output vào Section 5.5 báo cáo.
 - Expertise: dùng thuật ngữ đúng + cite nguồn uy tín?
 - Authoritativeness: Author byline + ProfilePage schema + sameAs?
 - Trust: số liệu có nguồn, không phóng đại?
+- **(v1.2) External Citation compliance**: Tất cả external link trong bài có nằm trong `external-sources.md` whitelist? Trừ điểm Trust theo rule Section 5.6 (1-2 violation → -1đ; ≥3 violation → -2đ).
 - Information Gain: có case study / data riêng / framework mới vs Top 3 SERP?
 
 **Trục 5 — AIO-readiness/SGE (10đ)**:
@@ -447,6 +504,9 @@ Sau khi user nhận report audit, các skill liên quan để fix:
 - ❌ **(v1.1)** Bỏ qua Duplicate Detection khi có project + keywords-urls.md → BẮT BUỘC chạy 4 check.
 - ❌ **(v1.1)** Ra Verdict 🟢/🟡/🟠 khi có 🔴 hard duplicate → BẮT BUỘC override sang 🔴 XÓA / 301.
 - ❌ **(v1.1)** Tự đoán Tiêu đề trong keywords-urls.md khi cột giá trị là `—` → skip check #3 cho row đó, ghi note trong report.
+- ❌ **(v1.2)** Bỏ qua External Citation Check khi có project + `external-sources.md` → BẮT BUỘC chạy Phase 3.5.
+- ❌ **(v1.2)** Tự thêm domain mới vào `external-sources.md` mà KHÔNG có sự đồng ý của user. Skill chỉ **đề xuất** (Section 5.6 + Session End note), KHÔNG được tự append.
+- ❌ **(v1.2)** Gán "violation" cho link cùng domain với URL bài audit (đó là internal link, không phải external). Phase 3.5 BẮT BUỘC filter chỉ external link out.
 
 ## 12. Session End — Update Memory (nếu audit bài thuộc dự án)
 
@@ -466,3 +526,9 @@ Sau khi xuất file audit, BẮT BUỘC chạy Session End Protocol (`skills/pro
 - Nếu Verdict = 🔴 **XÓA / 301** → comment row tương ứng: `<!-- DELETED YYYY-MM-DD: 301 → {URL đích} -->`. Không xóa row khỏi file (giữ lịch sử).
 - Nếu Verdict = 🟠 **LÀM MỚI** với URL giữ nguyên → không sửa row, chỉ log trong Session History.
 - Nếu Verdict = 🟡 **CẬP NHẬT** → không sửa row.
+
+**(v1.2) Đề xuất cập nhật `external-sources.md`** (nếu áp dụng):
+
+- Nếu Phase 3.5 phát hiện **violation** (link ngoài whitelist) → AI **đề xuất** trong Session History và Pending Tasks: "Review {N} URL ngoài whitelist: {liệt kê}. User quyết định: (a) thêm vào whitelist nếu đáng tin, (b) xóa cite khỏi bài, (c) thay bằng link Tier 1 từ whitelist."
+- AI **KHÔNG TỰ APPEND** vào `external-sources.md`. User phải tự thêm thủ công.
+- Nếu bài có data/tiêu chuẩn nhưng 0 external cite → suggest: "Bài thiếu cite Tier 1 cho phần {section}. Thêm cite từ whitelist sẽ tăng EEAT Trust."

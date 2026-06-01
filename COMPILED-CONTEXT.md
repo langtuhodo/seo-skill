@@ -11,7 +11,7 @@
 1. ĐỌC file này (COMPILED-CONTEXT.md) → có skill router + anti-AI rules
 2. NẾU task gắn với 1 dự án cụ thể:
    - Đọc projects/{project}/memory.md TRƯỚC TIÊN (cache trạng thái)
-   - Chỉ đọc profile.md / topical.md / keywords-urls.md NẾU memory.md không đủ context
+   - Chỉ đọc profile.md / topical.md / keywords-urls.md / external-sources.md NẾU memory.md không đủ context
 3. NẾU cần workflow chi tiết của 1 skill → mở SKILL.md tương ứng (xem mục 2 bên dưới)
 ```
 
@@ -69,7 +69,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 | Viết bất kỳ bài nào | `skills/content/Content Writing/SKILL.md` ⭐ |
 | Áp dụng phong cách viết theo dự án | `skills/style-mimicker/SKILL.md` ⭐ |
 | Quản lý trạng thái dự án giữa các phiên | `skills/project-memory/SKILL.md` ⭐ |
-| Audit 1 bài đơn lẻ (E-E-A-T & SEO) + Duplicate Detection vs `keywords-urls.md` + Verdict 4 trạng thái — command `/audit` v1.1 | `skills/content/Content Evaluation/SKILL.md` ⭐ |
+| Audit 1 bài đơn lẻ (E-E-A-T & SEO) + Duplicate Detection vs `keywords-urls.md` + External Citation Check vs `external-sources.md` + Verdict 4 trạng thái — command `/audit` v1.2 | `skills/content/Content Evaluation/SKILL.md` ⭐ |
 | Audit topical (cluster-level) | `skills/content/Topical Audit/SKILL.md` |
 | Tạo topical map | `skills/content/Topic Clusters/SKILL.md` |
 | Brand distribution end-to-end | `playbooks/07-brand-distribution-workflow.md` |
@@ -78,7 +78,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 
 | Command | Skill kích hoạt | Mục đích |
 |---------|-----------------|---------|
-| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.1 | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ → output `audit/evaluation-{slug}-{date}.md` |
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.2 | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + **External Citation Check** (vs `external-sources.md` whitelist 3-tier, v1.2) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ → output `audit/evaluation-{slug}-{date}.md` |
 
 **Anti-collision**: `/audit` LUÔN route đến `Content Evaluation`. KHÔNG nhầm sang `Topical Audit` (cluster-level) hay `Content Refresh` (decay-level).
 
@@ -106,7 +106,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 
 | Phase | Mục đích | Output cốt lõi |
 |-------|----------|----------------|
-| **-1** | Load Project Context | Đọc `memory.md` trước, rồi `profile.md` / `topical.md` / `keywords-urls.md` |
+| **-1** | Load Project Context | Đọc `memory.md` trước, rồi `profile.md` / `topical.md` / `keywords-urls.md` / `external-sources.md` (whitelist nguồn ngoài, v1.2) |
 | **0** | Competitor Research + Semantic Keywords | Top 10 SERP, Information Gain, Keyword Map (primary/secondary/long-tail/LSI/PAA), Rare Attribute |
 | **1** | User Research | Trả lời 4 câu hỏi tâm lý (xem mục 4) |
 | **2** | Outline theo User Journey | Cấu trúc H2/H3 theo hành trình tâm lý, không theo "là gì → tại sao → cách làm" |
@@ -240,6 +240,7 @@ projects/{ten-du-an}/
 ├── profile.md           ← Brand voice + USP + business context (file lõi root)
 ├── topical.md           ← Sơ đồ topical map (file lõi root)
 ├── keywords-urls.md     ← Keyword + URL đã publish (file lõi root)
+├── external-sources.md  ← (v1.2) Whitelist nguồn ngoài 3-tier (cơ quan / báo chí / chuyên gia) — tùy chọn
 │
 ├── writing/             ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
 ├── refresh/             ⭐ Bài REFRESH/optimize content cũ
@@ -250,7 +251,7 @@ projects/{ten-du-an}/
 └── archive/             ⭐ Memory rotation + lưu trữ
 ```
 
-**Quy tắc**: 4 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`) ở ROOT. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project.
+**Quy tắc**: 5 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) ở ROOT. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project. File `external-sources.md` (v1.2) tùy chọn — không có → skip External Citation Check.
 
 Naming convention output (full path):
 
