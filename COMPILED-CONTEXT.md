@@ -106,7 +106,8 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 
 | Phase | Mục đích | Output cốt lõi |
 |-------|----------|----------------|
-| **-1** | Load Project Context | Đọc `memory.md` trước, rồi `profile.md` / `topical.md` / `keywords-urls.md` / `external-sources.md` (whitelist nguồn ngoài, v1.2) |
+| **-2** (v1.3) | Detect Project/Style → Fallback `_demo` | Nếu không detect được project name + không có style profile name → load `projects/_demo/style-guide.md`, SKIP toàn bộ Phase -1 + Phase 5 + Phase 6, output đặt trong `projects/_demo/writing/{yyyy-mm-dd}-{slug}.md` |
+| **-1** | Load Project Context (skip nếu Phase -2 rơi `_demo`) | Đọc `memory.md` trước, rồi `profile.md` / `topical.md` / `keywords-urls.md` / `external-sources.md` (whitelist nguồn ngoài, v1.2) |
 | **0** | Competitor Research + Semantic Keywords | Top 10 SERP, Information Gain, Keyword Map (primary/secondary/long-tail/LSI/PAA), Rare Attribute |
 | **1** | User Research | Trả lời 4 câu hỏi tâm lý (xem mục 4) |
 | **2** | Outline theo User Journey | Cấu trúc H2/H3 theo hành trình tâm lý, không theo "là gì → tại sao → cách làm" |
@@ -235,29 +236,39 @@ Chi tiết: `knowledge/16-seo-trends-2026.md`.
 ## 9. PROJECT FOLDER STRUCTURE (2026 — folder-scoped)
 
 ```
-projects/{ten-du-an}/
-├── memory.md            ← Bộ nhớ giữa các phiên (đọc TRƯỚC TIÊN, file lõi root)
-├── profile.md           ← Brand voice + USP + business context (file lõi root)
-├── topical.md           ← Sơ đồ topical map (file lõi root)
-├── keywords-urls.md     ← Keyword + URL đã publish (file lõi root)
-├── external-sources.md  ← (v1.2) Whitelist nguồn ngoài 3-tier (cơ quan / báo chí / chuyên gia) — tùy chọn
+projects/
+├── _demo/               ⭐ (v1.3) Fallback cho ad-hoc content (KHÔNG project + KHÔNG style)
+│   ├── README.md        ← Hướng dẫn cấu trúc + quy tắc đặt tên
+│   ├── style-guide.md   ← ~875 dòng anti-AI rule + bảng AI-isms tiếng Việt + tiếng Anh
+│   ├── style-guide-en.md← Bản tiếng Anh gốc (reference)
+│   ├── writing/{yyyy-mm-dd}-{slug}.md   ← Output ad-hoc content
+│   ├── refresh/{yyyy-mm-dd}-{slug}.md   ← Output ad-hoc refresh
+│   └── audit/{yyyy-mm-dd}-{slug}.md     ← Output ad-hoc audit (bài ngoài project)
 │
-├── writing/             ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
-├── refresh/             ⭐ Bài REFRESH/optimize content cũ
-├── research/            ⭐ Keyword research + Content brief
-├── audit/               ⭐ Topical + Content audit
-├── technical/           ⭐ Technical SEO audit + JSON-LD schema snippets
-├── brand-distribution/  GBP / FB / Zalo plans (giữ nguyên)
-└── archive/             ⭐ Memory rotation + lưu trữ
+└── {ten-du-an}/         ← Project thật (Vd: thep-bao-tin, binhnn-digital, hatcapherangxay)
+    ├── memory.md            ← Bộ nhớ giữa các phiên (đọc TRƯỚC TIÊN, file lõi root)
+    ├── profile.md           ← Brand voice + USP + business context (file lõi root)
+    ├── topical.md           ← Sơ đồ topical map (file lõi root)
+    ├── keywords-urls.md     ← Keyword + URL đã publish (file lõi root)
+    ├── external-sources.md  ← (v1.2) Whitelist nguồn ngoài 3-tier (cơ quan / báo chí / chuyên gia) — tùy chọn
+    │
+    ├── writing/             ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
+    ├── refresh/             ⭐ Bài REFRESH/optimize content cũ
+    ├── research/            ⭐ Keyword research + Content brief
+    ├── audit/               ⭐ Topical + Content audit
+    ├── technical/           ⭐ Technical SEO audit + JSON-LD schema snippets
+    ├── brand-distribution/  GBP / FB / Zalo plans (giữ nguyên)
+    └── archive/             ⭐ Memory rotation + lưu trữ
 ```
 
-**Quy tắc**: 5 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) ở ROOT. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project. File `external-sources.md` (v1.2) tùy chọn — không có → skip External Citation Check.
+**Quy tắc**: 5 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) ở ROOT mỗi project. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project. File `external-sources.md` (v1.2) tùy chọn — không có → skip External Citation Check. **Fallback `_demo` (v1.3)**: kích hoạt khi không detect được project name + không có style profile name → output đặt trong `projects/_demo/{writing|refresh|audit}/{yyyy-mm-dd}-{slug}.md`, KHÔNG cập nhật memory project nào.
 
 Naming convention output (full path):
 
 | Deliverable | Path |
 |-------------|------|
 | Bài viết mới | `projects/{project}/writing/{slug-tieu-de}.md` |
+| Bài viết ad-hoc (v1.3, không project) | `projects/_demo/writing/{yyyy-mm-dd}-{slug}.md` |
 | Bài refresh | `projects/{project}/refresh/{slug-tieu-de}.md` |
 | Keyword research | `projects/{project}/research/keyword-research.md` hoặc `research/keyword-research-{cluster}.md` |
 | Content brief | `projects/{project}/research/brief-{slug-tieu-de}.md` |
