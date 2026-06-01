@@ -1,5 +1,19 @@
 # Content Writing — Viết nội dung có hồn, giải quyết đúng vấn đề người đọc
 
+> **🛑 PRE-FLIGHT — ĐỌC TRƯỚC TIÊN, KHÔNG SKIP (v1.4 — fix bug output path)**
+>
+> **Trước khi gõ output đầu tiên, AI BẮT BUỘC chạy 4 bước Path Validation:**
+>
+> 1. **Intent Disambiguation**: User nói "viết mới" / "viết lại" / "refresh" / "cập nhật" / "rewrite" / "tối ưu"? Map theo bảng [Intent Routing](#phase--05-intent-disambiguation--output-path-resolution-v14) ở Phase -0.5 dưới đây.
+> 2. **Locate existing file**: Nếu user đề cập filename (`abc.md`, `ong-thep-duc.md`...) → tìm trong `projects/{project}/{writing,refresh,research,audit,archive}/` (KHÔNG đoán, KHÔNG tự tạo). Nếu không tìm thấy → hỏi user 1 lần.
+> 3. **Resolve subfolder target**: `writing/` (bài mới) hay `refresh/` (optimize cũ) hay `audit/` (đánh giá) hay `research/` (brief)? Default khi mơ hồ: xem bảng Phase -0.5.
+> 4. **Verify final path**: Path PHẢI là `projects/{project}/{subfolder}/{slug}.md`. **TUYỆT ĐỐI KHÔNG** save vào:
+>    - `projects/{project}/{slug}.md` (root project — chỉ chứa 5 file lõi `memory.md` / `profile.md` / `topical.md` / `keywords-urls.md` / `external-sources.md`)
+>    - `projects/{project}/{cluster}/{slug}.md` (nested cluster ngoài subfolder cho phép)
+>    - `projects/{slug}.md` (root `projects/` — không project)
+>
+> **Anti-pattern bug đã ghi nhận**: User yêu cầu "viết lại abc.md cho thép bảo tín" → AI save thẳng vào `projects/thep-bao-tin/abc.md` (ROOT). **SAI** — phải là `projects/thep-bao-tin/refresh/abc.md`.
+
 ## 1. Purpose / Mục đích
 
 Skill này định nghĩa **cách viết nội dung thực sự hữu ích** — không phải viết cho Google, mà viết cho con người đang có vấn đề cần giải quyết. Trước khi gõ một chữ, bạn phải hiểu:
@@ -371,6 +385,89 @@ Nếu KHÔNG project + KHÔNG style → FALLBACK `_demo` mode:
 - File chính của `_demo`: `projects/_demo/style-guide.md` (~875 dòng, bảng AI-isms tiếng Việt + tiếng Anh)
 - README hướng dẫn: `projects/_demo/README.md`
 - Source EN gốc do user cung cấp: `projects/_demo/style-guide-en.md` (chỉ reference, không edit)
+
+---
+
+### Phase -0.5: Intent Disambiguation + Output Path Resolution (v1.4 — fix bug output path)
+
+> **Bug đã ghi nhận**: User yêu cầu *"viết lại abc.md cho thép bảo tín"* → AI save thẳng vào `projects/thep-bao-tin/abc.md` (ROOT). SAI. Phải là `projects/thep-bao-tin/refresh/abc.md`.
+>
+> Phase này **bắt buộc chạy sau Phase -2 (detect project/style)** và **trước Phase -1 (load context)**, để xác định ĐÚNG skill + ĐÚNG subfolder trước khi tốn thời gian load context.
+
+#### Bước 1. Intent Disambiguation — Map câu yêu cầu của user sang skill
+
+Quét request của user theo bảng dưới (case-insensitive, match cụm từ gần đúng). **Skill kích hoạt → quyết định subfolder output**:
+
+| Cụm từ user nói | Skill kích hoạt | Subfolder output |
+|----------------|------------------|------------------|
+| "viết bài mới", "viết bài", "tạo bài" về X | **Content Writing** | `writing/` |
+| "viết pillar", "viết bài chủ đề" | Content Writing + Pillar Pages | `writing/` |
+| "viết lại {file}.md" (file đã tồn tại) | **Content Refresh** (mặc định) | `refresh/` |
+| "refresh {file}.md", "refresh bài X" | Content Refresh | `refresh/` |
+| "cập nhật {file}.md", "update bài X" | Content Refresh | `refresh/` |
+| "tối ưu lại {file}.md", "optimize bài X" | Content Refresh | `refresh/` |
+| "rewrite từ đầu {file}.md", "viết lại hoàn toàn từ đầu" | Content Writing (verdict 🟠 LÀM MỚI) | `writing/` (ghi đè) HOẶC `refresh/{slug}-v2.md` (giữ bản cũ) — hỏi user |
+| "audit {file}.md", "/audit {URL}", "đánh giá bài X" | **Content Evaluation** | `audit/` |
+| "viết brief", "brief cho bài X" | Content Writing (Brief mode) | `research/` |
+| "keyword research", "nghiên cứu từ khóa" | Keyword Research | `research/` |
+| "audit cluster", "topical audit" | Topical Audit | `audit/` |
+| "schema {Type}", "tạo JSON-LD" | Schema Markup | `technical/` |
+
+**Default khi mơ hồ**: Nếu user nói cụm chứa "viết lại"/"refresh"/"cập nhật" + filename `.md` đã tồn tại trong project → **mặc định Content Refresh + `refresh/` subfolder**. KHÔNG mặc định Content Writing → tránh ghi đè bài đã publish + tránh save vào root.
+
+#### Bước 2. Locate Existing File (BẮT BUỘC nếu user đề cập filename)
+
+Nếu request chứa filename (vd `abc.md`, `ong-thep-duc.md`), AI PHẢI tìm file đó **TRƯỚC KHI** quyết định path output:
+
+```
+Search trong các subfolder theo thứ tự:
+1. projects/{project}/writing/{filename}        → bài đã publish, đang muốn refresh → output refresh/{filename}
+2. projects/{project}/refresh/{filename}        → bản refresh trước đó, lần này refresh tiếp → output refresh/{filename} (ghi đè bản cũ)
+3. projects/{project}/research/brief-{filename} → đây là brief, không phải bài → CHẶN, hỏi user "Refresh brief hay refresh bài viết?"
+4. projects/{project}/archive/                  → bài đã archive → CHẶN, hỏi user "Restore từ archive hay viết bài mới cùng tên?"
+5. projects/{project}/{filename} (ROOT)         → ⚠️ FILE LEGACY SAI VỊ TRÍ — user phải move sang writing/ trước, KHÔNG viết đè vào root
+```
+
+Nếu **KHÔNG tìm thấy** ở bất kỳ subfolder nào:
+- Hỏi user 1 lần: *"Không tìm thấy `{filename}` trong `projects/{project}/`. Bạn muốn: (a) viết bài mới với slug `{filename}` → `writing/{filename}`, (b) bạn nhập sai tên file, gõ lại cho đúng?"*
+- **KHÔNG tự đoán + KHÔNG tự tạo trong root**
+
+Nếu tìm thấy **ở root** (case 5):
+- WARN user: *"File `{filename}` đang nằm sai vị trí ở `projects/{project}/{filename}` (legacy bug). Trước khi refresh, mình sẽ MOVE file sang `projects/{project}/writing/{filename}` (giữ slug, giữ content) rồi mới refresh sang `refresh/{filename}`. Đồng ý không?"*
+
+#### Bước 3. Resolve Subfolder Target
+
+Sau Bước 1+2, AI có đủ thông tin để chốt subfolder:
+
+| Case | Subfolder | Filename pattern |
+|------|-----------|------------------|
+| Content Writing — bài mới (chưa có file) | `writing/` | `{slug-tieu-de}.md` |
+| Content Refresh — bài đã publish ở `writing/` | `refresh/` | giữ NGUYÊN slug gốc: `{slug-bai-cu}.md` |
+| Content Refresh — refresh tiếp lần 2 (đã có `refresh/X.md`) | `refresh/` | ghi đè `{slug-bai-cu}.md` (hoặc `{slug-bai-cu}-v2.md` nếu user yêu cầu giữ lịch sử) |
+| Content Evaluation — audit bài đơn | `audit/` | `audit-{yyyy-mm-dd}-{slug}.md` |
+| Brief trước khi viết | `research/` | `brief-{slug-tieu-de}.md` |
+| `_demo` mode (Phase -2 fallback) | `_demo/{writing\|refresh\|audit}/` | `{yyyy-mm-dd}-{slug}.md` |
+
+#### Bước 4. Final Path Validation (BẮT BUỘC trước khi tạo file)
+
+Trước khi gọi tool tạo file output, AI **PHẢI** tự verify path khớp 1 trong 5 pattern hợp lệ:
+
+```
+✅ projects/{project}/writing/{slug}.md          ← bài mới
+✅ projects/{project}/refresh/{slug}.md          ← bài refresh (GIỮ slug gốc)
+✅ projects/{project}/audit/audit-{date}-{slug}.md  ← audit bài đơn
+✅ projects/{project}/research/brief-{slug}.md   ← brief
+✅ projects/_demo/{writing|refresh|audit}/{yyyy-mm-dd}-{slug}.md  ← _demo fallback
+```
+
+```
+❌ projects/{project}/{slug}.md                  ← SAI: root project chỉ chứa 5 file lõi
+❌ projects/{project}/{cluster}/{slug}.md        ← SAI: không nested cluster ngoài subfolder
+❌ projects/{slug}.md                            ← SAI: root projects/ không có file viết
+❌ {slug}.md (root repo)                         ← SAI: không tạo file ở root repo
+```
+
+Nếu path final KHÔNG khớp ✅ pattern hợp lệ → **DỪNG, không tạo file, fix lại path**.
 
 ---
 

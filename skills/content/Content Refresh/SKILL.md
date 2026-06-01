@@ -1,5 +1,19 @@
 # Content Refresh — Cập nhật nội dung
 
+> **🛑 PRE-FLIGHT — ĐỌC TRƯỚC TIÊN, KHÔNG SKIP (v1.4 — fix bug output path)**
+>
+> **Trước khi refresh, AI BẮT BUỘC chạy 4 bước Path Validation (đồng bộ với Content Writing Phase -0.5):**
+>
+> 1. **Confirm intent là refresh** (không phải rewrite from scratch): user nói "viết lại", "refresh", "cập nhật", "tối ưu" + filename `.md` đã tồn tại → ĐÚNG là Content Refresh. Nếu user nói "viết lại hoàn toàn từ đầu" → route sang Content Writing (verdict 🟠 LÀM MỚI), KHÔNG dùng skill này.
+> 2. **Locate file gốc**: tìm `{filename}` trong `projects/{project}/{writing,refresh,archive}/`. Nếu không tìm thấy → hỏi user 1 lần, KHÔNG đoán.
+> 3. **Output BẮT BUỘC vào `refresh/`**: `projects/{project}/refresh/{slug-bai-cu}.md` (GIỮ NGUYÊN slug gốc của bài đã publish).
+> 4. **TUYỆT ĐỐI KHÔNG** save vào:
+>    - `projects/{project}/{slug}.md` (ROOT — chỉ chứa 5 file lõi) ← **bug đã ghi nhận**
+>    - `projects/{project}/writing/{slug}.md` (writing/ chỉ cho bài MỚI, refresh ≠ mới)
+>    - `projects/{project}/{cluster}/{slug}.md` (không nested cluster)
+>
+> **Anti-pattern bug đã ghi nhận**: User yêu cầu *"viết lại abc.md cho thép bảo tín"* → AI save thẳng vào `projects/thep-bao-tin/abc.md` (ROOT). **SAI**. Phải là `projects/thep-bao-tin/refresh/abc.md`. Xem chi tiết: `skills/content/Content Writing/SKILL.md` Phase -0.5.
+
 > **Chuẩn 2026 bắt buộc**: Mỗi lần refresh là cơ hội đưa bài cũ lên chuẩn 2026. **Bài cũ chỉ rewrite meta khi refresh** (không batch update retroactive). Khi refresh: thêm Summary Chunk 40-60 chữ + Bite-sized H2 + Entity Mapping + meta_description ≤ 135 chars + ProfilePage schema cho tác giả + nhúng short-form video. Xem `knowledge/18-metadata-sop-2026.md` mục 9.
 
 ## 1. Purpose / Mục đích

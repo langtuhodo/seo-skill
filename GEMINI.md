@@ -318,6 +318,29 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
        → Session End: KHÔNG update memory.md của bất kỳ project nào
    └── Nếu detect được project name → tiếp tục Bước 2 bình thường
 
+1.7. INTENT ROUTING + OUTPUT PATH RESOLUTION (v1.4 — fix bug output path) ⭐ MỚI
+   └── Map cụm từ trong request → skill kích hoạt → subfolder output:
+
+       | Cụm từ user nói | Skill kích hoạt | Subfolder |
+       |-----------------|------------------|-----------|
+       | "viết bài mới", "viết bài", "tạo bài" về X | Content Writing | writing/ |
+       | "viết lại {file}.md", "refresh {file}.md", "cập nhật {file}.md", "tối ưu lại {file}.md" | **Content Refresh** (mặc định khi mơ hồ) | refresh/ |
+       | "rewrite từ đầu {file}.md", "viết lại hoàn toàn từ đầu" | Content Writing (verdict 🟠 LÀM MỚI) | writing/ (ghi đè) HOẶC refresh/{slug}-v2.md |
+       | "/audit {URL}", "audit {file}.md", "đánh giá bài X" | Content Evaluation | audit/ |
+       | "viết brief", "brief cho bài X" | Content Writing (Brief mode) | research/ |
+       | "keyword research", "nghiên cứu từ khóa" | Keyword Research | research/ |
+       | "audit cluster", "topical audit" | Topical Audit | audit/ |
+       | "schema {Type}", "tạo JSON-LD" | Schema Markup | technical/ |
+
+   └── Nếu user đề cập filename `{abc}.md` trong request:
+       1. Locate file trong projects/{project}/{writing,refresh,research,audit,archive}/
+       2. KHÔNG tìm thấy → hỏi user 1 lần, KHÔNG tự đoán
+       3. Tìm thấy ở ROOT (projects/{project}/{abc}.md) → WARN user file legacy sai vị trí, đề xuất MOVE sang writing/ trước khi refresh
+
+   └── Default khi mơ hồ: "viết lại"/"refresh"/"cập nhật" + filename `.md` đã tồn tại → **Content Refresh + refresh/ subfolder**. KHÔNG mặc định Content Writing → tránh ghi đè bài đã publish + tránh save vào root.
+
+   └── Chi tiết: `skills/content/Content Writing/SKILL.md` Phase -0.5 + `skills/content/Content Refresh/SKILL.md` PRE-FLIGHT.
+
 2. CREATE PROJECT FOLDER (skip nếu fallback _demo từ Bước 1.5)
    └── Path: projects/{ten-du-an}/
    └── Tạo folder nếu chưa tồn tại
@@ -374,7 +397,25 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
        - archive/memory-{YYYY-MM}.md (memory cũ khi rotate)
        - archive/audit-{yyyy-mm-dd}.md (audit cũ > 12 tháng nếu muốn dọn)
 
-   ❌ KHÔNG lưu bài viết / audit / research thẳng vào projects/{ten-du-an}/ (root). Root chỉ chứa 4 file lõi.
+   ❌ KHÔNG lưu bài viết / audit / research thẳng vào projects/{ten-du-an}/ (root). Root chỉ chứa 5 file lõi.
+
+   ❌ Path SAI bị cấm (v1.4 — bug fix output path):
+       - `projects/{project}/{slug}.md`         (ROOT — chỉ chứa 5 file lõi) ← bug đã ghi nhận
+       - `projects/{project}/{cluster}/{slug}.md` (nested cluster ngoài subfolder cho phép)
+       - `projects/{slug}.md`                   (root projects/ không có file viết)
+       - `{slug}.md` (root repo)                (không tạo file ở root repo)
+
+   ✅ Path ĐÚNG được cho phép:
+       - `projects/{project}/writing/{slug}.md`
+       - `projects/{project}/refresh/{slug}.md`
+       - `projects/{project}/audit/audit-{yyyy-mm-dd}-{slug}.md`
+       - `projects/{project}/research/brief-{slug}.md`
+       - `projects/{project}/technical/{...}.{md,json}`
+       - `projects/{project}/brand-distribution/{...}.md`
+       - `projects/{project}/archive/{...}.md`
+       - `projects/_demo/{writing|refresh|audit}/{yyyy-mm-dd}-{slug}.md` (fallback _demo, v1.3)
+
+   **Trước khi tạo file, AI BẮT BUỘC self-check path khớp 1 trong ✅ pattern hợp lệ.** Nếu không → DỪNG, fix path.
 
 6. RETURN RESULT
    └── Thông báo file path đã tạo

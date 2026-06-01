@@ -233,6 +233,28 @@ Chi tiết: `knowledge/16-seo-trends-2026.md`.
 - Pillar → link xuống mỗi supporting 1 lần
 - Link ngang trong cùng cluster: chỉ khi thực sự liên quan ngữ nghĩa
 
+## 8.5. INTENT DISAMBIGUATION — Quick Reference (v1.4 — fix bug output path)
+
+> Trước khi tạo file output, AI BẮT BUỘC map intent → skill → subfolder. KHÔNG mặc định "viết lại" = Content Writing → tránh bug save vào root project.
+
+| Cụm từ user nói | Skill kích hoạt | Subfolder | Filename pattern |
+|----------------|------------------|-----------|------------------|
+| "viết bài mới", "viết bài", "tạo bài" về X | Content Writing | `writing/` | `{slug-tieu-de}.md` |
+| "viết lại {file}.md", "refresh {file}.md", "cập nhật {file}.md", "tối ưu lại {file}.md" | **Content Refresh** (mặc định khi mơ hồ) | `refresh/` | GIỮ slug gốc: `{slug-bai-cu}.md` |
+| "rewrite từ đầu {file}.md", "viết lại hoàn toàn từ đầu" | Content Writing (verdict 🟠 LÀM MỚI) | `writing/` HOẶC `refresh/{slug}-v2.md` | hỏi user |
+| "/audit {URL}", "audit {file}.md", "đánh giá bài X" | Content Evaluation | `audit/` | `audit-{yyyy-mm-dd}-{slug}.md` |
+| "viết brief", "brief cho bài X" | Content Writing (Brief mode) | `research/` | `brief-{slug-tieu-de}.md` |
+| "keyword research" | Keyword Research | `research/` | `keyword-research.md` hoặc `keyword-research-{cluster}.md` |
+| "audit cluster", "topical audit" | Topical Audit | `audit/` | `audit-{cluster}-{yyyy-mm-dd}.md` |
+| "schema {Type}", "tạo JSON-LD" | Schema Markup | `technical/` | `schema-{Type}.json` |
+
+**Locate file gốc khi user đề cập filename**:
+1. Search `projects/{project}/{writing,refresh,research,audit,archive}/{filename}`
+2. KHÔNG tìm thấy → hỏi user 1 lần, KHÔNG đoán
+3. Tìm thấy ở ROOT `projects/{project}/{filename}` → WARN file legacy sai vị trí, đề xuất MOVE sang `writing/` trước khi refresh
+
+**Bug đã ghi nhận** (v1.4): User yêu cầu *"viết lại abc.md cho thép bảo tín"* → AI save thẳng vào `projects/thep-bao-tin/abc.md` (ROOT). **SAI**. Phải là `projects/thep-bao-tin/refresh/abc.md`. Xem chi tiết: `skills/content/Content Writing/SKILL.md` Phase -0.5 + `skills/content/Content Refresh/SKILL.md` PRE-FLIGHT.
+
 ## 9. PROJECT FOLDER STRUCTURE (2026 — folder-scoped)
 
 ```
