@@ -271,7 +271,19 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
    └── Check aliases trong profile.md của các project existing (nếu user gọi tắt)
    └── Ví dụ: "Thép Bảo Tín" → "thep-bao-tin", "Binhnn" → match alias → "binhnn-digital"
 
-2. CREATE PROJECT FOLDER
+1.5. FALLBACK DETECTION (v1.3 — ad-hoc content) ⭐ MỚI
+   └── Nếu KHÔNG detect được project name TỪ Bước 1 + KHÔNG có style profile name trong request
+       → ACTIVATE _demo mode (fallback ad-hoc)
+       → Path: projects/_demo/ (đã có sẵn)
+       → Load: projects/_demo/style-guide.md (~875 dòng anti-AI rule + bảng AI-isms tiếng Việt + tiếng Anh)
+       → SKIP toàn bộ Bước 2 (CREATE PROJECT FOLDER) + Bước 3 (LOAD PROJECT CONTEXT)
+       → Output path: projects/_demo/writing/{yyyy-mm-dd}-{slug}.md
+       → SKIP internal link + external whitelist check
+       → Note cuối bài: "Ad-hoc content — không thuộc project. Style guide: _demo. User review trước khi publish."
+       → Session End: KHÔNG update memory.md của bất kỳ project nào
+   └── Nếu detect được project name → tiếp tục Bước 2 bình thường
+
+2. CREATE PROJECT FOLDER (skip nếu fallback _demo từ Bước 1.5)
    └── Path: projects/{ten-du-an}/
    └── Tạo folder nếu chưa tồn tại
 
@@ -341,6 +353,14 @@ projects/
 ├── memory-template.md                  ← Template memory.md cho dự án mới
 ├── keywords-urls-template.md           ← Template keywords-urls.md
 ├── external-sources-template.md        ← (v1.2) Template external-sources.md (3-tier whitelist)
+│
+├── _demo/                              ← ⭐ (v1.3) Fallback cho ad-hoc content (không project + không style)
+│   ├── README.md                       ← Hướng dẫn cấu trúc + quy tắc đặt tên
+│   ├── style-guide.md                  ← ~875 dòng anti-AI rule + bảng AI-isms tiếng Việt + tiếng Anh
+│   ├── style-guide-en.md               ← Bản tiếng Anh gốc (reference, không edit)
+│   ├── writing/{yyyy-mm-dd}-{slug}.md  ← Output ad-hoc content
+│   ├── refresh/{yyyy-mm-dd}-{slug}.md  ← Output ad-hoc refresh
+│   └── audit/{yyyy-mm-dd}-{slug}.md    ← Output ad-hoc audit (bài ngoài project)
 │
 └── {ten-du-an}/                        ← Vd: thep-bao-tin, binhnn-digital
     │

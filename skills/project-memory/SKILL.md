@@ -103,7 +103,27 @@ Bước 3: Chỉ đọc các file sau NẾU memory.md không đủ:
 
 ### 4.3. Session End Protocol — AI làm gì cuối phiên
 
-**Trước khi report task completion cho user**, AI BẮT BUỘC chạy checklist 7 điểm (đồng bộ với Content Writing Phase 7):
+**Trước khi report task completion cho user**, AI BẮT BUỘC chạy checklist 7 điểm (đồng bộ với Content Writing Phase 7).
+
+#### 🆕 v1.3 — Ad-hoc Session (`_demo` mode) Exception
+
+Nếu phiên rơi vào fallback `_demo` mode (không project + không style — xem `skills/content/Content Writing/SKILL.md` Phase -2):
+
+```
+1. KHÔNG cập nhật memory.md của BẤT KỲ project nào
+   (vì ad-hoc không thuộc project nào → không có memory.md để cập nhật)
+2. KHÔNG cập nhật keywords-urls.md (skip điểm 2.5)
+3. KHÔNG cập nhật external-sources.md (skip điểm 2.6, _demo không có file này)
+4. CHỈ inform user 1 dòng cuối response:
+   "Đã viết ad-hoc tại projects/_demo/writing/{yyyy-mm-dd}-{slug}.md.
+    Không cập nhật memory project nào. User review trước khi publish."
+5. Output file đặt tại projects/_demo/writing/{yyyy-mm-dd}-{slug}.md
+   (hoặc projects/_demo/refresh/* hoặc projects/_demo/audit/*)
+```
+
+→ Ad-hoc skip toàn bộ điểm 2-2.6 dưới đây. Chỉ cần điểm 1 (SCAN) + điểm 3 (INFORM).
+
+#### Checklist tiêu chuẩn (phiên có project):
 
 ```
 1. SCAN PHIÊN VỪA LÀM:

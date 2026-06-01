@@ -114,6 +114,17 @@ This skill has **opt-in activation**. It triggers when (a) user explicitly names
 - `"mimic this style"` (without naming a saved profile) — ask user to name the style first
 - Any request where neither (a) an explicit profile name, (b) a project with style mapping, nor (c) a CAPTURE command is present
 
+### 🆕 v1.2 — Fallback `_demo` (no project + no style)
+
+Khi request KHÔNG match Activation Rule (không có style name + không có project mapping) → Content Writing skill rơi vào **`_demo` mode** (Phase -2 trong `skills/content/Content Writing/SKILL.md`). Trong mode này:
+
+- **Style Mimicker SKIP** (Phase 5 không apply, không có style profile JSON để load)
+- AI dùng `projects/_demo/style-guide.md` — file ~875 dòng chứa anti-AI rule + bảng AI-isms tiếng Việt riêng (Tier 1/2/3 VN) + bảng AI-isms tiếng Anh (Tier 1/2/3 EN) + voice profile mặc định (`professional` + `blog` context)
+- AI **KHÔNG đoán** style profile nào để gán; nếu cần xác nhận → hỏi user: "Bài này thuộc project nào, hay viết ad-hoc (`_demo`)?"
+- Nếu user xác nhận "ad-hoc" hoặc không trả lời rõ → Style Mimicker chính thức skip cho phiên này
+
+Xem thêm: `projects/_demo/README.md` (cấu trúc + quy tắc đặt tên file) và `projects/_demo/style-guide.md` (style guide chi tiết tiếng Việt).
+
 ### 🤔 If style name is ambiguous:
 If there is a style-like name in the request but no profile JSON exists for it, ask:
 > "I don't have a saved profile for '[Name]'. Would you like me to:

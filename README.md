@@ -109,16 +109,25 @@ Mỗi file kỹ năng tuân theo cấu trúc 8 phần:
 Output được tổ chức theo dự án + folder-scoped (chuẩn 2026). Khi yêu cầu task SEO cho một website/công ty cụ thể, AI tự động tạo & lưu vào subfolder tương ứng:
 
 ```
-projects/{ten-du-an}/
-├── memory.md, profile.md, topical.md, keywords-urls.md, external-sources.md  ← 5 file lõi ở ROOT (external-sources.md tùy chọn, v1.2)
-├── writing/{slug}.md          ⭐ bài viết mới (blog/pillar/supporting/tools/evergreen/pSEO)
-├── refresh/{slug}.md          ⭐ bài refresh/optimize content cũ
-├── research/                  ⭐ keyword research + content brief
-├── audit/audit-{date}.md      ⭐ topical/content audit
-├── technical/                 ⭐ technical SEO audit + JSON-LD schema snippets
-├── brand-distribution/        GBP + FB + Zalo plans (giữ nguyên)
-└── archive/                   ⭐ memory rotation + lưu trữ
+projects/
+├── _demo/                     ⭐ (v1.3) Fallback cho ad-hoc content (không project + không style)
+│   ├── README.md, style-guide.md (875 dòng anti-AI rule + AI-isms tiếng Việt), style-guide-en.md
+│   ├── writing/{yyyy-mm-dd}-{slug}.md
+│   ├── refresh/{yyyy-mm-dd}-{slug}.md
+│   └── audit/{yyyy-mm-dd}-{slug}.md
+│
+└── {ten-du-an}/               ← Project thật (vd: thep-bao-tin, binhnn-digital, hatcapherangxay)
+    ├── memory.md, profile.md, topical.md, keywords-urls.md, external-sources.md  ← 5 file lõi ở ROOT (external-sources.md tùy chọn, v1.2)
+    ├── writing/{slug}.md          ⭐ bài viết mới (blog/pillar/supporting/tools/evergreen/pSEO)
+    ├── refresh/{slug}.md          ⭐ bài refresh/optimize content cũ
+    ├── research/                  ⭐ keyword research + content brief
+    ├── audit/audit-{date}.md      ⭐ topical/content audit
+    ├── technical/                 ⭐ technical SEO audit + JSON-LD schema snippets
+    ├── brand-distribution/        GBP + FB + Zalo plans (giữ nguyên)
+    └── archive/                   ⭐ memory rotation + lưu trữ
 ```
+
+**Fallback `_demo` (v1.3)**: khi AI không detect được project name + không có style profile name → auto activate `_demo` mode, dùng `projects/_demo/style-guide.md` làm phong cách mặc định (anti-AI rule + bảng AI-isms tiếng Việt + tiếng Anh), output đặt trong `projects/_demo/writing/`. KHÔNG cập nhật memory project nào ở cuối phiên. Chi tiết: `projects/_demo/README.md`.
 
 Chi tiết path convention cho từng loại output: xem `AGENTS.md` Section "GENERATE OUTPUT" và `COMPILED-CONTEXT.md` mục 9.
 
@@ -154,11 +163,12 @@ Bộ skill này auto-load với các tool sau:
 - ✅ v1.9: Content Evaluation skill + `/audit` command — audit 1 bài đơn lẻ theo E-E-A-T & SEO 2026 với 6-section report
 - ✅ v1.9.1: Content Evaluation v1.1 — Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ. Schema `keywords-urls.md` migrate từ 8 cột → 7 cột (bỏ `Trạng thái`, thêm `Tiêu đề`).
 - ✅ v1.9.2: Content Evaluation v1.2 + Content Writing/Refresh v1.1 — **External Citation Whitelist** (`projects/{project}/external-sources.md` 3-tier: cơ quan / báo chí / chuyên gia). Anti-hallucination: AI chỉ cite từ whitelist, KHÔNG bịa URL nguồn ngoài. `/audit` thêm Section 5.6 External Citation Check + Phase 3.5. Populate sẵn: thep-bao-tin (Steel: ASTM/ISO/JIS/Worldsteel/VSA), binhnn-digital (Digital Marketing: Google Search Central/Moz/Backlinko/Neil Patel/HubSpot).
+- ✅ v1.9.3: **Ad-hoc Content Fallback `_demo`** — khi AI không detect được project name + không có style profile name → auto activate `_demo` mode. `projects/_demo/style-guide.md` (~875 dòng): translation tiếng Việt + bảng AI-isms tiếng Việt riêng (Tier 1: 24 từ, Tier 2: 15 từ, Tier 3: 8 từ + 19 phrase) + 10 pattern tiếng Việt đặc trưng (sự overuse, được passive, một cách construction...) + bảng tiếng Anh integrated. Output `projects/_demo/{writing|refresh|audit}/{yyyy-mm-dd}-{slug}.md`. Skill Content Writing thêm Phase -2 (Detect Project/Style), Content Evaluation v1.3 thêm fallback, Style Mimicker SKIP, Project Memory Session End ad-hoc exception.
 - 🔲 v2.0: Dashboard mẫu (Looker Studio / GA4 / GSC) + Tailored variant theo niche (SaaS B2B / E-com / Local / Affiliate / Media)
 
 ---
 
-*SEO Skills Library v1.9.2 — 62 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output + `/audit` v1.2 (Duplicate Detection + Verdict 4 trạng thái + **External Citation Check**) + keywords-urls.md schema v1.1 (7 cột) + external-sources.md whitelist 3-tier (v1.2)*
+*SEO Skills Library v1.9.3 — 62 skills, 18 knowledge notes, 7 playbooks + COMPILED-CONTEXT + Project Memory + Folder-scoped Output + `/audit` v1.3 (Duplicate Detection + Verdict 4 trạng thái + External Citation Check + **Ad-hoc fallback `_demo`**) + keywords-urls.md schema v1.1 (7 cột) + external-sources.md whitelist 3-tier (v1.2) + projects/_demo/style-guide.md (875 dòng, AI-isms tiếng Việt riêng, v1.3)*
 *Maintained for AI SEO 2026+*
 
 *Maintained as a senior SEO assistant playbook. Cập nhật theo guideline mới của Google & xu hướng AI SEO 2025+.*

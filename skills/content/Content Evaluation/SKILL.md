@@ -1,8 +1,8 @@
 # Content Evaluation — Audit 1 bài viết theo chuẩn E-E-A-T & SEO (`/audit`)
 
-> **Version**: v1.2 (2026-05-27) — thêm External Citation Check (Section 5.6) + load `external-sources.md` whitelist (Phase 2) + Trust deduction nếu cite ngoài whitelist.
+> **Version**: v1.3 (2026-05-27) — thêm fallback `_demo` mode (audit bài không thuộc project): load `projects/_demo/style-guide.md` thay vì project context, skip Section 5.5 + 5.6.
 >
-> **Lịch sử**: v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
+> **Lịch sử**: v1.2 (External Citation Check Section 5.6 + load `external-sources.md` whitelist Phase 2 + Trust deduction nếu cite ngoài whitelist). v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
 >
 > **Persona kích hoạt**: AI nhập vai **Technical SEO Director kiêm Google Quality Rater cấp cao**. Không chào hỏi, không lan man, đi thẳng vào báo cáo.
 >
@@ -368,12 +368,35 @@ Nếu audit bài **không thuộc dự án nào** → output ngay trong message 
 - Validate đủ trường tối thiểu (5/7 BẮT BUỘC).
 - Nếu thiếu → output validation error + STOP.
 
-### Phase 2: Load Project Context (nếu có dự án)
+### Phase 2: Load Project Context (nếu có dự án) hoặc Fallback `_demo` (v1.3)
+
+**Detect project trước:**
+
+```
+Nếu URL audit thuộc domain của 1 project trong projects/*/profile.md HOẶC
+   user explicit chỉ định project (vd "/audit URL cho thep-bao-tin"):
+  → Có project context → load 5 file dưới đây
+Nếu KHÔNG detect được project:
+  → FALLBACK _demo mode → load projects/_demo/style-guide.md thay vì project context
+  → SKIP Section 5.5 (Duplicate Detection)
+  → SKIP Section 5.6 (External Citation Check whitelist)
+  → CHỈ chạy Section 1-5 (On-page, EEAT, Content Quality, Verdict)
+  → Section 4 anti-AI audit dùng style guide _demo (bảng AI-isms tiếng Việt + tiếng Anh)
+  → Ghi note đầu report: "Audit ad-hoc — không thuộc project. Style guide tham chiếu: projects/_demo/style-guide.md"
+  → Output report path: projects/_demo/audit/{yyyy-mm-dd}-{slug}.md
+```
+
+**Nếu có project context, load 5 file:**
 - Đọc `memory.md` → biết Active Context + Key Decisions.
 - Đọc `profile.md` → Brand voice + Author Entity.
 - Đọc `keywords-urls.md` (schema 7 cột v1.1: `#`, `Keyword`, `Tiêu đề`, `URL`, `Cluster`, `Vai trò`, `Intent`) → cache toàn bộ row vào in-memory list để Phase 3 dùng.
 - **(v1.2) Đọc `external-sources.md`** nếu tồn tại → cache Tier 1/2/3 domain list để Phase 3.5 dùng. Nếu file không tồn tại → skip Phase 3.5 + ghi 1 dòng note trong report ("Project chưa có external-sources.md whitelist").
 - Nếu file `keywords-urls.md` không tồn tại → skip Phase 3 + ghi warn trong report.
+
+**Nếu fallback `_demo`:**
+- Đọc `projects/_demo/style-guide.md` để Phase 4 (Content Quality / anti-AI) dùng.
+- Bỏ qua mọi project-context phase (Phase 3 Duplicate, Phase 3.5 External Whitelist).
+- Vẫn chạy Phase 4 + Phase 6 (Verdict) bình thường.
 
 ### Phase 3: Duplicate Detection (mới từ v1.1, chỉ chạy khi có project + keywords-urls.md)
 

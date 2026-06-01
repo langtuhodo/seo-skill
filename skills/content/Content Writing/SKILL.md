@@ -330,6 +330,50 @@ Trước khi viết BẤT KỲ bài nào, phải trả lời 4 câu hỏi:
 
 ## 4. Workflow viết nội dung có hồn
 
+### Phase -2: Detect Project/Style — Fallback `_demo` (BẮT BUỘC, v1.3)
+
+**Trước khi load project context, AI PHẢI detect 2 thứ:**
+
+1. **Có project name trong yêu cầu?** (user nói "viết cho thep-bao-tin", "binhnn-digital", "hatcapherangxay"... hoặc session có project active)
+2. **Có style name trong yêu cầu?** (user nói "viết theo phong cách [Name]", "dùng style profile [Name]"...)
+
+#### Decision tree
+
+```
+Nếu CÓ project name:
+  → Phase -1: Load projects/{project}/ context (memory.md → profile.md → topical.md → keywords-urls.md → external-sources.md)
+  → Phase 0 → ... → Phase 5 (Style Mimicker nếu có style profile mapping)
+  → Output: projects/{project}/writing/{cluster-or-slug}.md
+
+Nếu KHÔNG có project name NHƯNG CÓ style name:
+  → Phase -1: Skip project context load; chỉ load style profile từ skills/style-mimicker/profiles/{name}.json
+  → Phase 0 → ... → Phase 5
+  → Output: projects/_demo/writing/{yyyy-mm-dd}-{slug}.md
+  → Note cuối bài: "Ad-hoc content với style {name} — không thuộc project."
+
+Nếu KHÔNG project + KHÔNG style → FALLBACK `_demo` mode:
+  → Phase -1: Load projects/_demo/style-guide.md (anti-AI rule + bảng AI-isms tiếng Việt riêng)
+  → SKIP: memory.md, profile.md, topical.md, keywords-urls.md, external-sources.md
+  → Phase 0: Competitor Research vẫn chạy (cần PAA, top 10 SERP nếu user cho keyword)
+  → Phase 1-4: viết bình thường, apply style guide _demo
+  → Phase 5 (Style Mimicker): SKIP (không có style chỉ định)
+  → Phase 6 (Internal Linking): SKIP (không có keywords-urls.md)
+  → Phase 3 (External Cite): SKIP whitelist; chỉ cite generic source (Wikipedia, .gov, .edu, hãng lớn) và ghi note "Ad-hoc cite — user review trước publish"
+  → Output: projects/_demo/writing/{yyyy-mm-dd}-{slug}.md
+  → Note cuối bài: "Ad-hoc content — không thuộc project. Style guide: _demo. User review trước khi publish."
+  → Session End: KHÔNG cập nhật memory.md của bất kỳ project nào
+```
+
+> ⚠️ **Quan trọng**: Khi rơi vào `_demo` mode, AI **KHÔNG được tự đoán** project nào để gán. Nếu user không nói rõ → mặc định `_demo`. Nếu cần xác nhận → hỏi user 1 lần: "Bài này thuộc project nào, hay viết ad-hoc (`_demo`)?"
+
+#### Cross-reference
+
+- File chính của `_demo`: `projects/_demo/style-guide.md` (~875 dòng, bảng AI-isms tiếng Việt + tiếng Anh)
+- README hướng dẫn: `projects/_demo/README.md`
+- Source EN gốc do user cung cấp: `projects/_demo/style-guide-en.md` (chỉ reference, không edit)
+
+---
+
 ### Phase -1: Load Project Context — BẮT BUỘC (nếu viết cho dự án cụ thể)
 
 **Trước khi bắt đầu research, PHẢI đọc file dự án theo thứ tự ưu tiên:**
