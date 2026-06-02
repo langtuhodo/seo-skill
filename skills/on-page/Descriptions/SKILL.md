@@ -1,3 +1,10 @@
+---
+name: meta-descriptions
+version: 1.0.0
+description: "Use this skill when the user asks about meta description optimization: 'viết meta description', 'tối ưu CTR meta description', 'meta description chuẩn 2026', '135 chars meta'. Covers 135-char limit (2026 standard), CTR-driven copywriting, intent matching."
+category: on-page
+---
+
 # Meta Description — Mô tả meta (chuẩn 2026)
 
 ## 1. Purpose / Mục đích

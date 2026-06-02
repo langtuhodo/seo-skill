@@ -1,3 +1,10 @@
+---
+name: kpi-tracking
+version: 1.0.0
+description: "Use this skill when the user asks about KPI / OKR SEO tracking: 'KPI SEO', 'OKR cho SEO team', 'báo cáo KPI seo hằng tháng', 'metric SEO quan trọng'. Covers North Star metric, leading vs lagging indicators, KPI dashboard structure."
+category: analytics
+---
+
 # KPI Tracking — Theo dõi chỉ số
 
 ## 1. Purpose / Mục đích

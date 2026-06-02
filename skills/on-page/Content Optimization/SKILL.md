@@ -1,3 +1,10 @@
+---
+name: on-page-content-optimization
+version: 1.0.0
+description: "Use this skill when the user asks to optimize on-page content: 'tối ưu nội dung trên trang', 'on-page SEO content', 'optimize for keyword X', 'content gap analysis'. Covers keyword placement, semantic enrichment, content depth, NLP signals."
+category: on-page
+---
+
 # Content Optimization — Tối ưu nội dung trên trang
 
 ## 1. Purpose / Mục đích

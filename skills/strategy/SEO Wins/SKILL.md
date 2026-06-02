@@ -1,3 +1,10 @@
+---
+name: seo-wins
+version: 1.0.0
+description: "Use this skill when the user asks about SEO quick wins / priority actions: 'quick win SEO', 'low hanging fruit', 'ưu tiên action SEO', 'opportunities sắp xếp theo impact'. Covers ICE/RICE scoring, low-effort high-impact actions, opportunity prioritization."
+category: strategy
+---
+
 # SEO Wins — Quick Wins & ưu tiên hành động
 
 ## 1. Purpose / Mục đích

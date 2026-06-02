@@ -1,3 +1,10 @@
+---
+name: brand-mentions
+version: 1.0.0
+description: "Use this skill when the user asks about brand mention tracking: 'theo dõi brand mention', 'unlinked mentions', 'chuyển mention thành link', 'brand monitoring'. Covers mention tracking tools, unlinked-to-linked conversion, brand SERP optimization."
+category: off-page
+---
+
 # Brand Mentions — Theo dõi & chuyển hoá nhắc tên thương hiệu
 
 ## 1. Purpose / Mục đích

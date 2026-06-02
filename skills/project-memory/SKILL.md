@@ -1,3 +1,10 @@
+---
+name: project-memory
+version: 1.6.0
+description: "Use this skill at SESSION START and SESSION END for every project: load `memory.md` of detected project at session start; update memory.md + suggest commit at session end. Per-project context store. Triggers: 'session end', 'phiên kết thúc', '/save-session', or auto at end of any project work."
+category: project-memory
+---
+
 # Project Memory — Bộ nhớ ngữ cảnh dự án giữa các phiên AI
 
 > **Output path 2026 (folder-scoped)**:

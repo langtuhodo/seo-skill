@@ -1,3 +1,10 @@
+---
+name: link-building
+version: 1.0.0
+description: "Use this skill when the user asks about link building campaigns: 'xây backlink', 'link building campaign', 'link strategy', 'authority links'. Covers prospect research, outreach templates, link types prioritization, link earning vs building."
+category: off-page
+---
+
 # Link Building — Xây dựng backlink
 
 ## 1. Purpose / Mục đích

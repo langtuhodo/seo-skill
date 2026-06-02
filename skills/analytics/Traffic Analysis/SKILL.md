@@ -1,3 +1,10 @@
+---
+name: traffic-analysis
+version: 1.0.0
+description: "Use this skill when the user asks about traffic analysis / phân tích lưu lượng: 'traffic drop diagnosis', 'phân tích traffic tăng giảm', 'channel attribution', 'tại sao traffic giảm', 'segment traffic'. Covers traffic drop root cause, channel split, page-level analysis, seasonal vs algorithmic."
+category: analytics
+---
+
 # Traffic Analysis — Phân tích lưu lượng
 
 ## 1. Purpose / Mục đích

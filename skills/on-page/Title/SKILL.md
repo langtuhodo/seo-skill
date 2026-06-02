@@ -1,3 +1,10 @@
+---
+name: title-tag
+version: 1.0.0
+description: "Use this skill when the user asks about title tag optimization: 'viết title tag', 'tối ưu thẻ tiêu đề', 'CTR title', 'title length 2026'. Covers title formula, length (60 chars), pixel width, CTR-driven copywriting, brand suffix."
+category: on-page
+---
+
 # Title Tag — Tối ưu thẻ tiêu đề
 
 ## 1. Purpose / Mục đích

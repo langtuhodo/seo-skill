@@ -1,3 +1,10 @@
+---
+name: ab-testing
+version: 1.0.0
+description: "Use this skill when the user asks about A/B testing on SEO landing pages: 'A/B test landing page', 'split test CTR', 'experiment design', 'GA4 A/B test'. Covers test design, sample size calculation, statistical significance, SEO-safe split testing."
+category: ux
+---
+
 # A/B Testing — Thử nghiệm tách kiểm chứng
 
 ## 1. Purpose / Mục đích

@@ -1,4 +1,10 @@
-# SEO Skills Library — AI Assistant Instructions
+# SEO Skills Library — AI Assistant Instructions (Antigravity-ready)
+
+> **📌 v1.5 (2026-05-27): Đồng bộ với `AGENTS.md` — primary source of truth.**
+>
+> File này là bản dành cho Claude Code, sync nội dung với `AGENTS.md`. Khi có thay đổi, cập nhật `AGENTS.md` trước rồi sync sang đây.
+>
+> Đọc thêm về skill discovery layout: xem `AGENTS.md` (Antigravity CLI / IDE), `scripts/sync-agents-skills.sh`, `scripts/install-skills-global.sh`.
 
 > Bộ skill SEO toàn diện cho AI coding assistant. Auto-load khi làm việc trong project này.
 
@@ -6,8 +12,8 @@
 
 ```
 seo-skills/
-├── skills/                 # 62 skills theo 12 categories
-│   ├── strategy/
+├── skills/                       # ⭐ SOURCE OF TRUTH — 62 skills theo 12 categories
+│   ├── strategy/                 (Title Case, dễ đọc cho human; mirror sang .agents/skills/)
 │   ├── on-page/
 │   ├── technical/
 │   ├── content/
@@ -20,14 +26,20 @@ seo-skills/
 │   ├── brand-distribution/
 │   └── style-mimicker/
 │
-├── knowledge/              # 17 knowledge notes (auto-load triggers)
-├── playbooks/              # 7 end-to-end workflows
-├── projects/               # Output theo dự án (mỗi project có memory.md)
+├── .agents/                      # Antigravity CLI / IDE discovery (mirror skills/ + AGENTS.md)
+│   ├── AGENTS.md
+│   └── skills/
 │
-├── COMPILED-CONTEXT.md     # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
-├── AGENTS.md               # Config gốc
-├── CLAUDE.md               # Claude Code
-├── GEMINI.md               # Gemini CLI
+├── scripts/                      # sync-agents-skills.sh + install-skills-global.sh
+│
+├── knowledge/                    # 17 knowledge notes (auto-load triggers)
+├── playbooks/                    # 7 end-to-end workflows
+├── projects/                     # Output theo dự án (mỗi project có memory.md)
+│
+├── COMPILED-CONTEXT.md           # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
+├── AGENTS.md                     # ⭐ PRIMARY config (sync với CLAUDE.md)
+├── CLAUDE.md                     # Claude Code (file này)
+├── GEMINI.md.legacy              # [deprecated] Gemini CLI
 └── README.md
 ```
 

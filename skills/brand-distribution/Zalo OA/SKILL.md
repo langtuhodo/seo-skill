@@ -1,3 +1,10 @@
+---
+name: zalo-oa
+version: 1.0.0
+description: "Use this skill when the user asks about Zalo Official Account / Zalo OA: 'phủ brand qua Zalo', 'Zalo OA content', 'chiến lược Zalo OA', 'Zalo broadcast'. Covers Zalo OA setup, broadcast cadence, mini-app content, ZNS templates."
+category: brand-distribution
+---
+
 # Zalo OA — Phủ thương hiệu qua Zalo Official Account
 
 ## 1. Purpose / Mục đích

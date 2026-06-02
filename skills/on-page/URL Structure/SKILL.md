@@ -1,3 +1,10 @@
+---
+name: url-structure
+version: 1.0.0
+description: "Use this skill when the user asks about URL structure / slug design: 'cấu trúc URL', 'slug', 'URL chuẩn SEO', 'category vs flat URL'. Covers slug conventions, depth, parameters vs static, breadcrumb URL mapping."
+category: on-page
+---
+
 # URL Structure — Cấu trúc URL
 
 ## 1. Purpose / Mục đích

@@ -1,3 +1,10 @@
+---
+name: digital-pr
+version: 1.0.0
+description: "Use this skill when the user asks about Digital PR for link building: 'Digital PR', 'PR cho SEO', 'data-led PR', 'press release SEO'. Covers data-led story pitches, journalist outreach, HARO/Qwoted, link earning vs link buying."
+category: off-page
+---
+
 # Digital PR — Quan hệ công chúng số
 
 ## 1. Purpose / Mục đích

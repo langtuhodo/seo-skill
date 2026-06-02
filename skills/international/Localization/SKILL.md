@@ -1,3 +1,10 @@
+---
+name: localization
+version: 1.0.0
+description: "Use this skill when the user asks about content localization: 'localization', 'bản địa hoá nội dung', 'dịch + adapt content', 'culture adaptation'. Covers translation vs localization, cultural adaptation, locale-specific keyword research."
+category: international
+---
+
 # Localization — Bản địa hoá nội dung & trải nghiệm
 
 ## 1. Purpose / Mục đích

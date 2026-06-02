@@ -1,3 +1,10 @@
+---
+name: facebook-content
+version: 1.0.0
+description: "Use this skill when the user asks to produce Facebook brand content: 'viết bài Facebook brand', 'content kế hoạch Facebook', 'phân phối brand qua Facebook', 'native Facebook post', 'fanpage strategy'. Covers Facebook-native format, content pillars, distribution cadence, ad-organic synergy."
+category: brand-distribution
+---
+
 # Facebook Content — Phủ thương hiệu qua nội dung Facebook native
 
 ## 1. Purpose / Mục đích

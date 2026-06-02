@@ -1,3 +1,10 @@
+---
+name: local-seo
+version: 1.0.0
+description: "Use this skill when the user asks about Local SEO / SEO địa phương: 'SEO địa phương', 'tối ưu cho thành phố X', 'citation building', 'NAP', 'local pack', 'business directory'. Covers citation audit, local pack optimization, geo-targeted landing pages, review schema."
+category: brand-distribution
+---
+
 # Local SEO & Citations — Chinh phục tìm kiếm địa phương
 
 ## 1. Purpose / Mục đích

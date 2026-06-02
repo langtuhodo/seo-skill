@@ -1,3 +1,10 @@
+---
+name: geo-targeting
+version: 1.0.0
+description: "Use this skill when the user asks about geo targeting / nhắm địa lý: 'geo targeting', 'ccTLD vs subfolder', 'target user theo quốc gia', 'international SEO geo'. Covers ccTLD vs subfolder vs subdomain, GSC geo settings, hreflang interplay."
+category: international
+---
+
 # Geo Targeting — Nhắm mục tiêu địa lý
 
 ## 1. Purpose / Mục đích

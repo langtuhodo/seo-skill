@@ -1,3 +1,10 @@
+---
+name: topical-authority
+version: 1.0.0
+description: "Use this skill when the user asks about building topical authority: 'topical authority', 'xây dựng uy tín chuyên môn', 'authority cluster strategy', 'EEAT topical'. Covers cluster completeness, expert content, citation depth, semantic coverage."
+category: growth
+---
+
 # Topical Authority — Quyền lực chủ đề
 
 ## 1. Purpose / Mục đích

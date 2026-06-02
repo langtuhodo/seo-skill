@@ -1,3 +1,10 @@
+---
+name: internal-linking
+version: 1.0.0
+description: "Use this skill when the user asks about internal linking strategy: 'internal link', 'liên kết nội bộ', 'anchor text strategy', 'link equity flow'. Covers anchor text patterns, link distribution, pillar-spoke flow, automation rules."
+category: on-page
+---
+
 # Internal Linking — Liên kết nội bộ
 
 ## 1. Purpose / Mục đích

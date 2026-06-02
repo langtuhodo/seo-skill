@@ -1,3 +1,10 @@
+---
+name: page-speed-ux
+version: 1.0.0
+description: "Use this skill when the user asks about page speed user experience impact: 'page speed UX', 'tốc độ tải vs UX', 'INP user frustration', 'CWV UX impact'. Covers perceived performance, skeleton screens, progressive disclosure, INP UX patterns."
+category: ux
+---
+
 # Page Speed UX — Tốc độ tải dưới góc nhìn UX
 
 ## 1. Purpose / Mục đích

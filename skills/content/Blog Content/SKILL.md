@@ -1,3 +1,10 @@
+---
+name: blog-content
+version: 1.0.0
+description: "Use this skill when the user asks to write blog post / blog article: 'viết blog', 'viết bài blog về X', 'blog post mới'. Activates Phase -0.5 Intent Disambiguation; outputs to projects/{project}/writing/{slug}.md. For refreshing existing blog → use content-refresh skill instead."
+category: content
+---
+
 # Blog Content — Sản xuất nội dung blog
 
 > **Chuẩn 2026 bắt buộc**: Mọi bài blog phải có Summary Chunk 40-60 chữ + Bite-sized H2 + Original Image (no stock) + ProfilePage schema + meta_description ≤ 135 chars. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/16-seo-trends-2026.md` (mục 3.7–3.10) + `knowledge/04-content-seo.md` (Bổ sung 2026).

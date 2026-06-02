@@ -1,3 +1,10 @@
+---
+name: llm-visibility
+version: 1.0.0
+description: "Use this skill when the user asks to make brand visible in LLM responses: 'làm sao xuất hiện trên ChatGPT', 'brand visibility trong AI', 'LLM SEO', 'kiểm tra ChatGPT có nhắc brand không'. Covers LLM citation tracking, brand mention prompts, presence audits in Perplexity/Gemini/ChatGPT."
+category: ai-seo
+---
+
 # LLM Visibility — Hiển thị brand trong LLM
 
 ## 1. Purpose / Mục đích

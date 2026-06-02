@@ -1,3 +1,10 @@
+---
+name: serp-features
+version: 1.0.0
+description: "Use this skill when the user asks to win SERP features: 'featured snippet', 'AI Overviews', 'People Also Ask', 'PAA', 'rank box', 'knowledge panel'. Covers snippet-bait structure, FAQ markup, list/table optimization, position 0 strategies."
+category: ai-seo
+---
+
 # SERP Features — Tối ưu vị trí đặc biệt trên SERP
 
 ## 1. Purpose / Mục đích

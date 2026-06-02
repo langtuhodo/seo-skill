@@ -1,3 +1,10 @@
+---
+name: hreflang
+version: 1.0.0
+description: "Use this skill when the user asks about hreflang implementation: 'hreflang tag', 'tag đa ngôn ngữ', 'multi-region SEO', 'x-default'. Covers hreflang syntax, sitemap-based vs HTML, bidirectional reference, x-default fallback."
+category: international
+---
+
 # Hreflang — Tag đa ngôn ngữ / đa khu vực
 
 ## 1. Purpose / Mục đích

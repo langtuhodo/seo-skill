@@ -1,3 +1,10 @@
+---
+name: nlp-optimization
+version: 1.0.0
+description: "Use this skill when the user asks to optimize content for NLP models / semantic understanding: 'tối ưu NLP', 'entity SEO', 'semantic SEO', 'làm rõ ngữ nghĩa cho AI hiểu'. Covers entity recognition, topical relevance, semantic triples, BERT/MUM-friendly structure."
+category: ai-seo
+---
+
 # NLP Optimization — Tối ưu cho mô hình ngôn ngữ
 
 ## 1. Purpose / Mục đích

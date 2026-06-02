@@ -1,3 +1,10 @@
+---
+name: canonical-tags
+version: 1.0.0
+description: "Use this skill when the user asks about canonical tag: 'canonical tag', 'thẻ canonical', 'duplicate content canonical', 'cross-domain canonical'. Covers self-referencing canonical, duplicate handling, cross-domain rel canonical, conflicts with hreflang."
+category: technical
+---
+
 # Canonical Tags — Thẻ canonical
 
 > **Output path 2026 (folder-scoped)**: Canonical audit + duplicate analysis → `projects/{project}/technical/canonical-audit-{yyyy-mm-dd}.md`. Canonical mapping table → `projects/{project}/technical/canonical-map.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".

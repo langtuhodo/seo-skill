@@ -1,3 +1,10 @@
+---
+name: google-analytics
+version: 1.0.0
+description: "Use this skill when the user asks about Google Analytics (GA4): 'thiết lập GA4', 'tracking event GA4', 'báo cáo GA4', 'phân tích traffic GA4', 'GA4 audience'. Covers GA4 setup, event tracking, conversion goals, audience segments, attribution."
+category: analytics
+---
+
 # Google Analytics (GA4) — Phân tích hành vi & chuyển đổi
 
 ## 1. Purpose / Mục đích
