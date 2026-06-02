@@ -26,7 +26,7 @@ seo-skills/
 │   ├── brand-distribution/
 │   └── style-mimicker/
 │
-├── .agents/                      # Antigravity CLI / IDE discovery (mirror skills/ + AGENTS.md)
+├── .agents/                      # Antigravity CLI / IDE discovery (FLAT mirror, 1 folder/skill)
 │   ├── AGENTS.md
 │   └── skills/
 │
