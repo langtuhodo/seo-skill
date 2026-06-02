@@ -28,8 +28,8 @@ seo-skills/
 │   └── skills/                (mirror root skills/, tự sync qua scripts/)
 │
 ├── scripts/
-│   ├── sync-agents-skills.sh  # Sync skills/ → .agents/skills/ sau khi edit
-│   └── install-skills-global.sh # Cài vào ~/.agents/skills/ (global)
+│   ├── sync-agents-skills.sh  # Flatten skills/<cat>/<Name>/ → .agents/skills/<name>/
+│   └── install-skills-global.sh # Cài vào ~/.gemini/antigravity-cli/skills/ (Antigravity global)
 │
 ├── knowledge/                 # 17 knowledge notes (trigger auto-load)
 ├── playbooks/                 # 7 workflow end-to-end
