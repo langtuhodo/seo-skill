@@ -1,3 +1,10 @@
+---
+name: generative-seo
+version: 1.0.0
+description: "Use this skill when the user asks about Generative SEO / GEO / SEO trong kỷ nguyên AI generative: 'làm SEO cho AI thế nào', 'GEO là gì', 'generative engine optimization', 'tối ưu cho generative AI'. Covers GEO framework, prompt-fit content, citation harvesting, generative answer optimization."
+category: ai-seo
+---
+
 # Generative SEO — SEO trong kỷ nguyên Generative AI
 
 ## 1. Purpose / Mục đích

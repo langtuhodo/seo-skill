@@ -1,3 +1,10 @@
+---
+name: rank-tracking
+version: 1.0.0
+description: "Use this skill when the user asks about rank tracking / theo dõi thứ hạng: 'check rank', 'theo dõi keyword position', 'báo cáo rank hàng tuần', 'SERP volatility'. Covers rank tracking tools, share of voice, position distribution, ranking drop diagnosis."
+category: analytics
+---
+
 # Rank Tracking — Theo dõi thứ hạng
 
 ## 1. Purpose / Mục đích

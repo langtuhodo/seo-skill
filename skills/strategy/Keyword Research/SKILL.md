@@ -1,3 +1,10 @@
+---
+name: keyword-research
+version: 1.0.0
+description: "Use this skill when the user asks for keyword research: 'nghiên cứu từ khoá', 'keyword research', 'tìm từ khoá cho cluster X', 'keyword opportunity'. Output: projects/{project}/research/keyword-research.md or research/keyword-research-{cluster}.md. Updates keywords-urls.md portfolio."
+category: strategy
+---
+
 # Keyword Research — Nghiên cứu từ khoá
 
 > **Output path 2026 (folder-scoped)**:

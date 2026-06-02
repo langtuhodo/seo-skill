@@ -1,3 +1,10 @@
+---
+name: topical-audit
+version: 1.0.0
+description: "Use this skill when the user asks to audit topical authority / cluster health: 'audit cluster', 'topical audit', 'đánh giá sức khỏe cụm', 'topical authority gap'. Cluster-level health audit, 100-point scoring. Output: projects/{project}/audit/audit-{cluster}-{date}.md."
+category: content
+---
+
 # Topical Audit — Đánh giá sức khỏe nội dung theo cụm chủ đề
 
 > **Chuẩn 2026 — Scoring reweight (S2)**: Thay vì 15đ "Giọng văn", chia 15 điểm này thành 3 tiêu chí 2026 — **AIO-readiness (5đ)** + **Proof of Experience (5đ)** + **Author Entity (5đ)**. Tổng vẫn 100đ. Mục đích: đánh giá được khả năng bài được AI Overview trích dẫn + Proof of Experience bắt buộc (ảnh gốc / video / screenshot / quote) + Author Entity verify (ProfilePage schema). Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/10-eeat-content-quality.md`. Tiêu chí "Giọng văn" được trừu tượng hoá vào EEAT mục Experience (kiểm "ngôi 1 + miêu tả cảm quan").

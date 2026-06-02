@@ -1,3 +1,10 @@
+---
+name: content-scaling
+version: 1.0.0
+description: "Use this skill when the user asks to scale content production: 'mở rộng content production', 'content scaling', 'sản xuất hàng loạt bài', 'content factory'. Covers brief templating, AI-assisted drafting workflow, editorial QA at scale."
+category: growth
+---
+
 # Content Scaling — Mở rộng sản xuất nội dung
 
 ## 1. Purpose / Mục đích

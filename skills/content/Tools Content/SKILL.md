@@ -1,3 +1,10 @@
+---
+name: tools-content
+version: 1.0.0
+description: "Use this skill when the user asks to build tool / calculator content: 'viết bài kiểu tools', 'tool content', 'calculator page', 'trang công cụ tính toán'. Covers tool-first content pattern, JS calculator integration, contextual explainer text."
+category: content
+---
+
 # Tools Content — Nội dung dạng công cụ
 
 > **Chuẩn 2026 bắt buộc**: Trang tool là widget JS phức tạp → ưu tiên **INP < 200ms** (Core Web Vitals 2026). Mỗi tool có Summary Chunk 40-60 chữ giải thích cách dùng + Bite-sized FAQ + meta_description ≤ 135 chars. Tool kết quả có ProfilePage schema cho tác giả. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/16-seo-trends-2026.md` (mục 3.9 INP).

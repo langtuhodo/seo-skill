@@ -1,3 +1,10 @@
+---
+name: google-business-profile
+version: 1.0.0
+description: "Use this skill when the user asks about Google Business Profile / GMB: 'tối ưu GBP', 'Google Maps SEO', 'Local Pack', 'GMB post', 'review management'. Covers GBP setup, NAP consistency, category optimization, Google posts, Local Pack ranking factors."
+category: brand-distribution
+---
+
 # Google Business Profile — Phủ thương hiệu trên Google Maps & Local Pack
 
 ## 1. Purpose / Mục đích

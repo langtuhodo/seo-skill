@@ -1,3 +1,10 @@
+---
+name: search-intent
+version: 1.0.0
+description: "Use this skill when the user asks about search intent: 'search intent', 'ý định tìm kiếm', 'intent của keyword X', 'intent mismatch'. Covers 4 intent types (info/nav/commercial/transactional), SERP analysis, intent-content alignment."
+category: strategy
+---
+
 # Search Intent — Ý định tìm kiếm
 
 ## 1. Purpose / Mục đích

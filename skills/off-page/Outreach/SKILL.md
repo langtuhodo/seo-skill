@@ -1,3 +1,10 @@
+---
+name: outreach
+version: 1.0.0
+description: "Use this skill when the user asks about outreach campaigns: 'outreach email', 'cold email cho SEO', 'reach out đến publisher', 'outreach template'. Covers email templating, personalization at scale, follow-up cadence, response handling."
+category: off-page
+---
+
 # Outreach — Tiếp cận đối tác
 
 ## 1. Purpose / Mục đích

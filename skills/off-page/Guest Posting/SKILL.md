@@ -1,3 +1,10 @@
+---
+name: guest-posting
+version: 1.0.0
+description: "Use this skill when the user asks about guest posting: 'guest post', 'đăng bài khách', 'guest blogging', 'placement strategy'. Covers prospect qualification, pitch templates, link placement etiquette, post-publish optimization."
+category: off-page
+---
+
 # Guest Posting — Đăng bài khách
 
 ## 1. Purpose / Mục đích

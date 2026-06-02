@@ -1,3 +1,10 @@
+---
+name: competitor-analysis
+version: 1.0.0
+description: "Use this skill when the user asks about competitor SEO analysis: 'phân tích đối thủ SEO', 'competitor audit', 'gap analysis', 'so sánh với đối thủ X'. Covers SERP overlap, content gap, backlink gap, keyword stolen pattern."
+category: strategy
+---
+
 # Competitor Analysis — Phân tích đối thủ SEO
 
 ## 1. Purpose / Mục đích

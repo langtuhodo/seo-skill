@@ -1,3 +1,10 @@
+---
+name: image-optimization
+version: 1.0.0
+description: "Use this skill when the user asks about image SEO: 'tối ưu hình ảnh', 'alt text', 'image WebP', 'image lazy load', 'image schema'. Covers alt text writing, format selection (WebP/AVIF), lazy loading, image sitemap, Google Images visibility."
+category: on-page
+---
+
 # Image Optimization — Tối ưu hình ảnh
 
 ## 1. Purpose / Mục đích

@@ -1,3 +1,10 @@
+---
+name: crawlability
+version: 1.0.0
+description: "Use this skill when the user asks about crawlability: 'crawl budget', 'robots.txt', 'crawlability audit', 'bot tiếp cận', 'log file analysis'. Covers robots.txt rules, crawl budget optimization, log file analysis, JS rendering issues."
+category: technical
+---
+
 # Crawlability — Khả năng thu thập của bot
 
 > **Output path 2026 (folder-scoped)**: Audit report + crawl analysis lưu vào `projects/{project}/technical/crawl-audit-{yyyy-mm-dd}.md`. robots.txt policy → `projects/{project}/technical/robots-policy.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".

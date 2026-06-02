@@ -1,3 +1,10 @@
+---
+name: schema-markup
+version: 1.0.0
+description: "Use this skill when the user asks to add JSON-LD / schema markup: 'schema Article', 'JSON-LD FAQ', 'tạo schema markup', 'structured data {Type}'. Covers schema.org types (Article, FAQPage, Product, LocalBusiness, HowTo, Review, BreadcrumbList), JSON-LD generation, validation. Output: projects/{project}/technical/schema-{Type}.json."
+category: technical
+---
+
 # Schema Markup — Dữ liệu có cấu trúc
 
 > **Output path 2026 (folder-scoped)**:

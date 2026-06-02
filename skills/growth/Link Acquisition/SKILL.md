@@ -1,3 +1,10 @@
+---
+name: link-acquisition
+version: 1.0.0
+description: "Use this skill when the user asks about link acquisition strategy: 'chiến lược backlink', 'link acquisition', 'cách lấy backlink', 'link velocity'. Covers acquisition strategy, link sources, outreach pipeline, link velocity safety."
+category: growth
+---
+
 # Link Acquisition — Thu hút backlink quy mô
 
 ## 1. Purpose / Mục đích

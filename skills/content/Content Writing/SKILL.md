@@ -1,3 +1,10 @@
+---
+name: content-writing
+version: 1.4.0
+description: "Use this skill when the user asks to write NEW content / article / blog post: 'viết bài mới', 'viết bài về X', 'tạo bài viết', 'write new article'. Activates Phase -0.5 Intent Disambiguation + Output Path Resolution (4-step pre-flight). If user says 'viết lại' + filename → route to content-refresh instead. Output: projects/{project}/writing/{slug}.md."
+category: content
+---
+
 # Content Writing — Viết nội dung có hồn, giải quyết đúng vấn đề người đọc
 
 > **🛑 PRE-FLIGHT — ĐỌC TRƯỚC TIÊN, KHÔNG SKIP (v1.4 — fix bug output path)**

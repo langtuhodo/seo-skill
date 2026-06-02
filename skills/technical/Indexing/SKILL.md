@@ -1,3 +1,10 @@
+---
+name: indexing
+version: 1.0.0
+description: "Use this skill when the user asks about indexing: 'index coverage', 'GSC excluded', 'không được index', 'noindex tag', 'index API'. Covers index status diagnosis, noindex strategy, IndexNow / Google Indexing API, content quality threshold."
+category: technical
+---
+
 # Indexing — Lập chỉ mục
 
 > **Output path 2026 (folder-scoped)**: Index audit report → `projects/{project}/technical/index-audit-{yyyy-mm-dd}.md`. Index policy / noindex list → `projects/{project}/technical/index-policy.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".

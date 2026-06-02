@@ -1,3 +1,10 @@
+---
+name: pillar-pages
+version: 1.0.0
+description: "Use this skill when the user asks to build pillar page / hub page: 'pillar page', 'trang trụ cột', 'hub content cluster', 'mega guide'. Covers pillar architecture, supporting article links, ToC, internal linking pattern. Output: projects/{project}/writing/{slug-pillar}.md."
+category: content
+---
+
 # Pillar Pages — Trang trụ cột
 
 > **Chuẩn 2026 bắt buộc**: Pillar page là trang quan trọng nhất cluster → phải có Summary Chunk + Bite-sized H2 cho mỗi sub-topic + Entity Mapping 5-10 entity + Original Image + short-form video + ProfilePage schema. meta_description ≤ 135 chars. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/16-seo-trends-2026.md` (mục 3.7-3.10).

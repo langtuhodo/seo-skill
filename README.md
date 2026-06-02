@@ -1,12 +1,14 @@
-# SEO Skills Library — Bộ kỹ năng SEO toàn diện
+# SEO Skills Library — Bộ kỹ năng SEO toàn diện (Antigravity-ready)
 
-> Bộ skill SEO cấp cao, song ngữ (Việt – Anh giữ nguyên thuật ngữ), được tổ chức theo 12 trụ cột chính. Mỗi sub-skill là 1 file `SKILL.md` chuẩn hoá, gồm: Lý thuyết → Quy trình triển khai → Template → KPI → Tools → Common mistakes.
+> Bộ skill SEO cấp cao, song ngữ (Việt – Anh giữ nguyên thuật ngữ), được tổ chức theo 12 trụ cột chính. Mỗi sub-skill là 1 file `SKILL.md` chuẩn hoá có **YAML frontmatter** (`name` + `description` + `category`) để Antigravity CLI / IDE auto-discover qua **Progressive Disclosure** — gồm: Lý thuyết → Quy trình triển khai → Template → KPI → Tools → Common mistakes.
+>
+> **v1.5 — Antigravity migration** (2026-05-27): từ Gemini CLI sang Antigravity CLI (`agy`). Skill discovery path `.agents/skills/` mirror với `skills/` source-of-truth. Xem `AGENTS.md` v1.5 + `scripts/sync-agents-skills.sh`.
 
 ## Cấu trúc thư mục
 
 ```
 seo-skills/
-├── skills/                    # 61 skills theo 13 categories
+├── skills/                    # ⭐ SOURCE OF TRUTH — 62 skills, 13 categories
 │   ├── strategy/              # Nền tảng chiến lược
 │   ├── on-page/               # Tối ưu trên trang
 │   ├── technical/             # Hạ tầng kỹ thuật
@@ -21,14 +23,22 @@ seo-skills/
 │   ├── style-mimicker/        # Sao chép & áp dụng phong cách viết
 │   └── project-memory/        # ⭐ Bộ nhớ ngữ cảnh dự án giữa các phiên AI
 │
+├── .agents/                   # ⭐ Antigravity CLI / IDE discovery path
+│   ├── AGENTS.md              (mirror root AGENTS.md)
+│   └── skills/                (mirror root skills/, tự sync qua scripts/)
+│
+├── scripts/
+│   ├── sync-agents-skills.sh  # Sync skills/ → .agents/skills/ sau khi edit
+│   └── install-skills-global.sh # Cài vào ~/.agents/skills/ (global)
+│
 ├── knowledge/                 # 17 knowledge notes (trigger auto-load)
 ├── playbooks/                 # 7 workflow end-to-end
 ├── projects/                  # Output theo dự án (mỗi project có memory.md)
 │
 ├── COMPILED-CONTEXT.md        # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
-├── AGENTS.md                  # Config cho AI assistants
-├── CLAUDE.md                  # Claude Code
-├── GEMINI.md                  # Gemini CLI
+├── AGENTS.md                  # ⭐ PRIMARY config (Antigravity, Codex, Cursor, Cline)
+├── CLAUDE.md                  # Claude Code (sync với AGENTS.md)
+├── GEMINI.md.legacy           # [deprecated 2026-05-19] Gemini CLI legacy reference
 └── README.md                  # File này
 ```
 

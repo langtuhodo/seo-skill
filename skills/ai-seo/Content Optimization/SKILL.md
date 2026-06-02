@@ -1,3 +1,10 @@
+---
+name: ai-content-optimization
+version: 1.0.0
+description: "Use this skill when the user asks to optimize content for AI Search / LLM (ChatGPT, Perplexity, Google AI Overviews, Gemini): 'tối ưu nội dung cho AI Search', 'optimize for ChatGPT/Perplexity', 'AI SEO', 'tối ưu cho AI Overviews'. Covers chunkability, semantic clarity, answer-ready paragraphs, structured data for LLM grounding."
+category: ai-seo
+---
+
 # AI Content Optimization — Tối ưu nội dung cho AI Search
 
 ## 1. Purpose / Mục đích

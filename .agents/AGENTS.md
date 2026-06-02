@@ -1,4 +1,19 @@
-# SEO Skills Library — AI Assistant Instructions
+# SEO Skills Library — AI Assistant Instructions (Antigravity-ready)
+
+> **📌 v1.5 (2026-05-27): Primary source of truth cho mọi AI CLI / IDE.**
+>
+> File này là config gốc, đọc bởi:
+> - **Antigravity CLI (`agy`)** — primary, từ June 18, 2026 thay Gemini CLI
+> - **Antigravity IDE** — Google's agent-first IDE
+> - **Claude Code** — qua `CLAUDE.md` (cùng nội dung, sync thủ công)
+> - **Codex CLI / Cursor / Cline / Aider** — qua mention `AGENTS.md` trong workspace
+> - **Legacy Gemini CLI** — qua `GEMINI.md.legacy` (đã deprecated)
+>
+> **Skill discovery layout** (Antigravity-optimized):
+> - Repo-level: `.agents/skills/<name>/SKILL.md` (Antigravity tự load Progressive Disclosure)
+> - Source of truth: `skills/<category>/<Name>/SKILL.md` (canonical, dễ đọc cho human)
+> - Global: `~/.agents/skills/<name>/SKILL.md` (qua `scripts/install-skills-global.sh`)
+> - Hai path là mirror của nhau, edit chỉ ở `skills/` rồi chạy `scripts/sync-agents-skills.sh`.
 
 > Bộ skill SEO toàn diện cho AI coding assistant. Auto-load khi làm việc trong project này.
 
@@ -6,8 +21,8 @@
 
 ```
 seo-skills/
-├── skills/                 # 62 skills theo 12 categories
-│   ├── strategy/
+├── skills/                       # ⭐ SOURCE OF TRUTH — 62 skills theo 12 categories
+│   ├── strategy/                 (Title Case, dễ đọc cho human; mirror sang .agents/skills/)
 │   ├── on-page/
 │   ├── technical/
 │   ├── content/
@@ -20,14 +35,24 @@ seo-skills/
 │   ├── brand-distribution/
 │   └── style-mimicker/
 │
-├── knowledge/              # 17 knowledge notes (auto-load triggers)
-├── playbooks/              # 7 end-to-end workflows
-├── projects/               # Output theo dự án (mỗi project có memory.md)
+├── .agents/                      # ⭐ Antigravity CLI / IDE discovery path
+│   ├── AGENTS.md                 (mirror của root AGENTS.md)
+│   └── skills/                   (mirror của root skills/, tự sync qua scripts/)
 │
-├── COMPILED-CONTEXT.md     # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
-├── AGENTS.md               # Config gốc
-├── CLAUDE.md               # Claude Code
-├── GEMINI.md               # Gemini CLI
+├── .gemini/skills/               # [legacy] Gemini CLI (deprecated 2026-05-19)
+│
+├── scripts/
+│   ├── sync-agents-skills.sh     # Sync skills/ → .agents/skills/ sau khi edit
+│   └── install-skills-global.sh  # Cài skills vào ~/.agents/skills/ (global)
+│
+├── knowledge/                    # 17 knowledge notes (auto-load triggers)
+├── playbooks/                    # 7 end-to-end workflows
+├── projects/                     # Output theo dự án (mỗi project có memory.md)
+│
+├── COMPILED-CONTEXT.md           # ⭐ Skill digest gọn — ĐỌC TRƯỚC TIÊN mỗi phiên
+├── AGENTS.md                     # ⭐ PRIMARY config (Antigravity, Codex, Cursor, Cline)
+├── CLAUDE.md                     # Claude Code (sync với AGENTS.md)
+├── GEMINI.md.legacy              # [deprecated] Gemini CLI legacy reference
 └── README.md
 ```
 
@@ -124,6 +149,12 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 - `skills/content/Topical Audit/SKILL.md` — audit cluster + page scoring 100đ + topical map + coverage gap + recommendations
 - `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit` v1.2 (+ Duplicate Detection + Verdict 4 trạng thái + External Citation Check)
 
+### Style (1 skill)
+- `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING
+
+### Project Memory (1 skill)
+- `skills/project-memory/SKILL.md` — **Bộ nhớ ngữ cảnh dự án giữa các phiên AI** ⭐ BẮT BUỘC ĐẦU + CUỐI MỖI PHIÊN
+
 ### Off-page (5 skills)
 - `skills/off-page/Link Building/SKILL.md` — 10 link types, anchor distribution
 - `skills/off-page/Guest Posting/SKILL.md` — pitch framework, relationship
@@ -163,12 +194,6 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 - `skills/growth/Content Scaling/SKILL.md` — AI brief, specialist pool, quality gate
 - `skills/growth/Link Acquisition/SKILL.md` — asset moat, 5 channel mix
 - `skills/growth/SEO Experiments/SKILL.md` — hypothesis, sample 30+ URL, statistical sig
-
-### Style (1 skill)
-- `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING
-
-### Project Memory (1 skill)
-- `skills/project-memory/SKILL.md` — **Bộ nhớ ngữ cảnh dự án giữa các phiên AI** ⭐ BẮT BUỘC ĐẦU + CUỐI MỖI PHIÊN
 
 ### Brand Distribution (4 skills)
 - `skills/brand-distribution/Google Business Profile/SKILL.md` — Local Pack, GBP posts, reviews, NAP, entity signal
@@ -235,7 +260,7 @@ Allow: /
    - Họ cần đọc gì để ra quyết định?
 
 3. **Đảm bảo EEAT**:
-   - Experience: có case study/ví dụ thực
+   - Experience: có ví dụ thực tế
    - Expertise: giải thích chính xác, cite nguồn
    - Authoritativeness: author có tên + credentials
    - Trust: có proof, hình ảnh thực
@@ -309,11 +334,13 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
 1.5. FALLBACK DETECTION (v1.3 — ad-hoc content) ⭐ MỚI
    └── Nếu KHÔNG detect được project name TỪ Bước 1 + KHÔNG có style profile name trong request
        → ACTIVATE _demo mode (fallback ad-hoc)
-       → Path: projects/_demo/ (đã có sẵn)
+       → Path: projects/_demo/ (đã có sẵn, không tạo project mới)
        → Load: projects/_demo/style-guide.md (~875 dòng anti-AI rule + bảng AI-isms tiếng Việt + tiếng Anh)
        → SKIP toàn bộ Bước 2 (CREATE PROJECT FOLDER) + Bước 3 (LOAD PROJECT CONTEXT)
        → Output path: projects/_demo/writing/{yyyy-mm-dd}-{slug}.md
-       → SKIP internal link + external whitelist check
+                      (hoặc projects/_demo/refresh/* hoặc projects/_demo/audit/*)
+       → SKIP internal link (không có keywords-urls.md trong _demo)
+       → SKIP external whitelist check (không có external-sources.md trong _demo)
        → Note cuối bài: "Ad-hoc content — không thuộc project. Style guide: _demo. User review trước khi publish."
        → Session End: KHÔNG update memory.md của bất kỳ project nào
    └── Nếu detect được project name → tiếp tục Bước 2 bình thường

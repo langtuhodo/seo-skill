@@ -1,3 +1,10 @@
+---
+name: keyword-clustering
+version: 1.0.0
+description: "Use this skill when the user asks about keyword clustering: 'phân cụm từ khoá', 'keyword clustering', 'cluster keyword theo intent', 'SERP-based clustering'. Covers SERP overlap clustering, intent grouping, parent-child keyword mapping."
+category: strategy
+---
+
 # Keyword Clustering — Phân cụm từ khoá
 
 ## 1. Purpose / Mục đích

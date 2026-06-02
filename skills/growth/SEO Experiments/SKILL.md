@@ -1,3 +1,10 @@
+---
+name: seo-experiments
+version: 1.0.0
+description: "Use this skill when the user asks about SEO A/B testing / experiments: 'SEO test', 'thí nghiệm SEO', 'test thay đổi title CTR', 'SEO experiment framework'. Covers split testing, control vs variant, statistical significance, before-after measurement."
+category: growth
+---
+
 # SEO Experiments — Thử nghiệm SEO có hệ thống
 
 ## 1. Purpose / Mục đích

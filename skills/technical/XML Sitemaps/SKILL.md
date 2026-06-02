@@ -1,3 +1,10 @@
+---
+name: xml-sitemaps
+version: 1.0.0
+description: "Use this skill when the user asks about XML sitemap: 'tạo sitemap XML', 'sitemap index', 'submit sitemap GSC', 'video/image sitemap'. Covers sitemap structure, index sitemaps, dynamic generation, GSC submission, video/image extensions."
+category: technical
+---
+
 # XML Sitemaps — Sitemap XML
 
 > **Output path 2026 (folder-scoped)**: Sitemap strategy + structure plan → `projects/{project}/technical/sitemap-plan.md`. Sitemap audit / health check → `projects/{project}/technical/sitemap-audit-{yyyy-mm-dd}.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".

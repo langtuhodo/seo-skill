@@ -1,3 +1,10 @@
+---
+name: evergreen-content
+version: 1.0.0
+description: "Use this skill when the user asks to produce evergreen / timeless content: 'evergreen article', 'nội dung trường tồn', 'long-life content', 'pillar resource bền vững'. Covers topic durability, update cadence, perennial keyword targeting."
+category: content
+---
+
 # Evergreen Content — Nội dung trường tồn
 
 > **Chuẩn 2026 bắt buộc**: Evergreen sống lâu hơn → phải refresh hàng năm để đáp ứng chuẩn mới. Mỗi lần refresh: cập nhật Summary Chunk + Author Entity (ProfilePage) + meta_description ≤ 135 chars + nhúng short-form video mới + ảnh gốc thay stock. Xem `knowledge/18-metadata-sop-2026.md` + `knowledge/10-eeat-content-quality.md` (Proof of Experience 2026).

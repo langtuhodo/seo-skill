@@ -1,3 +1,10 @@
+---
+name: search-console
+version: 1.0.0
+description: "Use this skill when the user asks about Google Search Console (GSC): 'phân tích GSC', 'query report', 'phantom keyword', 'index coverage', 'tối ưu CTR GSC', 'sitemap submit', 'URL inspection'. Covers GSC query analysis, coverage diagnosis, CTR optimization, phantom keyword harvesting."
+category: analytics
+---
+
 # Google Search Console (GSC) — Diagnostic & opportunity mining
 
 ## 1. Purpose / Mục đích

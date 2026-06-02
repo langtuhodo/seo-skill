@@ -1,3 +1,10 @@
+---
+name: mobile-optimization
+version: 1.0.0
+description: "Use this skill when the user asks about mobile UX SEO: 'mobile optimization', 'mobile-first indexing', 'responsive design SEO', 'mobile UX audit'. Covers mobile-first checklist, touch target, viewport, mobile Core Web Vitals."
+category: ux
+---
+
 # Mobile Optimization — Tối ưu mobile
 
 ## 1. Purpose / Mục đích

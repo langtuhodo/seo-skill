@@ -1,3 +1,10 @@
+---
+name: ux-design
+version: 1.0.0
+description: "Use this skill when the user asks about UX design for SEO landing pages: 'UX design SEO', 'landing page UX', 'reading experience optimization', 'engagement metric UX'. Covers F-pattern reading, scannability, micro-interactions, engagement metric optimization."
+category: ux
+---
+
 # UX Design — Thiết kế trải nghiệm cho SEO
 
 ## 1. Purpose / Mục đích

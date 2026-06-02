@@ -1,3 +1,10 @@
+---
+name: conversion-funnels
+version: 1.0.0
+description: "Use this skill when the user asks about conversion funnel optimization: 'CRO funnel', 'tối ưu conversion path', 'drop-off điểm nào', 'multi-step funnel'. Covers funnel mapping, drop-off diagnosis, microconversion design, friction reduction."
+category: ux
+---
+
 # Conversion Funnels — Phễu chuyển đổi
 
 ## 1. Purpose / Mục đích

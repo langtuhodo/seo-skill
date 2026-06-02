@@ -1,9 +1,11 @@
 # COMPILED CONTEXT — Fast-Lane Skill Digest
 
-> **AI assistant đọc file này TRƯỚC TIÊN mỗi phiên** thay vì tải 61 skill + 17 knowledge notes.
+> **AI assistant đọc file này TRƯỚC TIÊN mỗi phiên** thay vì tải 62 skill + 17 knowledge notes.
 > Mục tiêu: bootstrap context < 5k token. Chỉ deep-dive `SKILL.md` cụ thể KHI cần workflow chi tiết.
 >
 > File này được duy trì thủ công. Khi `skills/` hoặc `knowledge/` thay đổi đáng kể → cập nhật ở đây.
+>
+> **v1.5 (Antigravity-ready, 2026-05-27)**: Skill discovery hỗ trợ cả `skills/<category>/<Name>/SKILL.md` (canonical) và `.agents/skills/<name>/SKILL.md` (Antigravity Progressive Disclosure mirror). Mọi SKILL.md có YAML frontmatter `name` + `description` + `category` chuẩn để Antigravity router tự match intent. Edit chỉ ở `skills/`, sync qua `scripts/sync-agents-skills.sh`.
 
 ## 0. SESSION BOOTSTRAP — 3 bước AI làm đầu phiên
 

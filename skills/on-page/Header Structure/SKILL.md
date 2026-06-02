@@ -1,3 +1,10 @@
+---
+name: header-structure
+version: 1.0.0
+description: "Use this skill when the user asks about H1–H6 header structure: 'cấu trúc heading', 'H1 H2 H3 hierarchy', 'header outline', 'TOC structure'. Covers H-tag hierarchy, semantic outlining, accessibility considerations, NLP relevance."
+category: on-page
+---
+
 # Header Structure — Cấu trúc heading H1–H6
 
 ## 1. Purpose / Mục đích

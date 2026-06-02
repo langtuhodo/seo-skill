@@ -1,3 +1,10 @@
+---
+name: programmatic-seo
+version: 1.0.0
+description: "Use this skill when the user asks about Programmatic SEO / pSEO: 'pSEO', 'SEO lập trình hàng loạt', 'tạo bài tự động hàng loạt', 'tool-based content scaling'. Covers data source design, template + variable system, quality control at scale, indexation strategy."
+category: content
+---
+
 # Programmatic SEO — SEO lập trình hàng loạt
 
 > **Chuẩn 2026 bắt buộc**: pSEO 2026 = template phải sinh **Summary Chunk theo data row** + meta_description ≤ 135 chars (mobile-first) + Entity Mapping per row + Original Image (không stock). Tránh nhồi keyword density (Vector Search 2026). Mỗi page có ít nhất 1 Bite-sized answer + bảng/list. Xem `knowledge/18-metadata-sop-2026.md`.

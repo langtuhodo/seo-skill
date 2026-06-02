@@ -1,3 +1,10 @@
+---
+name: multi-language
+version: 1.0.0
+description: "Use this skill when the user asks about multi-language SEO: 'multi-language SEO', 'SEO đa ngôn ngữ', 'site đa ngữ', 'language switcher SEO'. Covers URL structure decisions, language switcher UX, content parity strategy."
+category: international
+---
+
 # Multi Language — Đa ngôn ngữ
 
 ## 1. Purpose / Mục đích

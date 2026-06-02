@@ -1,3 +1,10 @@
+---
+name: site-speed
+version: 1.0.0
+description: "Use this skill when the user asks about Core Web Vitals / page speed: 'Core Web Vitals', 'LCP CLS INP', 'tốc độ tải trang', 'PageSpeed Insights'. Covers LCP/CLS/INP optimization, lazy loading, critical CSS, font loading, image format."
+category: technical
+---
+
 # Site Speed — Tốc độ tải trang & Core Web Vitals
 
 > **Output path 2026 (folder-scoped)**: Performance audit + CWV measurement → `projects/{project}/technical/speed-audit-{yyyy-mm-dd}.md`. Optimization plan → `projects/{project}/technical/speed-plan.md`. Tạo folder `technical/` nếu chưa có. Chi tiết: `AGENTS.md` Section "GENERATE OUTPUT".

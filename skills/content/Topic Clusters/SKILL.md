@@ -1,3 +1,10 @@
+---
+name: topic-clusters
+version: 1.0.0
+description: "Use this skill when the user asks about topic cluster strategy: 'topic cluster', 'cụm chủ đề', 'pillar-supporting model', 'cluster architecture'. Covers cluster design, pillar identification, supporting page mapping, internal link structure."
+category: content
+---
+
 # Topic Clusters — Cụm chủ đề
 
 > **Chuẩn 2026 bắt buộc**: Topic Cluster 2026 = Entity Mapping (Vector Search thay keyword density) + Topical Context Linking (cha→con→cháu) + mỗi bài có Summary Chunk + Conversational Queries 10-20 từ. Xem `knowledge/04-content-seo.md` (Bổ sung 2026) + `knowledge/16-seo-trends-2026.md` (mục 3.7).

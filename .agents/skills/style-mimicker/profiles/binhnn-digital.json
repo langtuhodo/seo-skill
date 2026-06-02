@@ -1,0 +1,512 @@
+{
+  "style_name": "BinhnnDigital",
+  "field_category": [
+    "digital-marketing",
+    "thought-leadership"
+  ],
+  "created_at": "2026-02-28",
+  "updated_at": "2026-05-21",
+  "sample_source": "Neil Patel – 'GEO', 'GEO vs AEO' (neilpatel.com, 2025)",
+  "fingerprint": {
+    "sentence_length": "Highly varied and intentional. Ultra-short punchy openers (3-7 words) to grab attention, followed by medium explanatory sentences (15-25 words). Rhythm cycles: short-punch → medium-explain → short-punch. Never more than 2-3 long sentences in a row. Occasionally use one-word or two-word paragraphs for emphasis ('Sai.', 'Thật vậy.', 'Chưa đủ.').",
+    "vocabulary_level": "Casual-professional hybrid. Technical SEO/marketing terms kept in English (SERP, LLMs, AI Overviews, E-E-A-T, CTR, RAG, Core Web Vitals) without heavy explanation. Conversational everyday words wrap the technical terms to keep it accessible.",
+    "tone": "Confident, direct, conversational authority. Data-backed but never dry or academic. Slightly provocative — actively challenges popular misconceptions. Uses inclusive energy ('we', 'let's') to pull the reader into the argument. Never condescending. Occasionally self-deprecating or admitting past mistakes to build trust.",
+    "point_of_view": "Second-person (bạn/you) dominant throughout. First-person singular ('tui', 'tôi', 'mình') for personal credibility and real experience. First-person plural ('chúng ta', 'mình cùng') for inclusive authority. Switch between 'tui' (casual/blog) and 'tôi' (formal/pillar) based on content depth.",
+    "structure_pattern": "1. Key Takeaways box (3-5 bullet tóm tắt toàn bài — AI citation ready). 2. Hook mở bài: vấn đề thực tế + partial answer. 3. Hard data/statistic anchor. 4. Subsection breakdown: mỗi H2/H3 mở đầu bằng answer-first (trả lời ngay, rồi mới giải thích). 5. Visual evidence sau mỗi claim quan trọng (hình/bảng/chart). 6. Comparison tables cho nội dung so sánh. 7. Common Mistakes section (bold statement + giải thích). 8. FAQ section cho DEEP content. 9. Kết luận ngắn + 1 CTA duy nhất.",
+    "hook_style": "Opens with a relatable problem the reader is already experiencing ('Nếu traffic của bạn đang giảm mà ranking vẫn ổn...', 'Bạn đang rank top 3 nhưng không ai click?'). Immediately gives a nuanced partial answer to subvert expectations, then drops a hard data point. KHÔNG BAO GIỜ mở bằng 'Trong thời đại số...' hay 'Như chúng ta đã biết...'.",
+    "transitions": "Conversational bridge phrases adapted to Vietnamese: 'Nói thẳng ra là:', 'Nhưng khoan — xem thử cái này:', 'Vậy thực tế thì sao?', 'Đây là điều thú vị:', 'Bạn đoán được rồi đấy.', 'Nhưng không chỉ vậy...', 'Điều đó có nghĩa là...', 'Bắt đầu từ đâu? Đây:'",
+    "closing_style": "Short 2-3 paragraph conclusion. Restate thesis in one punchy sentence. One clear CTA (not multiple). End with a quotable line that the reader could screenshot and share.",
+    "language_mix": "Vietnamese dominant. Technical marketing/SEO jargon stays in English (SERP, LLMs, E-E-A-T, zero-click, RAG, GEO, AEO). Vietnamese used for: tất cả lời giải thích, ví dụ, CTA, transitions, emotional hooks. KHÔNG dịch thuật ngữ kỹ thuật — giữ EN terms, giải thích bằng VN nếu cần."
+  },
+  "presentation_techniques": {
+    "description": "Kỹ thuật trình bày học từ Neil Patel — áp dụng cho cách tổ chức và format bài viết, KHÔNG thay đổi văn phong BinhNN Digital.",
+    "key_takeaways_box": {
+      "rule": "BẮT BUỘC cho mọi bài DEEP và MEDIUM-DEEP. Đặt ngay sau tiêu đề H1, trước nội dung.",
+      "format": "## Điểm chính\n- [3-5 bullets tóm tắt insight quan trọng nhất]\n- Mỗi bullet là 1 câu hoàn chỉnh, actionable\n- Bullet cuối = strongest takeaway",
+      "purpose": "Giúp reader scan nhanh + AI engines dễ trích xuất + giảm bounce rate"
+    },
+    "section_answer_first": {
+      "rule": "Mỗi H2/H3 section phải mở đầu bằng câu trả lời trực tiếp (1-2 câu), SAU ĐÓ mới giải thích chi tiết.",
+      "example_bad": "### GEO là gì?\n\nTrong bối cảnh AI ngày càng phát triển, việc tối ưu nội dung cho các công cụ tìm kiếm AI trở nên quan trọng...",
+      "example_good": "### GEO là gì?\n\nGEO (Generative Engine Optimization) là cách bạn tối ưu nội dung để AI trích dẫn trong câu trả lời của nó. Không phải chỉ rank cao — mà là trở thành nguồn mà AI chọn cite."
+    },
+    "visual_evidence_pattern": {
+      "rule": "Sau mỗi claim quan trọng hoặc số liệu, chèn visual evidence (screenshot, bảng, chart, ví dụ thực).",
+      "format": "Claim/statistic → Image/table/chart → Brief caption giải thích",
+      "note": "Ưu tiên ảnh thực, screenshot, data chart. TRÁNH stock photo."
+    },
+    "comparison_tables": {
+      "rule": "Khi so sánh 2+ khái niệm/lựa chọn, LUÔN dùng bảng so sánh thay vì viết prose.",
+      "format": "| Tiêu chí | Option A | Option B |\n|----------|----------|----------|\n| ... | ... | ... |",
+      "example": "Dùng cho: GEO vs AEO, ống đúc vs ống hàn, on-page vs off-page, etc."
+    },
+    "best_for_lists": {
+      "rule": "Khi giải thích use-case hoặc khi nào nên dùng gì, dùng format 'Phù hợp nhất khi:' + bullet list.",
+      "format": "**[Option/Strategy] phù hợp nhất khi:**\n- [use case 1]\n- [use case 2]\n- [use case 3]"
+    },
+    "bold_statement_pattern": {
+      "rule": "Trong section Common Mistakes hoặc Tips, dùng pattern: **Bold statement.** Giải thích ngắn.",
+      "example": "**Tối ưu cho máy mà quên người đọc.** Nếu bài viết đọc lên nghe như viết cho thuật toán, bạn đã đi quá xa. AI ưu tiên content phục vụ người thật.",
+      "note": "Mỗi mistake/tip = 2-3 câu max. Không giải thích dài dòng."
+    },
+    "faq_with_schema": {
+      "rule": "Mọi bài DEEP phải có FAQ section cuối bài. Câu hỏi viết dạng người dùng thực sự hỏi, không phải H2 formal.",
+      "answer_length": "2-4 câu/answer. Trả lời thẳng, không vòng vo.",
+      "schema_note": "Recommend thêm FAQ schema (JSON-LD) khi publish lên website."
+    }
+  },
+  "anti_ai_detection": {
+    "description": "Kỹ thuật viết để nội dung không bị Google/detector nhận diện là AI-generated. QUAN TRỌNG NHẤT trong profile.",
+    "core_principles": [
+      "Viết như ĐANG NÓI CHUYỆN với 1 người cụ thể, không phải đang 'tạo nội dung'",
+      "Mỗi bài phải có ít nhất 1 câu chuyện/kinh nghiệm CÁ NHÂN mà AI không thể bịa",
+      "Xen kẽ câu hoàn chỉnh với fragments ('Sai hoàn toàn.', 'Không hẳn.', 'Và đây là lý do.')",
+      "Dùng ngôn ngữ KHÔNG đều đặn — AI thường viết đều đặn về nhịp và độ dài",
+      "Có LẬP TRƯỜNG rõ ràng — AI thường trung lập, người thật có quan điểm"
+    ],
+    "humanization_techniques": {
+      "personal_experience": {
+        "rule": "Mỗi bài DEEP phải có ít nhất 2-3 đoạn kinh nghiệm cá nhân hoặc case study thực.",
+        "patterns": [
+          "Tui đã test cái này trên [số] website — kết quả là...",
+          "Khách hàng [ngành] gặp đúng tình huống này tuần trước...",
+          "Năm ngoái tui mắc sai lầm này và phải mất [thời gian] để fix...",
+          "Team mình vừa chạy campaign cho [project] — số liệu thực đây..."
+        ]
+      },
+      "imperfect_language": {
+        "rule": "Cố tình dùng ngôn ngữ tự nhiên, không hoàn hảo — đúng cách người Việt viết blog.",
+        "techniques": [
+          "Dùng dấu '—' giữa câu để thêm suy nghĩ bất chợt",
+          "Câu hỏi tu từ giữa đoạn ('Nghe quen không?', 'Bạn có thấy pattern này không?')",
+          "Thỉnh thoảng bắt đầu câu bằng 'Và' hoặc 'Nhưng' (AI thường tránh điều này)",
+          "Dùng '...' khi muốn tạo suspense hoặc suy nghĩ",
+          "Viết tắt tự nhiên: 'ko', 'dc', 'vs' trong blog casual (KHÔNG dùng trong pillar formal)"
+        ]
+      },
+      "specific_details": {
+        "rule": "Thay vì nói chung chung, LUÔN dùng chi tiết cụ thể.",
+        "example_bad": "Chúng tôi đã giúp nhiều khách hàng tăng traffic đáng kể.",
+        "example_good": "Tháng 3/2026, team mình audit website bán ống thép 1,200 trang — gộp 47 bài thin content, kết quả: organic traffic tăng 23% trong 60 ngày."
+      },
+      "opinion_and_stance": {
+        "rule": "PHẢI có quan điểm rõ ràng. Không ngồi giữa hai chiến tuyến.",
+        "example_bad": "Cả GEO và SEO đều quan trọng và có vai trò riêng.",
+        "example_good": "GEO không thay thế SEO. Nhưng nếu bạn đang bỏ qua GEO trong năm 2026, bạn đang nhường visibility cho đối thủ — và có thể không lấy lại được."
+      },
+      "rhythm_breaks": {
+        "rule": "Phá nhịp viết đều đặn bằng các kỹ thuật sau:",
+        "techniques": [
+          "1 câu rất ngắn sau 2-3 câu trung bình ('Sai.')",
+          "1 đoạn chỉ có 1 câu để nhấn mạnh",
+          "Occasionally dùng parenthetical asides (kiểu ghi chú trong ngoặc — như đang nói nhỏ với reader)",
+          "Xen kẽ giữa prose và bullet list — không viết 100% prose hoặc 100% list"
+        ]
+      },
+      "cultural_markers": {
+        "rule": "Thêm cultural markers VN mà AI khó generate tự nhiên.",
+        "examples": [
+          "Ví dụ cụ thể về thị trường VN (giá, thương hiệu, xu hướng local)",
+          "So sánh với cách doanh nghiệp VN thường làm vs best practice",
+          "Đề cập đến tools/platforms phổ biến tại VN (Zalo, Shopee, Cốc Cốc)",
+          "Sử dụng đơn vị VN (triệu/tỷ VNĐ thay vì $, m² thay vì sq ft)"
+        ]
+      }
+    },
+    "ai_detection_red_flags": {
+      "description": "Các dấu hiệu khiến bài bị đánh giá là AI-generated — TUYỆT ĐỐI TRÁNH:",
+      "flags": [
+        "Mở bài bằng 'Trong thời đại...', 'Với sự phát triển...', 'Ngày nay...'",
+        "Mọi đoạn có cùng độ dài (3-4 câu đều đặn)",
+        "Liệt kê 5-10 điểm nhưng mỗi điểm chỉ 1-2 câu chung chung",
+        "Không có ví dụ cụ thể, số liệu cụ thể, tên người/công ty cụ thể",
+        "Kết luận bắt đầu bằng 'Tóm lại,...' hoặc 'Nhìn chung,...'",
+        "Giọng văn trung lập hoàn toàn — không có quan điểm/lập trường",
+        "Dùng từ nối đều đặn đầu mỗi đoạn ('Thứ nhất,...', 'Thứ hai,...', 'Cuối cùng,...')",
+        "Mọi claim đều positive — không có nuance, criticism, hoặc caveat",
+        "Vocabulary quá 'sạch' — không có slang, viết tắt, hoặc colloquialism"
+      ]
+    }
+  },
+  "search_intent_rules": {
+    "description": "Detect the user's search intent FIRST, then adapt writing depth, structure, and tone accordingly. Never write the same way for all content types.",
+    "intents": {
+      "INFORMATIONAL": {
+        "goal": "Người dùng muốn học, hiểu, hoặc giải quyết vấn đề cụ thể",
+        "trigger_keywords": [
+          "là gì",
+          "cách",
+          "tại sao",
+          "how to",
+          "what is",
+          "hướng dẫn",
+          "guide"
+        ],
+        "writing_approach": "Educate deeply. Key Takeaways box đầu bài. Answer-first mỗi section. Expand với context, nuance, examples. Structure: Key Takeaways → Problem statement → Definition → Why it matters → Step-by-step → Common mistakes (bold pattern) → FAQ → Summary.",
+        "depth": "DEEP",
+        "hook": "Start by naming the exact problem the reader is experiencing, then promise a complete answer",
+        "cta": "Soft: 'Lưu bài này / Đọc thêm [related pillar] / Comment câu hỏi của bạn'"
+      },
+      "COMMERCIAL_INVESTIGATION": {
+        "goal": "Người dùng đang so sánh lựa chọn trước khi quyết định",
+        "trigger_keywords": [
+          "tốt nhất",
+          "so sánh",
+          "nên dùng",
+          "review",
+          "vs",
+          "best",
+          "which is better"
+        ],
+        "writing_approach": "Key Takeaways box + comparison table là core. Be the most objective, data-backed comparison. Give a clear recommendation at the end. Structure: Key Takeaways → Context → Comparison table → 'Best for' lists → Verdict + use-case recommendation.",
+        "depth": "MEDIUM-DEEP",
+        "hook": "Start with the key differentiator that most comparisons miss",
+        "cta": "Actionable: 'Chọn X nếu bạn... / Chọn Y nếu bạn...'"
+      },
+      "TRANSACTIONAL": {
+        "goal": "Người dùng đã sẵn sàng hành động, cần push cuối cùng",
+        "trigger_keywords": [
+          "mua",
+          "đăng ký",
+          "download",
+          "price",
+          "giá",
+          "book",
+          "buy",
+          "get"
+        ],
+        "writing_approach": "Short, benefit-dense, urgency-driven. Eliminate friction. Structure: Key benefit → Social proof → Objection handling → Single clear CTA. No tangents.",
+        "depth": "SURFACE",
+        "hook": "Lead with the outcome, not the process",
+        "cta": "Direct and specific: 'Liên hệ ngay', 'Nhận báo giá', 'Đăng ký tư vấn miễn phí'"
+      },
+      "NAVIGATIONAL": {
+        "goal": "Người dùng tìm một brand hoặc trang cụ thể",
+        "trigger_keywords": [
+          "brand name",
+          "login",
+          "official",
+          "trang chủ",
+          "website"
+        ],
+        "writing_approach": "Help them find what they need instantly. Clear labels, minimal copy. Authority signals (consistent NAP, structured data).",
+        "depth": "SURFACE",
+        "hook": "State who you are and what you do in the first sentence",
+        "cta": "Navigation-focused: 'Xem dịch vụ / Liên hệ / Đến [section]'"
+      }
+    }
+  },
+  "content_depth_framework": {
+    "SURFACE": {
+      "word_count": "300-600 từ",
+      "use_for": "Transactional pages, product descriptions, quick announcements, social posts",
+      "rules": "One main idea. No tangents. Every sentence earns its place. Strong CTA at the end."
+    },
+    "MEDIUM": {
+      "word_count": "800-1500 từ",
+      "use_for": "Feature explainers, case studies, comparison articles, newsletter issues",
+      "rules": "Cover the topic fully but don't over-explain. Use subheadings. Include 1 real example or data point per section. Key Takeaways box optional."
+    },
+    "DEEP": {
+      "word_count": "1500-3500 từ",
+      "use_for": "Pillar pages, ultimate guides, thought leadership, rank-to-beat competitors",
+      "rules": "BẮT BUỘC: Key Takeaways box + answer-first sections + comparison tables (nếu có so sánh) + visual evidence + Common Mistakes (bold pattern) + FAQ. Be the most comprehensive resource. Cover: basics for beginners + nuance for experts. Include: original insight, data, case study."
+    }
+  },
+  "vietnamese_language_rules": {
+    "when_to_use_vietnamese": "Dùng tiếng Việt cho: lời giải thích gần gũi, CTA hướng đến đối tượng VN, transitions cảm xúc, ví dụ thực tế địa phương.",
+    "when_to_keep_english": "Giữ tiếng Anh cho: thuật ngữ kỹ thuật (SEO, CRO, SERP, LLM, GEO, AEO), tên công cụ, tên framework (E-E-A-T, AARRR), số liệu từ nguồn EN.",
+    "code_switching_pattern": "Vietnamese là ngôn ngữ chính. Thuật ngữ EN giữ nguyên, giải thích bằng VN nếu lần đầu xuất hiện. Ví dụ: 'GEO (Generative Engine Optimization) — nói đơn giản là cách bạn tối ưu để AI trích dẫn nội dung của bạn.'",
+    "vn_signature_phrases": [
+      "Nói thẳng ra là: [insight].",
+      "Đây không phải lý thuyết — đây là thứ đã được test và có kết quả.",
+      "Trước khi đọc tiếp, hãy tự hỏi: [question]?",
+      "Hầu hết bài viết về [topic] đang làm sai điều này.",
+      "Và đây là điều thú vị: [surprising insight].",
+      "Bạn biết điều gì xảy ra tiếp theo không?",
+      "Tui từng nghĩ như vậy. Cho đến khi..."
+    ]
+  },
+  "signature_patterns": {
+    "paragraph_length": "Short (2-4 sentences max per paragraph). Heavy use of white space. Occasionally 1-sentence paragraphs for emphasis. Web-optimized for scannability.",
+    "list_usage": "Bullet lists for: tactics, step-by-step, key metrics, 'best for' recommendations. NEVER for the core argument — that stays in prose. Mix prose + list within same section.",
+    "data_anchoring": "Every major claim is immediately followed by a stat, percentage, or named source reference. Prefer specific numbers over vague claims ('tăng 23% trong 60 ngày' not 'tăng đáng kể').",
+    "case_study_integration": "Real campaign results embedded mid-article (not just at the end), with specific numbers, timeline, and context. Pattern: Problem → Action → Result.",
+    "question_usage": "Rhetorical questions at section transitions to shift topics and re-engage reader. Also sprinkled mid-paragraph to create dialogue feel.",
+    "faq_section": "Always include FAQ for DEEP content — for reader objections AND AI Overview/Featured Snippet capture. 3-5 questions minimum.",
+    "key_takeaways": "Always include Key Takeaways box at the top of DEEP and MEDIUM-DEEP content. 3-5 bullet points, each a complete actionable sentence.",
+    "comparison_tables": "Use tables whenever comparing 2+ options/concepts. Clear headers, concise cells. Prefer tables over prose for comparison content.",
+    "visual_evidence": "After key claims or data points, indicate where visual evidence should go: [Hình: screenshot/chart/example]. Always use real images, never stock photos."
+  },
+  "example_phrases": [
+    "Nói thẳng ra là: [insight].",
+    "Đây không phải lý thuyết — đây là thứ đã được test.",
+    "Bạn đoán được rồi đấy.",
+    "Nhưng khoan — xem thử cái này:",
+    "Và đây là điều mà hầu hết người làm SEO đang bỏ qua.",
+    "Tui đã test trên [số] website. Kết quả?",
+    "Không hẳn. Nhưng chắc chắn đang thay đổi.",
+    "[Tool/concept] không chết — nó chỉ tiến hóa. Và bạn cần theo kịp.",
+    "Nghe quen không?",
+    "Đây là sai lầm tui thấy nhiều nhất — và nó tốn kém."
+  ],
+  "vocabulary_blacklist": {
+    "description": "Từ cấm theo knowledge/15-anti-ai-content-rules.md (Ruleset 1) — trigger AI footprint detection.",
+    "vi_cuong_dieu": [
+      "Đột phá",
+      "Cách mạng hóa"
+    ],
+    "vi_sao_rong": [
+      "Chìa khóa (để...)",
+      "Cốt lõi (là...)",
+      "Đóng vai trò quan trọng",
+      "Bức tranh toàn cảnh",
+      "Nền tảng vững chắc"
+    ],
+    "vi_generic_verbs": [
+      "Thúc đẩy",
+      "Tận dụng"
+    ],
+    "vi_overuse": [
+      "Tối ưu hóa (dùng >2 lần/bài)",
+      "Toàn diện",
+      "Xu hướng (lạm dụng)"
+    ],
+    "vi_nhiet_tinh_gia": [
+      "Đáng chú ý",
+      "Thú vị thay",
+      "Thật thú vị khi",
+      "Vô cùng (quan trọng)"
+    ],
+    "vi_tu_noi_may_moc": [
+      "Hơn nữa",
+      "Ngoài ra",
+      "Bên cạnh đó"
+    ],
+    "vi_ket_luan_template": [
+      "Tóm lại",
+      "Nhìn chung"
+    ],
+    "vi_mo_rong": [
+      "Đắm chìm",
+      "Khám phá (hãy cùng...)",
+      "Nổi bật",
+      "Đa dạng",
+      "Hành trình",
+      "Tiềm năng (khai phá)",
+      "Bền vững (lạm dụng)",
+      "Liền mạch",
+      "Nâng tầm",
+      "Trao quyền",
+      "Minh chứng",
+      "Sâu sắc",
+      "Không thể phủ nhận"
+    ],
+    "en_top_banned": [
+      "Delve",
+      "Tapestry",
+      "Landscape (nghĩa bóng)",
+      "Leverage",
+      "Robust",
+      "Comprehensive",
+      "Seamless",
+      "Empower",
+      "Streamline",
+      "Navigate (nghĩa bóng)",
+      "Foster",
+      "Harness",
+      "Embark",
+      "Elevate",
+      "Unleash",
+      "Realm",
+      "Paradigm",
+      "Holistic",
+      "Groundbreaking",
+      "Revolutionary",
+      "Cutting-edge",
+      "State-of-the-art",
+      "Advent",
+      "Myriad",
+      "Plethora",
+      "Meticulous",
+      "Cornerstone",
+      "Testament"
+    ],
+    "en_formal_to_simple": {
+      "Utilize": "Use",
+      "Facilitate": "Help",
+      "Implement": "Do / Set up",
+      "Commence": "Start",
+      "Subsequently": "Then",
+      "Paramount": "Really important",
+      "Elucidate": "Explain",
+      "Ameliorate": "Improve",
+      "Culminate": "End up"
+    },
+    "en_compound_adjectives_banned": [
+      "ever-evolving",
+      "fast-paced",
+      "thought-provoking",
+      "game-changing",
+      "awe-inspiring",
+      "all-encompassing"
+    ],
+    "en_filler_words_banned": [
+      "Essentially",
+      "Fundamentally",
+      "Particularly",
+      "Significantly",
+      "Additionally",
+      "Subsequently",
+      "Consequently",
+      "Ultimately",
+      "Undoubtedly",
+      "Arguably",
+      "Remarkably",
+      "Notably",
+      "Increasingly"
+    ]
+  },
+  "structural_blacklist": {
+    "description": "Mẫu câu cấm theo knowledge/15-anti-ai-content-rules.md (Ruleset 2) — thay bằng cách viết tự nhiên.",
+    "vi_banned_openers": [
+      "Trong thế giới/kỷ nguyên số ngày nay...",
+      "Không thể phủ nhận rằng...",
+      "Hành trình khám phá...",
+      "Như chúng ta đã biết...",
+      "Trong bài viết này, chúng ta sẽ...",
+      "Điều quan trọng cần lưu ý là...",
+      "Trong bối cảnh [chủ đề] không ngừng phát triển...",
+      "Trong thời đại công nghệ 4.0...",
+      "Hãy cùng đắm chìm vào thế giới của...",
+      "Khi nói đến [chủ đề], điều đầu tiên chúng ta nghĩ tới là..."
+    ],
+    "en_banned_openers": [
+      "In today's fast-paced world...",
+      "In the ever-evolving landscape of...",
+      "In today's digital age...",
+      "It's no secret that...",
+      "Whether you're a seasoned professional or just starting out...",
+      "With the advent of [technology]...",
+      "Gone are the days when...",
+      "The importance of [topic] cannot be overstated."
+    ],
+    "banned_transitions": [
+      "Với điều đó trong đầu...",
+      "Điều này đưa chúng ta đến...",
+      "Hãy xem xét kỹ hơn...",
+      "Như đã đề cập trước đó...",
+      "Để minh họa cho điểm này..."
+    ],
+    "vi_banned_conclusions": [
+      "Tóm lại,...",
+      "Kết luận lại,...",
+      "Hy vọng bài viết đã mang đến cho bạn cái nhìn toàn diện...",
+      "Tương lai của [chủ đề] đang rộng mở...",
+      "Chúc bạn thành công trên hành trình [chủ đề]!"
+    ],
+    "en_banned_conclusions": [
+      "In conclusion, [topic] is a powerful tool that...",
+      "The future of [topic] is bright...",
+      "The possibilities are endless.",
+      "Embracing [topic] is no longer optional — it's essential."
+    ],
+    "banned_cta": [
+      "Hãy chia sẻ ý kiến trong phần bình luận!",
+      "Đăng ký để nhận thêm nhiều nội dung giá trị!",
+      "Bạn đã sẵn sàng? Nhấn vào link bên dưới!"
+    ]
+  },
+  "vi_ai_patterns_to_avoid": {
+    "description": "Pattern tiếng Việt đặc trưng AI — Ruleset 3.4 trong knowledge/15.",
+    "patterns": [
+      "Câu dài xuyên suốt, ít ngắt → tách 2-3 câu ngắn",
+      "Lạm dụng 'sự' + danh từ → dùng động từ",
+      "Dùng 'được' quá nhiều → viết chủ động",
+      "Cấu trúc 'không chỉ...mà còn' lặp → tách 2 câu",
+      "Lạm dụng 'một cách' → bỏ",
+      "Dùng 'Hãy' mệnh lệnh liên tục → 'Bạn nên...', 'Thử...'",
+      "Tone giảng dạy / thầy cô → viết ngang hàng, đồng nghiệp"
+    ]
+  },
+  "red_flags_checklist": {
+    "description": "10 Red Flags — nếu bài có 3+ dấu hiệu → xác suất cao bị phát hiện AI. MỤC TIÊU: 0-2.",
+    "flags": [
+      "Dùng 'delve' / 'landscape' / 'tapestry' / 'comprehensive'",
+      "Mở + kết bài đều dùng câu hỏi tu từ",
+      "Liệt kê đúng 5 hoặc 10 tips/steps (con số đẹp)",
+      "Mỗi đoạn văn có độ dài gần giống nhau",
+      "Không có 1 lỗi/imperfection nào — quá hoàn hảo",
+      "'landscape' nghĩa bóng khi không nói phong cảnh",
+      "'Not only...but also' xuất hiện 2+ lần",
+      "Thiếu hoàn toàn hyperlinks hoặc dẫn nguồn cụ thể",
+      "Dùng 'it's important to note' / 'it's worth mentioning'",
+      "Title chứa 'Ultimate Guide' / 'Everything You Need to Know' / 'A Deep Dive'"
+    ]
+  },
+  "self_correction_checklist": {
+    "description": "Ruleset 4 — chạy trước khi giao bài.",
+    "step_1_find_replace": "Quét toàn bộ bài tìm từ cấm VN (1A+1B) + EN (1C+1D+1E+1F) + mẫu câu cấm (2A-2F). Đặc biệt: 'delve', 'landscape', 'comprehensive' (EN) + 'đột phá', 'chìa khóa', 'hành trình', 'toàn diện', 'khám phá' (VN). Xóa/thay thế.",
+    "step_2_tone_adjustment": "Giọng văn KHÔNG giống giáo sư hoặc phát ngôn viên. PHẢI giống đồng nghiệp thân thiện chia sẻ kinh nghiệm. Không hedge quá nhiều, không formal không cần thiết.",
+    "step_3_detail_enrichment": "Mỗi bài PHẢI có ít nhất 1-2 ví dụ thực tế VN: tên thương hiệu thật, số liệu thật, hoặc bài học thất bại.",
+    "step_4_red_flag_check": "Đếm số red flags (xem red_flags_checklist). MỤC TIÊU: 🟢 0-2 red flags. Nếu ≥ 3 → sửa lại."
+  },
+  "keyword_integration": {
+    "description": "Quy tắc tích hợp từ khóa ngữ nghĩa vào bài viết — xem Content Writing SKILL.md Bước 0.5 cho quy trình research đầy đủ.",
+    "research_required": "BẮT BUỘC: Trước khi viết, phải có Keyword Map gồm primary (1) + secondary (3-5) + long-tail (5-10) + LSI/semantic terms (10-20) + PAA questions (5-8).",
+    "placement_rules": {
+      "primary_keyword": "H1 + first 100 words (answer-first) + meta_title + meta_description",
+      "secondary_keywords": "2-3 cái trong H2 headings + body text (tự nhiên)",
+      "long_tail_keywords": "H3 headings + FAQ section + body text",
+      "lsi_semantic_terms": "Rải tự nhiên trong body — mỗi term 1-3 lần, KHÔNG nhồi",
+      "paa_questions": "FAQ section (3-5 câu) hoặc dùng làm H3 sub-sections"
+    },
+    "density_rule": "KHÔNG có con số cố định. Quy tắc: đọc to — nếu keyword lặp gượng ép → thay bằng biến thể (synonym, related term). Primary keyword lặp > 3 lần/1000 từ → cắt bớt.",
+    "natural_integration": "Keyword phải chảy trong câu, không phải 'cắm' vào. BinhNN style: dùng keyword tự nhiên trong conversational tone, xen kẽ biến thể VN-EN."
+  },
+  "avoid": [
+    "Mở bài bằng 'Trong thời đại số...', 'Với sự phát triển...', 'Ngày nay...' (AI pattern)",
+    "Mở bài bằng 'In today's fast-paced world...', 'In the ever-evolving landscape...' (EN AI pattern)",
+    "Mọi đoạn có cùng độ dài — phải có rhythm variation",
+    "Liệt kê nhiều điểm nhưng không sâu điểm nào",
+    "Liệt kê đúng 5 hoặc 10 điểm (AI thích số tròn/lẻ)",
+    "Bullet points quá cân đối — mỗi bullet gần cùng độ dài",
+    "Không có ví dụ cụ thể, số liệu cụ thể, tên cụ thể",
+    "Kết luận bằng 'Tóm lại,...' hoặc 'Nhìn chung,...' (AI pattern)",
+    "Kết luận bằng 'The possibilities are endless' hoặc 'The future is bright' (EN AI pattern)",
+    "Giọng văn trung lập hoàn toàn — PHẢI có quan điểm",
+    "Passive voice ('được cho rằng', 'có thể thấy rằng')",
+    "Academic hedging ('có lẽ', 'một số người cho rằng', 'arguably', 'perhaps')",
+    "Dùng từ nối đều đặn ('Thứ nhất,...', 'Thứ hai,...', 'Cuối cùng,...')",
+    "Buzzwords không có data backup ('giải pháp toàn diện', 'tối ưu hiệu quả')",
+    "Formal sign-offs ('Tóm lại, bài viết đã trình bày...')",
+    "Writing DEEP content for TRANSACTIONAL intent (or vice versa)",
+    "100% positive — phải có nuance, criticism, caveats",
+    "Dùng từ cường điệu VN: 'Đột phá', 'Cách mạng hóa', 'Nâng tầm', 'Liền mạch' (Ruleset 1)",
+    "Dùng danh từ sáo rỗng VN: 'Chìa khóa', 'Cốt lõi', 'Hành trình', 'Bức tranh toàn cảnh' (Ruleset 1)",
+    "Dùng từ EN bị AI lạm dụng: 'Delve', 'Leverage', 'Comprehensive', 'Seamless', 'Empower' (Ruleset 1C)",
+    "Dùng filler words: 'Essentially', 'Fundamentally', 'Undoubtedly', 'Arguably' (Ruleset 1F)",
+    "Dùng nhiệt tình giả: 'Đáng chú ý', 'Thú vị thay', 'Vô cùng quan trọng' (Ruleset 1)",
+    "Chia content máy móc: '1. Mở đầu, 2. Nội dung, 3. Kết luận' (Ruleset 3)",
+    "Viết 'Bước 1, Bước 2, Bước 3' khô khan không storytelling (Ruleset 3)",
+    "Lạm dụng 'sự' + danh từ, 'một cách' + tính từ, 'được' quá nhiều (Ruleset 3.4 VN patterns)",
+    "Câu dài xuyên suốt không ngắt — phải tách câu ngắn (Ruleset 3.4)",
+    "CTA rập khuôn: 'Chia sẻ ý kiến bình luận!', 'Đăng ký nhận nội dung!' (Ruleset 2F)"
+  ],
+  "notes": "Profile này kết hợp: (1) Văn phong BinhNN Digital — conversational, confident, data-backed, VN-first; (2) Kỹ thuật trình bày Neil Patel — Key Takeaways box, answer-first sections, comparison tables, visual evidence, bold-statement mistakes, FAQ with schema; (3) Anti-AI detection — personal experience, imperfect language, specific details, clear opinions, rhythm breaks, cultural markers; (4) Vocabulary + Structural Blacklist (knowledge/15-anti-ai-content-rules.md) — 4 Rulesets bắt buộc chống AI footprint. Mục tiêu: viết content mà cả Google và AI detectors đều đánh giá là 'người viết', đồng thời tối ưu cho cả SEO truyền thống lẫn GEO.",
+  "rare_attribute_guidance": {
+    "description": "Thông tin hiếm, độc đáo mà Google chấm điểm Knowledge Graph cao. Mỗi bài ít nhất 1-2 rare attributes.",
+    "sources": [
+      "Kinh nghiệm cá nhân từ các dự án SEO thực tế (số liệu cụ thể: bao nhiêu dự án, bao nhiêu tháng, kết quả %)",
+      "Dữ liệu gốc từ tracking nội bộ (VD: 47 dự án SEO trong 3 năm, 73% traffic từ bài >8 tháng)",
+      "Case study khách hàng (đã ẩn danh): mô tả vấn đề → giải pháp → kết quả cụ thể",
+      "Insight ngược lại thường thức (VD: 'Sai hoàn toàn. Tui đã test...')"
+    ],
+    "style_note": "Rare attribute phải kể bằng giọng 'tui' — kinh nghiệm cá nhân, không phải trích dẫn nghiên cứu khô khan"
+  },
+  "topical_context_linking": {
+    "description": "Kết nối bài viết với category hierarchy qua ngữ cảnh tự nhiên. Internal link chỉ mạnh 1/10.",
+    "example": "Viết bài 'SEO On-Page là gì' → mở bài nhắc 'digital marketing' (cha) → 'SEO tổng thể' (con) → 'tối ưu nội dung trên trang' (cháu)",
+    "rule": "Mở bài (first 100 words) PHẢI có context linking. Body ít nhất 2-3 đoạn."
+  }
+}
