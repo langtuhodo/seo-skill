@@ -1,7 +1,7 @@
 ---
 name: content-evaluation
 version: 1.3.0
-description: "Use this skill when the user invokes `/audit` slash command or asks to audit / evaluate / score a single article: 'audit bài này', 'đánh giá bài viết theo EEAT', 'chấm điểm bài viết', '/audit {URL or filename}'. Single-article EEAT + SEO audit, 100-point scoring with 4 verdict states. Output: projects/{project}/audit/audit-{date}-{slug}.md."
+description: "Use this skill when the user invokes `/audit` slash command or asks to audit / evaluate / score a SINGLE article: 'audit bài này', 'đánh giá bài viết theo EEAT', 'chấm điểm bài viết', '/audit {URL or filename}'. Single-article EEAT + SEO audit, 100-point scoring with 4 verdict states (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA). If user asks for cluster-level / topical-authority audit ('audit cluster', 'topical audit') → route to topical-audit instead. Output: projects/{project}/audit/audit-{date}-{slug}.md."
 category: content
 ---
 

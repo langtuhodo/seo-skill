@@ -1,7 +1,7 @@
 ---
 name: content-refresh
 version: 1.4.0
-description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
+description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
 category: content
 ---
 
