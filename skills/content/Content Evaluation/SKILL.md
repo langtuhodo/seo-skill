@@ -1,15 +1,25 @@
 ---
 name: content-evaluation
-version: 1.3.0
-description: "Use this skill when the user invokes `/audit` slash command or asks to audit / evaluate / score a SINGLE article: 'audit bài này', 'đánh giá bài viết theo EEAT', 'chấm điểm bài viết', '/audit {URL or filename}'. Single-article EEAT + SEO audit, 100-point scoring with 4 verdict states (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA). If user asks for cluster-level / topical-authority audit ('audit cluster', 'topical audit') → route to topical-audit instead. Output: projects/{project}/audit/audit-{date}-{slug}.md."
+version: 1.4.0
+description: "Use this skill when the user invokes `/audit` slash command or asks to audit / evaluate / score a SINGLE article: 'audit bài này', 'đánh giá bài viết theo EEAT', 'chấm điểm bài viết', '/audit {URL or filename}'. Single-article EEAT + SEO audit, 100-point scoring with 4 verdict states (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA). ⚠️ Phase 4.5 PRE-FLIGHT GUARD rejects portfolio/config files (keywords-urls.md, topical.md, memory.md, profile.md, external-sources.md, *-template.md, README.md, AGENTS.md, SKILL.md) — these are LOADED as context, NOT audit targets. If user asks for cluster-level / topical-authority audit ('audit cluster', 'topical audit') → route to topical-audit instead. Output: projects/{project}/audit/audit-{date}-{slug}.md."
 category: content
 ---
 
+🛑 **PRE-FLIGHT (v1.4)** — Trước khi audit, AI BẮT BUỘC verify input là **content article**, KHÔNG phải portfolio/config/topical/memory file:
+
+- Nếu user gõ `/audit projects/{project}/keywords-urls.md` → **REJECT** (đây là portfolio LOAD-only, audit so với chính nó luôn báo 100% duplicate)
+- Nếu user gõ `/audit projects/{project}/topical.md` / `memory.md` / `profile.md` / `external-sources.md` → **REJECT**
+- Nếu user gõ `/audit *-template.md` hoặc file chỉ có placeholder `{...}` → **REJECT**
+- Nếu user gõ `/audit AGENTS.md` / `CLAUDE.md` / `GEMINI.md*` / `SKILL.md` / `README.md` → **REJECT**
+- CHỈ audit file trong `projects/{project}/writing/`, `refresh/`, `archive/`, `_demo/writing/`, `_demo/refresh/` hoặc file ngoài project (bài đối thủ).
+
+Xem chi tiết Phase 4.5 bên dưới.
+
 # Content Evaluation — Audit 1 bài viết theo chuẩn E-E-A-T & SEO (`/audit`)
 
-> **Version**: v1.3 (2026-05-27) — thêm fallback `_demo` mode (audit bài không thuộc project): load `projects/_demo/style-guide.md` thay vì project context, skip Section 5.5 + 5.6.
+> **Version**: v1.4 (2026-05-27 r3) — **PRE-FLIGHT INPUT GUARD** (Phase 4.5): reject portfolio/config/topical/memory/template files trước khi parse 7 trường. Fix bug `/audit keywords-urls.md` báo "trung URL/keyword" do skill so file với chính nó.
 >
-> **Lịch sử**: v1.2 (External Citation Check Section 5.6 + load `external-sources.md` whitelist Phase 2 + Trust deduction nếu cite ngoài whitelist). v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
+> **Lịch sử**: v1.3 (fallback `_demo` mode — audit bài không thuộc project: load `projects/_demo/style-guide.md`, skip Section 5.5 + 5.6). v1.2 (External Citation Check Section 5.6 + load `external-sources.md` whitelist Phase 2 + Trust deduction nếu cite ngoài whitelist). v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
 >
 > **Persona kích hoạt**: AI nhập vai **Technical SEO Director kiêm Google Quality Rater cấp cao**. Không chào hỏi, không lan man, đi thẳng vào báo cáo.
 >
@@ -91,6 +101,85 @@ Nếu user gõ "audit" mà ngữ cảnh mơ hồ (không rõ 1 bài hay cluster)
 > "Bạn audit 1 bài đơn lẻ (`/audit`) hay audit cả cluster (Topical Audit)?"
 
 Không tự đoán.
+
+## 4.5. PRE-FLIGHT INPUT GUARD — Verify input là CONTENT ARTICLE (mới v1.4)
+
+> **Bug pattern này đã gặp**: User gõ `/audit projects/{project}/keywords-urls.md` → skill cũ parse file portfolio như nội dung article, so URL với chính nó, output "🔴 Trùng URL 100%". Sai hoàn toàn. Phase này CHẶN trước khi parse.
+
+🛑 STOP — Khi user gõ `/audit {filepath}` (Path B template), trước khi parse 7 trường, AI BẮT BUỘC verify input KHÔNG phải là portfolio/config/topical/memory file.
+
+### 4.5.1. Blacklist filename (reject NGAY nếu basename match)
+
+| Basename pattern | Loại file | Audit? | Hành vi đúng nếu user trỏ vào |
+|------------------|-----------|--------|-------------------------------|
+| `keywords-urls.md` | Portfolio Keyword/URL đã triển khai | ❌ KHÔNG | Reject + suggest file bài viết. Project portfolio này được LOAD ở Phase 6 làm context Duplicate Detection. |
+| `topical.md` | Bản đồ cluster + role bài (pillar/supporting) | ❌ KHÔNG | Reject + suggest file bài viết. Topical map LOAD ở Phase 6 làm context cluster role. |
+| `memory.md` | Project memory (Active Context + Pending Tasks + Decisions) | ❌ KHÔNG | Reject. Memory LOAD ở Phase 6.1. |
+| `profile.md` | Brand profile (Voice + Author Entity) | ❌ KHÔNG | Reject. Profile LOAD ở Phase 6.2. |
+| `external-sources.md` | External whitelist Tier 1/2/3 | ❌ KHÔNG | Reject. Whitelist LOAD ở Phase 6.5 cho External Citation Check (Section 5.6). |
+| `style-guide.md`, `style-guide-en.md` | Style guide (anti-AI rules) | ❌ KHÔNG | Reject. Style guide LOAD trong fallback `_demo` mode. |
+| `*-template.md` (`audit-template.md`, `memory-template.md`, `keywords-urls-template.md`, `external-sources-template.md`, `profile-template.md`, `topical-template.md`) | File mẫu skeleton để user copy | ❌ KHÔNG | Reject. Template trống, không có content thật. |
+| `README.md` (trong `projects/`, `.agents/`, `skills/`, root repo) | Documentation | ❌ KHÔNG | Reject. README là tài liệu hướng dẫn, không phải bài SEO. |
+| `COMPILED-CONTEXT.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `GEMINI.md.legacy` | AI assistant config | ❌ KHÔNG | Reject. Config file. |
+| `SKILL.md` (trong `skills/` hoặc `.agents/skills/`) | Skill definition | ❌ KHÔNG | Reject. Skill workflow, không phải bài viết. |
+| `*.json`, `*.yaml`, `*.yml`, `*.sh`, `*.py` | Code/config | ❌ KHÔNG | Reject. Không phải content. |
+
+**Output chuẩn khi reject** (đúng 1 message, KHÔNG audit, KHÔNG đoán nội dung):
+
+```
+File `{filename}` là **{loại file}** (theo blacklist), KHÔNG phải content article.
+
+Lý do KHÔNG audit:
+- {file này dùng để LOAD vào context audit, không phải đối tượng audit}
+- {giải thích cụ thể: vd "audit portfolio so với chính nó luôn báo 100% duplicate"}
+
+Để audit bài viết, hãy chỉ định file trong subfolder hợp lệ:
+- `projects/{project}/writing/{slug}.md` (bài viết mới)
+- `projects/{project}/refresh/{slug}.md` (bài đã refresh)
+- `projects/_demo/writing/{slug}.md` (bài ad-hoc)
+
+Ví dụ: `/audit projects/{project}/writing/{slug}.md`
+
+Nếu bạn muốn AI LOAD `{filename}` vào context audit (để Duplicate Detection / Cluster check / Citation check), chỉ cần audit file bài viết bình thường — AI sẽ TỰ ĐỘNG load `keywords-urls.md` + `topical.md` + `external-sources.md` của project đó ở Phase 6.
+```
+
+### 4.5.2. Heuristic content check (filename không match blacklist nhưng nội dung là portfolio/config)
+
+Nếu basename không match 4.5.1 nhưng có signal portfolio/memory/profile/SKILL bên trong → cũng reject:
+
+| Signal | Cách detect | Verdict |
+|--------|-------------|---------|
+| Markdown table có ≥ 3 header trong tập {`Keyword`, `URL`, `Cluster`, `Vai trò`, `Intent`, `Tiêu đề`} | Regex header line | → Portfolio → reject |
+| Body chứa section heading "Active Context" + "Pending Tasks" + "Session History" (≥ 2/3 match) | grep heading | → Memory → reject |
+| Body chứa "Brand Voice" / "Author Entity" / "Persona profile" + bullet list dài | grep | → Profile → reject |
+| YAML frontmatter có `name:` + `description:` + `category:` cùng xuất hiện | parse `---` block | → SKILL.md → reject |
+| Body chứa "Tier 1" + "Tier 2" + "Tier 3" + URL list whitelist format | grep | → External whitelist → reject |
+| File chỉ có heading + placeholder `{...}` / `[fill]` / `—` (≥ 5 occurrence) | grep | → Template trống → reject |
+
+Output reject giống 4.5.1 + nói rõ heuristic match.
+
+### 4.5.3. Whitelist path/format (chấp nhận audit)
+
+CHỈ audit file thỏa cả 2 điều kiện:
+
+1. **Path**: file nằm trong 1 trong các subfolder sau (hoặc ngoài project hoàn toàn — vd audit bài đối thủ paste vào file tạm):
+   - `projects/{project}/writing/{slug}.md`
+   - `projects/{project}/refresh/{slug}.md`
+   - `projects/{project}/archive/{slug}.md`
+   - `projects/_demo/writing/{slug}.md`
+   - `projects/_demo/refresh/{slug}.md`
+   - Bất kỳ path nào ngoài `projects/` (audit bài đối thủ / external draft)
+
+2. **Format**: file là content article hợp lệ — có ít nhất:
+   - 1 H1 (`# `) → tiêu đề bài
+   - Body markdown ≥ 500 từ (heuristic: bài SEO ngắn nhất phải ~500 từ để audit có nghĩa)
+   - KHÔNG match heuristic 4.5.2
+
+Nếu cả 1 + 2 pass → tiếp tục Phase 5 (parse 7 trường input).
+
+### 4.5.4. Path A (inline content) — không áp dụng guard
+
+Nếu user chọn Path A (paste nội dung trực tiếp sau `/audit` với 7 trường), guard 4.5 SKIP — vì user đã explicit khai báo các trường. Áp dụng validation 5.3 như bình thường.
 
 ## 5. Input — 2 cách gửi thông số đầu vào
 

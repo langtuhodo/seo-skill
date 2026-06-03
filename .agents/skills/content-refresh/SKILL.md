@@ -1,15 +1,25 @@
 ---
 name: content-refresh
-version: 1.4.0
-description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
+version: 1.5.0
+description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. ⚠️ PRE-FLIGHT INPUT GUARD (v1.5): refuses to refresh portfolio/config files (keywords-urls.md, topical.md, memory.md, profile.md, external-sources.md, *-template.md, README.md, AGENTS.md, SKILL.md) — these are LOADED as context, NOT refresh targets. If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
 category: content
 ---
 
 # Content Refresh — Cập nhật nội dung
 
-> **🛑 PRE-FLIGHT — ĐỌC TRƯỚC TIÊN, KHÔNG SKIP (v1.4 — fix bug output path)**
+> **🛑 PRE-FLIGHT — ĐỌC TRƯỚC TIÊN, KHÔNG SKIP (v1.5 — input guard + fix bug output path)**
 >
-> **Trước khi refresh, AI BẮT BUỘC chạy 4 bước Path Validation (đồng bộ với Content Writing Phase -0.5):**
+> **Trước khi refresh, AI BẮT BUỘC chạy 5 bước (4 Path Validation + 1 Input Guard, đồng bộ với Content Writing Phase -0.5 + Content Evaluation Phase 4.5):**
+>
+> 0. **Input Guard (mới v1.5)**: filename user trỏ vào KHÔNG được nằm trong blacklist sau:
+>    - `keywords-urls.md` / `topical.md` / `memory.md` / `profile.md` / `external-sources.md` (project metadata — LOAD-only, không refresh)
+>    - `style-guide.md` / `style-guide-en.md` (style guide _demo)
+>    - `*-template.md` (skeleton template trống)
+>    - `README.md` / `COMPILED-CONTEXT.md` / `AGENTS.md` / `CLAUDE.md` / `GEMINI.md*` / `SKILL.md` (config/doc)
+>    - File ngoài thư mục `writing/` `refresh/` `archive/` `_demo/writing/` `_demo/refresh/` của project
+>
+>    Nếu match blacklist → **REJECT** với output:
+>    > "File `{filename}` là **{loại file}** (project metadata / config / template), KHÔNG phải bài viết. Để refresh, hãy chỉ định file trong `projects/{project}/writing/{slug}.md` hoặc `refresh/{slug}.md`. Nếu muốn refresh portfolio (cập nhật thêm Keyword/URL mới) → đó là task khác, không dùng `Content Refresh` skill."
 >
 > 1. **Confirm intent là refresh** (không phải rewrite from scratch): user nói "viết lại", "refresh", "cập nhật", "tối ưu" + filename `.md` đã tồn tại → ĐÚNG là Content Refresh. Nếu user nói "viết lại hoàn toàn từ đầu" → route sang Content Writing (verdict 🟠 LÀM MỚI), KHÔNG dùng skill này.
 > 2. **Locate file gốc**: tìm `{filename}` trong `projects/{project}/{writing,refresh,archive}/`. Nếu không tìm thấy → hỏi user 1 lần, KHÔNG đoán.
@@ -19,7 +29,11 @@ category: content
 >    - `projects/{project}/writing/{slug}.md` (writing/ chỉ cho bài MỚI, refresh ≠ mới)
 >    - `projects/{project}/{cluster}/{slug}.md` (không nested cluster)
 >
-> **Anti-pattern bug đã ghi nhận**: User yêu cầu *"viết lại abc.md cho thép bảo tín"* → AI save thẳng vào `projects/thep-bao-tin/abc.md` (ROOT). **SAI**. Phải là `projects/thep-bao-tin/refresh/abc.md`. Xem chi tiết: `skills/content/Content Writing/SKILL.md` Phase -0.5.
+> **Anti-pattern bug đã ghi nhận**: 
+> - "viết lại abc.md cho thép bảo tín" → AI save thẳng vào `projects/thep-bao-tin/abc.md` (ROOT). **SAI**. Phải là `projects/thep-bao-tin/refresh/abc.md`.
+> - "viết lại keywords-urls.md cho thép bảo tín" → AI rewrite portfolio thành "bài viết". **SAI**. Reject ngay (Input Guard 0).
+>
+> Xem chi tiết: `skills/content/Content Writing/SKILL.md` Phase -0.5 + `skills/content/Content Evaluation/SKILL.md` Phase 4.5.
 
 > **Chuẩn 2026 bắt buộc**: Mỗi lần refresh là cơ hội đưa bài cũ lên chuẩn 2026. **Bài cũ chỉ rewrite meta khi refresh** (không batch update retroactive). Khi refresh: thêm Summary Chunk 40-60 chữ + Bite-sized H2 + Entity Mapping + meta_description ≤ 135 chars + ProfilePage schema cho tác giả + nhúng short-form video. Xem `knowledge/18-metadata-sop-2026.md` mục 9.
 
