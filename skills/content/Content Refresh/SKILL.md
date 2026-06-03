@@ -1,7 +1,7 @@
 ---
 name: content-refresh
 version: 1.7.0
-description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. ⚠️ PRE-FLIGHT INPUT GUARD (v1.5): refuses to refresh portfolio/config files. ✅ v1.7: applies Phase 2.5 Role Detection (pillar/supporting/variant) + Phase 5.6 External Citation v1.3 (per-citation web search, KHÔNG paste sample_urls). If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
+description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. ⚠️ PRE-FLIGHT INPUT GUARD (v1.5): refuses to refresh portfolio/config files. ✅ v1.7: applies Step 3.5 Role Detection (pillar/supporting/variant) + Step 5 External Citation v1.3 (per-citation web search, KHÔNG paste sample_urls). If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
 category: content
 ---
 
@@ -235,7 +235,7 @@ Quy tắc:
     3. Web search `site:astm.org "A53"`
     4. Cite URL specific tìm được
     5. Fallback nếu không ra URL: plain text / domain root / TODO comment
-  - Phần data/tiêu chuẩn chưa cite → bổ sung Tier 1 (TCVN, ASTM, ISO, Boḉng Thông Tin Pháp Luật…) URL specific
+  - Phần data/tiêu chuẩn chưa cite → bổ sung Tier 1 (TCVN, ASTM, ISO, Cổng Thông Tin Pháp Luật…) URL specific
   - Refresh year: nếu cite "Statista 2023" mà có URL Statista 2025 → update anchor + URL specific
   - ❌ TUYỆT ĐỐI KHÔNG paste `sample_urls` (proofs of authority) vào bài → anti-pattern v1.3
 - Update schema (Article dateModified, BreadcrumbList nếu IA đổi).

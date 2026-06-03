@@ -1,7 +1,7 @@
 ---
 name: content-writing
 version: 1.7.0
-description: "Use this skill when the user asks to write NEW content / article / blog post: 'viết bài mới', 'viết bài về X', 'tạo bài viết', 'write new article'. Activates Phase -0.5 Intent Disambiguation + Output Path Resolution (4-step pre-flight) + Phase 3.5 Role Detection (pillar/supporting/variant) + Phase 5.6 External Citation v1.3 (per-citation web search, KHÔNG paste sample_urls). If user says 'viết lại' + filename → route to content-refresh instead. Output: projects/{project}/writing/{slug}.md."
+description: "Use this skill when the user asks to write NEW content / article / blog post: 'viết bài mới', 'viết bài về X', 'tạo bài viết', 'write new article'. Activates Phase -0.5 Intent Disambiguation + Output Path Resolution (4-step pre-flight) + Phase 2.5 Role Detection (pillar/supporting/variant) + Phase 5.5 External Citation v1.3 (per-citation web search, KHÔNG paste sample_urls). If user says 'viết lại' + filename → route to content-refresh instead. Output: projects/{project}/writing/{slug}.md."
 category: content
 ---
 
@@ -507,7 +507,7 @@ Nếu path final KHÔNG khớp ✅ pattern hợp lệ → **DỪNG, không tạo
 | 2 | `projects/{project}/profile.md` | Chủ thể, brand voice, business context (chi tiết) | ✅ Nếu memory.md không đủ |
 | 3 | `projects/{project}/topical.md` | Topical map, cluster hierarchy, **Article Roles table (pillar/supporting/variant + parent_url + differentiator)** | ✅ (nếu tồn tại) — input cho **Phase 2.5 Role Detection** |
 | 4 | `projects/{project}/keywords-urls.md` | Keywords đã publish → chèn internal link | ✅ (nếu tồn tại) |
-| 5 | `projects/{project}/external-sources.md` | **Domain whitelist + sample_urls + citation_rule per source (v1.3)** | ✅ (nếu tồn tại) — input cho **Phase 5.6 External Citation v1.3** |
+| 5 | `projects/{project}/external-sources.md` | **Domain whitelist + sample_urls + citation_rule per source (v1.3)** | ✅ (nếu tồn tại) — input cho **Phase 5.5 External Citation v1.3 Audit** (rules: Section 2.2) |
 
 **Tại sao đọc memory.md trước**: Memory.md cache 80% context AI cần để bắt đầu (brand voice 1 dòng, cluster đang focus, style profile, pending tasks). Chỉ mở profile.md/topical.md/keywords-urls.md khi memory.md không đủ. Điều này giảm bootstrap từ ~30k token xuống ~5k token cho task thường gặp.
 
@@ -1102,6 +1102,68 @@ Không viết để "có đủ H2". Mỗi H2 phải trả lời được: "Đọ
 | "rất", "vô cùng", "cực kỳ" | [Xóa hoặc thay bằng số liệu] |
 | "Tóm lại, có thể thấy rằng" | "Tóm lại:" |
 | "được sử dụng rộng rãi" | "X% công trình sử dụng" |
+
+---
+
+### Phase 5.5: External Citation v1.3 — Pre-publish Audit (10 phút, BẮT BUỘC)
+
+> **Mục đích**: Final audit trước khi commit bài — đảm bảo mọi external link tuân thủ External Citation v1.3 (đã định nghĩa rule trong **Section 2.2**). Phase này là CHECKLIST RUNTIME, không phải định nghĩa rule.
+
+#### Bước 5.5.1. Enumerate tất cả external link trong draft
+
+Liệt kê mọi `[anchor](https://external-domain/...)` trong bài → tạo bảng audit:
+
+```markdown
+## Citation Audit (NỘI BỘ — KHÔNG XUẤT HIỆN TRONG BÀI)
+
+| # | Anchor | URL | Domain | Topic được cite | Loaded từ search? |
+|---|--------|-----|--------|-----------------|-------------------|
+| 1 | ASTM A53 — Standard Specification | https://www.astm.org/a0053... | astm.org | ASTM A53 | ✅ site:astm.org "A53" |
+| 2 | ... | ... | ... | ... | ... |
+```
+
+#### Bước 5.5.2. Chạy 4 check per citation (giống Section 5.6 của Content Evaluation v1.5)
+
+Với mỗi link, validate theo thứ tự — dừng ngay khi 1 check fail và fix trước khi tiếp tục:
+
+- **Check #1 — Domain whitelist** (vs `projects/{project}/external-sources.md`):
+  - ✅ Domain match 1 row whitelist → pass
+  - ❌ Domain ngoài whitelist → **Violation A** → xóa hoặc thay bằng domain Tier 1/2/3 hợp lệ
+- **Check #2 — KHÔNG paste `sample_urls`** ⭐:
+  - ❌ URL trùng verbatim với entry trong `sample_urls[]` → **Violation B "sample URL pasted"** → web search `site:{domain} "{topic}"` để tìm URL specific
+  - ✅ URL khác mọi `sample_urls[]` → pass
+- **Check #3 — URL inflation (1 URL = 1 topic)** ⭐:
+  - ❌ Cùng 1 URL được dùng cho ≥ 2 topic khác nhau → **Violation C** → tách thành URL specific riêng cho từng topic
+  - ✅ URL chỉ dùng cho 1 topic → pass
+- **Check #4 — Anchor text semantic match** ⭐:
+  - ❌ Anchor mơ hồ ("click here", "tại đây", "xem thêm", "link") → **Violation D "anchor mismatch"** → viết lại anchor chứa tên topic/standard
+  - ❌ Anchor không match topic mà URL trỏ tới → **Violation D** → sửa anchor hoặc thay URL đúng topic
+  - ✅ Anchor chứa tên topic + match URL → PASS
+
+#### Bước 5.5.3. Per-citation Workflow khi thêm cite mới
+
+Nếu Phase 4 EEAT Check phát hiện chỗ cần cite (data, tiêu chuẩn, framework, expert quote) chưa có link → áp dụng workflow 6 bước:
+
+1. **Identify topic** (vd "ASTM A53")
+2. **Match domain** trong whitelist (vd astm.org tier 1)
+3. **Web search**: `site:astm.org "A53"`
+4. **Cite URL specific** tìm được, anchor `[ASTM A53 — Standard Specification](URL)`
+5. **Fallback nếu không ra URL specific** (theo thứ tự): plain text không link / domain root + descriptive anchor / `<!-- TODO -->` comment
+6. **Log vào Session History** (Phase 7): citation discovery + URL used + fallback nếu có
+
+#### Bước 5.5.4. Bổ sung Tier 1 cite nếu thiếu
+
+Bài có **data/tiêu chuẩn nhưng 0 external cite** + project có whitelist Tier 1 → BẮT BUỘC bổ sung ≥ 1-2 cite Tier 1 (theo workflow 5.5.3).
+
+#### Bước 5.5.5. Output gate
+
+Chỉ pass Phase 5.5 khi:
+- 0 Violation A (domain ngoài whitelist) hoặc tất cả Violation A đã được justify bằng `<!-- ad-hoc cite -->`
+- 0 Violation B (sample URL pasted) — strict
+- 0 Violation C (URL inflation) — strict
+- 0 Violation D (anchor mismatch) — strict
+
+Nếu còn violation → quay lại Bước 5.5.2 fix, không được commit bài.
 
 ---
 

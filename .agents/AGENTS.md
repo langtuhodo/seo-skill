@@ -554,7 +554,7 @@ Khi AI cần cite topic cụ thể (vd "ASTM A53"):
 ❌ **TUYỆT ĐỐI KHÔNG dùng 1 URL cho ≥ 2 topic khác nhau** (URL inflation — violation C).
 ❌ **Anchor text KHÔNG mơ hồ** ("click here", "tại đây") — violation D.
 
-Chi tiết: `skills/content/Content Writing/SKILL.md` Phase 5.6 + `skills/content/Content Refresh/SKILL.md` Step 5 + `skills/content/Content Evaluation/SKILL.md` Section 5.6.
+Chi tiết: `skills/content/Content Writing/SKILL.md` Section 2.2 (rules) + Phase 5.5 (pre-publish audit) + `skills/content/Content Refresh/SKILL.md` Step 5 + `skills/content/Content Evaluation/SKILL.md` Section 5.6.
 
 ### Content Output Format (Markdown)
 
