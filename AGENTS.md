@@ -9,11 +9,13 @@
 > - **Codex CLI / Cursor / Cline / Aider** — qua mention `AGENTS.md` trong workspace
 > - **Legacy Gemini CLI** — qua `GEMINI.md.legacy` (đã deprecated)
 >
-> **Skill discovery layout** (Antigravity-optimized):
-> - Repo-level: `.agents/skills/<name>/SKILL.md` (Antigravity tự load Progressive Disclosure)
-> - Source of truth: `skills/<category>/<Name>/SKILL.md` (canonical, dễ đọc cho human)
-> - Global: `~/.agents/skills/<name>/SKILL.md` (qua `scripts/install-skills-global.sh`)
-> - Hai path là mirror của nhau, edit chỉ ở `skills/` rồi chạy `scripts/sync-agents-skills.sh`.
+> **Skill discovery layout** (Antigravity-optimized, FLAT — không nested category):
+> - Workspace: `.agents/skills/<skill_name>/SKILL.md` (Antigravity auto Progressive Disclosure)
+> - Global:    `~/.gemini/antigravity-cli/skills/<skill_name>/SKILL.md` (qua `scripts/install-skills-global.sh`)
+> - Shared (Gemini CLI legacy): `~/.gemini/skills/<skill_name>/SKILL.md` (qua `--shared` flag)
+> - Source of truth: `skills/<category>/<Name>/SKILL.md` (canonical, Title Case dễ đọc cho human)
+>
+> ⚠️ **Antigravity KHÔNG recurse category subfolders**. Mirror `.agents/skills/` PHẢI flat = 1 folder/skill, name từ frontmatter `name:`. Edit chỉ ở `skills/`, rồi `bash scripts/sync-agents-skills.sh`.
 
 > Bộ skill SEO toàn diện cho AI coding assistant. Auto-load khi làm việc trong project này.
 
@@ -35,15 +37,15 @@ seo-skills/
 │   ├── brand-distribution/
 │   └── style-mimicker/
 │
-├── .agents/                      # ⭐ Antigravity CLI / IDE discovery path
+├── .agents/                      # ⭐ Antigravity CLI / IDE discovery path (FLAT)
 │   ├── AGENTS.md                 (mirror của root AGENTS.md)
-│   └── skills/                   (mirror của root skills/, tự sync qua scripts/)
+│   └── skills/                   (62 folders flat: <skill_name>/SKILL.md, tự sync qua scripts/)
 │
 ├── .gemini/skills/               # [legacy] Gemini CLI (deprecated 2026-05-19)
 │
 ├── scripts/
-│   ├── sync-agents-skills.sh     # Sync skills/ → .agents/skills/ sau khi edit
-│   └── install-skills-global.sh  # Cài skills vào ~/.agents/skills/ (global)
+│   ├── sync-agents-skills.sh     # Flatten skills/<cat>/<Name>/ → .agents/skills/<name>/
+│   └── install-skills-global.sh  # Cài skills vào ~/.gemini/antigravity-cli/skills/ (Antigravity global)
 │
 ├── knowledge/                    # 17 knowledge notes (auto-load triggers)
 ├── playbooks/                    # 7 end-to-end workflows

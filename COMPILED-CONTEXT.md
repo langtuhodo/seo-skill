@@ -5,7 +5,12 @@
 >
 > File này được duy trì thủ công. Khi `skills/` hoặc `knowledge/` thay đổi đáng kể → cập nhật ở đây.
 >
-> **v1.5 (Antigravity-ready, 2026-05-27)**: Skill discovery hỗ trợ cả `skills/<category>/<Name>/SKILL.md` (canonical) và `.agents/skills/<name>/SKILL.md` (Antigravity Progressive Disclosure mirror). Mọi SKILL.md có YAML frontmatter `name` + `description` + `category` chuẩn để Antigravity router tự match intent. Edit chỉ ở `skills/`, sync qua `scripts/sync-agents-skills.sh`.
+> **v1.5.1 (Antigravity-ready, 2026-05-27 r2)**: Skill discovery layout:
+> - Source of truth (human-friendly): `skills/<category>/<Name>/SKILL.md` (Title Case, category-nested)
+> - Antigravity workspace (FLAT mirror): `.agents/skills/<skill_name>/SKILL.md`
+> - Antigravity global: `~/.gemini/antigravity-cli/skills/<skill_name>/SKILL.md` (qua `scripts/install-skills-global.sh`)
+>
+> ⚠️ Antigravity KHÔNG recurse category subfolders — mirror PHẢI flat = 1 folder/skill, name từ frontmatter `name:`. Edit chỉ ở `skills/`, sync qua `bash scripts/sync-agents-skills.sh`.
 
 ## 0. SESSION BOOTSTRAP — 3 bước AI làm đầu phiên
 
