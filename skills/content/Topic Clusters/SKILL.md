@@ -1,7 +1,7 @@
 ---
 name: topic-clusters
-version: 1.0.0
-description: "Use this skill when the user asks about topic cluster strategy: 'topic cluster', 'cụm chủ đề', 'pillar-supporting model', 'cluster architecture'. Covers cluster design, pillar identification, supporting page mapping, internal link structure."
+version: 1.1.0
+description: "Use this skill when the user asks about topic cluster strategy: 'topic cluster', 'cụm chủ đề', 'pillar-supporting model', 'cluster architecture'. Covers cluster design, pillar identification, supporting page mapping, internal link structure. ✅ v1.1: Article Role taxonomy v1.1 (pillar / supporting / variant) — variant = product SKU/size (vd 'ống thép đúc phi 76') có parent_url trỏ pillar + differentiator (size/SKU), SHORT general (≤120 từ) + DEEP differentiator (60-70%). Anti-pattern: bài variant nhân bản pillar."
 category: content
 ---
 
@@ -21,12 +21,43 @@ Topic Cluster là **mô hình content tổ chức theo cụm**: 1 pillar + N sup
 
 ## 2. Core Concepts / Khái niệm cốt lõi
 
-- **Pillar**: trang trụ cột (skill Pillar Pages).
-- **Cluster topic**: tập hợp 1 pillar + nhiều supporting cùng chủ đề rộng.
+- **Pillar**: trang trụ cột (skill Pillar Pages). DEEP toàn cluster, không vào differentiator-specific.
+- **Supporting**: narrower topic trong cluster, DEEP riêng topic đó.
+- **Variant** ⭐ (v1.1): bài sản phẩm theo size/SKU/model (vd `ong-thep-duc-phi-76`, `ong-thep-duc-phi-90`) — có `parent_url` trỏ về pillar + `differentiator` (size, model, SKU). **SHORT general** (≤120 từ định nghĩa + link pillar) + **DEEP differentiator** (60-70% word count vào thông số size + ứng dụng SPECIFIC).
+- **Cluster topic**: tập hợp 1 pillar + nhiều supporting + N variants cùng chủ đề rộng.
 - **Topical authority**: Google đánh giá site là "expert" trong 1 mảng khi đã cover toàn bộ sub-topic + có internal/external link signal.
 - **Coverage depth + breadth**: depth = chi tiết mỗi bài; breadth = bao phủ sub-topic.
 - **Semantic completeness**: đủ entity / sub-topic / câu hỏi mà Google expects.
 - **Cluster boundary**: 1 cluster phải có ranh giới rõ. Quá rộng → nhiều cluster con; quá hẹp → cluster yếu.
+
+### 2.1. Article Role Taxonomy v1.1 (BẮT BUỘC ghi vào `topical.md`)
+
+Mỗi bài trong cluster PHẢI có role + (nếu variant) parent_url + differentiator:
+
+| Role | Ký hiệu | Mục đích | Content depth | Parent_url | Differentiator |
+|------|---------|----------|---------------|------------|----------------|
+| pillar | 🏛️ | Hub bao quát cluster | DEEP toàn cluster (2500-4000 từ) | — | — |
+| supporting | 📄 | Narrower topic trong cluster | DEEP về topic riêng (1500-2500 từ) | pillar_slug | topic_name |
+| **variant** | 🧬 | **Sản phẩm theo size/SKU/model** | **SHORT general (≤120 từ + link pillar) + DEEP differentiator (400-600 từ × 2-3 section) — tổng 1200-1800 từ** | pillar_slug | size/SKU/model descriptor |
+
+**Ví dụ cluster "Ống thép đúc" trong project thep-bao-tin**:
+
+```
+Slug                          | Vai trò    | Parent URL    | Differentiator
+ong-thep-duc                  | pillar     | —             | —
+ong-thep-duc-tieu-chuan       | supporting | ong-thep-duc  | topic=tiêu chuẩn ASTM/JIS/TCVN
+ong-thep-duc-phi-76           | variant    | ong-thep-duc  | size=DN65 (Φ76mm)
+ong-thep-duc-phi-90           | variant    | ong-thep-duc  | size=DN80 (Φ90mm)
+ong-thep-duc-phi-168          | variant    | ong-thep-duc  | size=DN150 (Φ168mm)
+```
+
+### 2.2. Anti-pattern: variant nhân bản pillar 🛑
+
+Khi cluster có nhiều variant (vd 10-15 size khác nhau), AI dễ viết 10 bài variant đều có 800 từ "ống đúc là gì" + 600 từ "quy trình SX" — **nhân bản pillar**. Google detect duplicate content + Content Evaluation Section 5.7 flag 🟠 LÀM MỚI.
+
+**Đúng**: Variant ≤120 từ general + link pillar. 60-70% word count vào thông số size cụ thể + ứng dụng SPECIFIC + bảng so sánh size + giá.
+
+Chi tiết gating: xem `skills/content/Content Writing/SKILL.md` Phase 2.5 Role Detection.
 
 ## 3. When to use
 - Khi launch site mới — cluster là cách build ngay từ đầu, không phải afterthought.

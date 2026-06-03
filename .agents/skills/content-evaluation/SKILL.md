@@ -1,7 +1,7 @@
 ---
 name: content-evaluation
-version: 1.4.0
-description: "Use this skill when the user invokes `/audit` slash command or asks to audit / evaluate / score a SINGLE article: 'audit bài này', 'đánh giá bài viết theo EEAT', 'chấm điểm bài viết', '/audit {URL or filename}'. Single-article EEAT + SEO audit, 100-point scoring with 4 verdict states (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA). ⚠️ Phase 4.5 PRE-FLIGHT GUARD rejects portfolio/config files (keywords-urls.md, topical.md, memory.md, profile.md, external-sources.md, *-template.md, README.md, AGENTS.md, SKILL.md) — these are LOADED as context, NOT audit targets. If user asks for cluster-level / topical-authority audit ('audit cluster', 'topical audit') → route to topical-audit instead. Output: projects/{project}/audit/audit-{date}-{slug}.md."
+version: 1.5.0
+description: "Use this skill when the user invokes `/audit` slash command or asks to audit / evaluate / score a SINGLE article: 'audit bài này', 'đánh giá bài viết theo EEAT', 'chấm điểm bài viết', '/audit {URL or filename}'. Single-article EEAT + SEO audit, 100-point scoring with 4 verdict states (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA). ⚠️ Phase 4.5 PRE-FLIGHT GUARD rejects portfolio/config files. ✅ v1.5: Section 5.6 External Citation v1.3 (4 new violation checks: sample URL pasted, URL inflation, anchor mismatch, domain whitelist) + Section 5.7 Variant Overlap Detection (if role=variant + parent exists → compute content-overlap, flag variant copies pillar). If user asks for cluster-level / topical-authority audit ('audit cluster', 'topical audit') → route to topical-audit instead. Output: projects/{project}/audit/audit-{date}-{slug}.md."
 category: content
 ---
 
@@ -17,9 +17,9 @@ Xem chi tiết Phase 4.5 bên dưới.
 
 # Content Evaluation — Audit 1 bài viết theo chuẩn E-E-A-T & SEO (`/audit`)
 
-> **Version**: v1.4 (2026-05-27 r3) — **PRE-FLIGHT INPUT GUARD** (Phase 4.5): reject portfolio/config/topical/memory/template files trước khi parse 7 trường. Fix bug `/audit keywords-urls.md` báo "trung URL/keyword" do skill so file với chính nó.
+> **Version**: v1.5 (2026-05-27 r4) — **External Citation v1.3 audit + Variant Overlap Detection (Section 5.7)**. Section 5.6 nâng cấp lên v1.3: 4 violation types (A: domain whitelist, B: sample URL pasted, C: URL inflation, D: anchor mismatch). Section 5.7 mới: nếu role=variant + parent_url tồn tại → compute content overlap với pillar + differentiator coverage check.
 >
-> **Lịch sử**: v1.3 (fallback `_demo` mode — audit bài không thuộc project: load `projects/_demo/style-guide.md`, skip Section 5.5 + 5.6). v1.2 (External Citation Check Section 5.6 + load `external-sources.md` whitelist Phase 2 + Trust deduction nếu cite ngoài whitelist). v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
+> **Lịch sử**: v1.4 (PRE-FLIGHT INPUT GUARD Phase 4.5 — reject portfolio/config/template files). v1.3 (fallback `_demo` mode — audit bài không thuộc project: load `projects/_demo/style-guide.md`, skip Section 5.5 + 5.6). v1.2 (External Citation Check Section 5.6 + load `external-sources.md` whitelist Phase 2 + Trust deduction nếu cite ngoài whitelist). v1.1 (Duplicate Detection + Verdict 4 trạng thái + thang 100đ). v1.0 (single-article audit).
 >
 > **Persona kích hoạt**: AI nhập vai **Technical SEO Director kiêm Google Quality Rater cấp cao**. Không chào hỏi, không lan man, đi thẳng vào báo cáo.
 >
@@ -363,37 +363,173 @@ Nếu có, chạy 4 check theo Phase 3 (xem 6.1) và in kết quả:
 - Chỉ có 🟠 soft → Verdict vẫn tính theo điểm, nhưng add warn vào lý do.
 - Không có gì → Verdict hoàn toàn theo điểm số.
 
-## 5.6. EXTERNAL CITATION CHECK (v1.2 — chỉ hiện nếu có project + `external-sources.md`)
+## 5.6. EXTERNAL CITATION CHECK (v1.3 — domain whitelist + per-citation discovery + sample URL audit)
 
 Nếu không có project hoặc file `external-sources.md` không tồn tại → bỏ section này và ghi 1 dòng: "Skip External Citation Check — không có project context hoặc external-sources.md."
 
-Nếu có, chạy theo Phase 3.5 (xem 9 dưới):
+> **Nâng cấp v1.3**: chuyển từ kiểm tra URL whitelist (v1.2) sang kiểm tra **domain whitelist + URL specific per topic**. Phát hiện thêm 3 anti-pattern mới: **sample URL pasted** / **URL inflation** / **anchor mismatch**.
 
-**Cách chạy**: Enumerate **tất cả external link** trong bài input (link out trỏ ra ngoài domain hiện tại). Với mỗi link, đối chiếu với whitelist `external-sources.md`:
-- ✅ Domain match một row trong whitelist (Tier 1/2/3) → OK
-- ⚠️ Domain KHÔNG match nhưng có comment `<!-- ad-hoc cite -->` ngay sau link → OK (cảnh báo nhẹ, ghi nhận)
-- 🔴 Domain KHÔNG match và KHÔNG có ad-hoc comment → **Violation** (cite ngoài whitelist)
+### Cách chạy — Enumerate tất cả external link trong bài
 
-**Output format**:
+Với mỗi external link, chạy 4 check (theo thứ tự, dừng ngay khi 1 check fail):
+
+**Check #1 — Domain whitelist**:
+- ✅ Domain (host) match 1 row trong whitelist v1.3 (`domain: astm.org`) → pass tiếp Check #2
+- ⚠️ Domain KHÔNG match nhưng có comment `<!-- ad-hoc cite -->` ngay sau link → ad-hoc (cảnh báo nhẹ)
+- 🔴 Domain KHÔNG match và KHÔNG có ad-hoc → **Violation A: domain ngoài whitelist**
+
+**Check #2 — URL specific (KHÔNG paste sample_urls)** ⭐ MỚI v1.3:
+- Đọc `sample_urls[]` của source matching trong whitelist.
+- 🔴 URL trùng verbatim với bất kỳ entry trong `sample_urls[]` → **Violation B: "sample URL pasted"** (AI paste landing page thay vì search URL specific cho topic)
+- ✅ URL khác mọi `sample_urls[]` → pass Check #3
+
+**Check #3 — URL inflation (1 URL = 1 topic)** ⭐ MỚI v1.3:
+- Đếm số lần URL này xuất hiện trong bài.
+- Đối chiếu các anchor text khác nhau hoặc context khác nhau dùng cùng URL.
+- 🔴 Cùng 1 URL được dùng cho ≥ 2 topic specific khác nhau (vd ASTM landing page dùng làm cite cho "A53" VÀ "A106" VÀ "A572") → **Violation C: "URL inflation"** (mỗi topic cần URL specific riêng)
+- ✅ URL dùng cho duy nhất 1 topic context → pass Check #4
+
+**Check #4 — Anchor text semantic match** ⭐ MỚI v1.3:
+- Đọc anchor text của link.
+- 🔴 Anchor mơ hồ ("click here", "tại đây", "xem thêm", "link") KHÔNG chứa tên topic/standard/concept → **Violation D: "anchor mismatch"**
+- 🔴 Anchor KHÔNG match semantically với topic mà URL trỏ tới (vd anchor "ASTM A53" nhưng URL trỏ về page "A572 Grade 50") → **Violation D**
+- ✅ Anchor chứa tên topic + match URL → PASS (link hợp lệ)
+
+### Output format
+
+```markdown
+## 5.6. External Citation Check (v1.3)
 
 - **Số external link** trong bài: {N}
-- **OK (trong whitelist)**: {X} link
-  - {liệt kê URL + Tier tương ứng}
-- **Ad-hoc** (có `<!-- ad-hoc cite -->` comment): {Y} link
-  - {liệt kê URL + lý do}
-- **🔴 Violation** (ngoài whitelist, không có ad-hoc): {Z} link
-  - {liệt kê URL + đề xuất thay thế từ whitelist nếu có, hoặc đề xuất xóa cite}
-- **Khuyến nghị thêm cite**: {nếu bài có phần data/tiêu chuẩn chưa cite → đề xuất 1-2 nguồn Tier 1 phù hợp từ whitelist}
+- **PASS** (qua cả 4 check): {X} link
+  - {URL specific + Tier + topic}
+- **⚠️ Ad-hoc** (có `<!-- ad-hoc cite -->`): {Y} link
 
-**Ảnh hưởng đến điểm Trust (trục E-E-A-T, Section 3)**:
-- 0 violation → giữ điểm Trust nguyên.
-- 1-2 violation → trừ 1đ (raw) khỏi điểm Trust.
-- ≥ 3 violation HOẶC tỉ lệ violation > 50% tổng external link → trừ 2đ (raw) khỏi điểm Trust + add note "Vi phạm whitelist nhiều, EEAT Trust kém".
-- Bài có data/tiêu chuẩn nhưng 0 external cite + project có whitelist Tier 1 sẵn → trừ 1đ khỏi điểm Trust + đề xuất bổ sung.
+### 🔴 Violations theo loại
+| # | Loại | URL | Vấn đề | Khuyến nghị fix |
+|---|------|-----|--------|-----------------|
+| 1 | A: domain ngoài whitelist | https://wikipedia.org/... | Wikipedia không trong whitelist | Xóa hoặc thay link Tier 1 từ whitelist |
+| 2 | B: sample URL pasted | https://www.astm.org/.../steel-standards.html | Đây là `sample_urls` của ASTM (landing page) — không phải URL specific cho A53 | Web search `site:astm.org "A53"` → cite URL specific |
+| 3 | C: URL inflation | https://www.astm.org/.../steel-standards.html (3 lần) | Cùng URL cite cho A53, A106, A572 | Tách 3 URL specific khác nhau (1 cho mỗi spec) |
+| 4 | D: anchor mismatch | https://www.iso.org/standard/12345.html | Anchor "click here" — không chứa tên standard | Anchor phải là "ISO 9001:2015 Quality Management" |
 
-**Ảnh hưởng đến Verdict** (Section 0):
-- Violation KHÔNG override Verdict (chỉ ảnh hưởng điểm). Nhưng nếu sau khi trừ điểm Trust tổng điểm rớt từ band cao xuống band thấp → Verdict tự cập nhật theo điểm mới.
-- Section 6 Action Plan add P1 item: "Xóa/thay {N} external link ngoài whitelist" nếu có violation.
+### Khuyến nghị thêm cite
+- {Nếu data/tiêu chuẩn chưa cite → đề xuất 1-2 nguồn Tier 1 + URL specific từ web search}
+```
+
+### Ảnh hưởng đến điểm Trust (E-E-A-T, Section 3)
+
+| Tổng violations (A+B+C+D) | Điểm Trust deduction (raw) |
+|---------------------------|---------------------------|
+| 0 | 0 (giữ nguyên) |
+| 1-2 | -1 |
+| 3-4 | -2 (add note "Multiple citation defects — EEAT Trust degraded") |
+| ≥ 5 HOẶC tỉ lệ violation > 50% | -3 (add note "Severe citation hallucination — AI có khả năng fabricate URLs") |
+
+**Phân biệt severity**:
+- **Violation B (sample URL pasted)** đặc biệt nghiêm trọng → mỗi violation B trừ thêm 0.5đ (cumulative)
+- **Violation C (URL inflation)** chỉ ra AI lười không search per-topic → trừ thêm 0.5đ nếu inflation ≥ 3 lần cùng URL
+
+Bài có data/tiêu chuẩn nhưng 0 external cite + project có whitelist Tier 1 sẵn → trừ 1đ + đề xuất bổ sung.
+
+### Ảnh hưởng đến Verdict (Section 0)
+
+- Violation KHÔNG override Verdict (chỉ ảnh hưởng điểm Trust). Nhưng nếu Trust deduction làm tổng điểm rớt từ band cao xuống band thấp → Verdict tự cập nhật.
+- **Section 6 Action Plan**:
+  - Có ≥ 1 Violation A → P1: "Xóa/thay {N} external link ngoài whitelist"
+  - Có ≥ 1 Violation B → P1: "Web search URL specific thay {N} sample URL bị paste"
+  - Có ≥ 1 Violation C → P1: "Tách {N} URL inflation thành URL specific per topic"
+  - Có ≥ 1 Violation D → P2: "Sửa anchor text — thêm tên topic/standard"
+
+## 5.7. VARIANT OVERLAP DETECTION (v1.5 — mới, chỉ hiện nếu role=variant + parent_url tồn tại)
+
+> **Mục đích**: Phát hiện bài variant nhân bản pillar (viết general thay vì DEEP differentiator) — bug user phản ánh: "ống đúc phi 76" viết deep như "ống đúc" pillar.
+
+### Trigger
+
+Section này CHỈ chạy khi tất cả 3 điều kiện match:
+1. Project có `topical.md` với Article Roles table.
+2. Slug bài audit có role = `variant` trong table.
+3. `parent_url` của variant tồn tại trong project (đã publish hoặc có file `writing/{parent}.md` / `refresh/{parent}.md`).
+
+Nếu thiếu 1 trong 3 → skip section này, ghi 1 dòng: "Skip Variant Overlap — bài không phải variant hoặc thiếu parent pillar."
+
+### Cách chạy
+
+**Step 1: Load parent pillar content**
+- Đọc file `projects/{project}/writing/{parent_slug}.md` (hoặc `refresh/{parent_slug}.md` nếu mới hơn).
+- Extract sections: H2 + nội dung từng H2.
+
+**Step 2: Match sections variant vs pillar (theo semantic title)**
+- Với mỗi H2 trong bài variant, tìm H2 tương đương trong pillar (vd "Quy trình sản xuất ống đúc" trong variant ↔ "Quy trình sản xuất" trong pillar).
+- Cho từng cặp section khớp, compute **content overlap %**:
+  - **Word-level Jaccard similarity** (đơn giản): `|intersect_words| / |union_words|`
+  - Hoặc nhận diện đoạn copy-paste (≥ 30 từ liền nhau khớp).
+
+**Step 3: Phân loại section variant theo overlap**
+
+| Section variant | Overlap với pillar | Verdict section | Khuyến nghị |
+|-----------------|-------------------|-----------------|-------------|
+| ≤ 25% overlap, ≤ 120 từ, có link đến pillar | LOW overlap | ✅ PASS (variant gating đúng) | Giữ nguyên |
+| 25-40% overlap hoặc 120-300 từ | MEDIUM overlap | ⚠️ WARN (variant hơi deep) | Cắt thêm 30-50%, thêm link rõ về pillar |
+| > 40% overlap hoặc > 300 từ general | HIGH overlap | 🔴 FAIL (variant nhân bản pillar) | **CẮT** xuống ≤120 từ + link pillar. MỞ RỘNG section differentiator (thông số size + ứng dụng SPECIFIC). |
+
+**Step 4: Đánh giá differentiator coverage**
+
+- Đếm word count của các section **specific cho size/SKU** (vd "Thông số kỹ thuật phi 76", "Ứng dụng SPECIFIC cho phi 76", "Bảng so sánh size khác").
+- Đối chiếu với differentiator trong topical.md (vd `size=DN65 (Φ76mm)`).
+
+| Differentiator coverage | Verdict | Khuyến nghị |
+|------------------------|---------|-------------|
+| ≥ 60% tổng word count + có bảng so sánh size + có giá/availability | ✅ PASS | Variant đạt chuẩn |
+| 40-60% + thiếu 1 trong 3 (bảng / giá / specific application) | ⚠️ WARN | Bổ sung phần thiếu |
+| < 40% differentiator coverage | 🔴 FAIL | Variant chưa tạo giá trị riêng — viết lại tập trung vào size cụ thể |
+
+### Output format
+
+```markdown
+## 5.7. Variant Overlap Detection (v1.5)
+
+**Role**: variant
+**Parent**: ong-thep-duc (pillar) — `projects/thep-bao-tin/writing/ong-thep-duc.md`
+**Differentiator** (từ topical.md): size=DN65 (Φ76mm), wall 3.2-6.0mm
+
+### Section-by-section overlap
+
+| Section | Word count | Overlap % với pillar | Verdict |
+|---------|-----------|---------------------|---------|
+| H2: Ống đúc phi 76 là gì | 850 | 78% | 🔴 FAIL (nhân bản "Ống đúc là gì" của pillar) |
+| H2: Quy trình sản xuất | 600 | 65% | 🔴 FAIL |
+| H2: Tiêu chuẩn ASTM | 400 | 52% | 🔴 FAIL |
+| H2: Thông số phi 76 | 0 | n/a | ❌ MISSING (section differentiator chưa có) |
+| H2: Ứng dụng phi 76 | 200 | 15% | ⚠️ WARN (có specific nhưng quá ngắn — cần 400-600 từ) |
+| H2: Bảng so sánh size | 0 | n/a | ❌ MISSING |
+| H2: Giá phi 76 | 0 | n/a | ❌ MISSING |
+
+### Differentiator coverage
+
+- Word count differentiator: 200 / 2050 tổng = **9.7%** (target: 60-70%)
+- Verdict: 🔴 **FAIL** — variant đang nhân bản pillar, chưa tạo giá trị riêng cho size DN65
+
+### Khuyến nghị fix
+
+P1 (BẮT BUỘC):
+- Cắt 3 section general (Ống đúc là gì / Quy trình / Tiêu chuẩn) từ 1850 từ → 300 từ tổng + link pillar
+- Viết section "Thông số kỹ thuật phi 76" 400-600 từ DEEP (DN, OD, wall thickness range, weight/m, áp lực thiết kế)
+- Viết section "Ứng dụng SPECIFIC cho phi 76" 400-600 từ DEEP (PCCC công nghiệp, dẫn dầu khí cao áp, làm mát nhà máy — tại sao size này phù hợp)
+- Thêm bảng so sánh phi 60 / phi 76 / phi 90
+- Thêm section Giá / availability cho phi 76
+
+Sau fix: Total word count target 1200-1800, **60-70% là differentiator-specific**.
+```
+
+### Ảnh hưởng đến Verdict
+
+| Tổng FAIL sections | Differentiator coverage | Verdict mới |
+|--------------------|------------------------|-------------|
+| ≥ 2 FAIL sections + coverage < 40% | < 40% | 🟠 **LÀM MỚI** (override) — variant nhân bản pillar nghiêm trọng |
+| 1 FAIL section + coverage 40-60% | medium | 🟡 **CẬP NHẬT** (giữ verdict theo điểm, add note) |
+| 0 FAIL, mọi section WARN/PASS, coverage ≥ 60% | high | giữ verdict theo điểm số |
 
 ## 6. CHECKLIST SỬA ĐỔI (Action Plan)
 

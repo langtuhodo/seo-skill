@@ -76,7 +76,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 | Viết bất kỳ bài nào | `skills/content/Content Writing/SKILL.md` ⭐ |
 | Áp dụng phong cách viết theo dự án | `skills/style-mimicker/SKILL.md` ⭐ |
 | Quản lý trạng thái dự án giữa các phiên | `skills/project-memory/SKILL.md` ⭐ |
-| Audit 1 bài đơn lẻ (E-E-A-T & SEO) + Duplicate Detection vs `keywords-urls.md` + External Citation Check vs `external-sources.md` + Verdict 4 trạng thái — command `/audit` v1.2 | `skills/content/Content Evaluation/SKILL.md` ⭐ |
+| Audit 1 bài đơn lẻ (E-E-A-T & SEO) + Duplicate Detection vs `keywords-urls.md` + External Citation Check v1.3 (4 violation types) + Variant Overlap Detection (nếu role=variant) + Verdict 4 trạng thái — command `/audit` v1.5 | `skills/content/Content Evaluation/SKILL.md` ⭐ |
 | Audit topical (cluster-level) | `skills/content/Topical Audit/SKILL.md` |
 | Tạo topical map | `skills/content/Topic Clusters/SKILL.md` |
 | Brand distribution end-to-end | `playbooks/07-brand-distribution-workflow.md` |
@@ -85,7 +85,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 
 | Command | Skill kích hoạt | Mục đích |
 |---------|-----------------|---------|
-| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.2 | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + **External Citation Check** (vs `external-sources.md` whitelist 3-tier, v1.2) + Verdict 4 trạng thái (🟢 GIỮ / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ → output `audit/evaluation-{slug}-{date}.md` |
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.5 | Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026 + Duplicate Detection + **External Citation v1.3** (domain whitelist + 4 violation types: A domain ngoài WL / B sample URL pasted / C URL inflation / D anchor mismatch) + **Section 5.7 Variant Overlap** (nếu role=variant + parent_url tồn tại → compute content-overlap + differentiator coverage) + Verdict 4 trạng thái trên thang 100đ + Phase 4.5 PRE-FLIGHT GUARD (reject portfolio/config) → output `audit/evaluation-{slug}-{date}.md` |
 
 **Anti-collision**: `/audit` LUÔN route đến `Content Evaluation`. KHÔNG nhầm sang `Topical Audit` (cluster-level) hay `Content Refresh` (decay-level).
 
@@ -114,7 +114,7 @@ Mỗi dự án có 1 file `projects/{project}/memory.md` đóng vai trò "bộ n
 | Phase | Mục đích | Output cốt lõi |
 |-------|----------|----------------|
 | **-2** (v1.3) | Detect Project/Style → Fallback `_demo` | Nếu không detect được project name + không có style profile name → load `projects/_demo/style-guide.md`, SKIP toàn bộ Phase -1 + Phase 5 + Phase 6, output đặt trong `projects/_demo/writing/{yyyy-mm-dd}-{slug}.md` |
-| **-1** | Load Project Context (skip nếu Phase -2 rơi `_demo`) | Đọc `memory.md` trước, rồi `profile.md` / `topical.md` / `keywords-urls.md` / `external-sources.md` (whitelist nguồn ngoài, v1.2) |
+| **-1** | Load Project Context (skip nếu Phase -2 rơi `_demo`) | Đọc `memory.md` trước, rồi `profile.md` / `topical.md` (Article Roles table v1.1 — pillar/supporting/variant) / `keywords-urls.md` / `external-sources.md` (domain whitelist v1.3) |
 | **0** | Competitor Research + Semantic Keywords | Top 10 SERP, Information Gain, Keyword Map (primary/secondary/long-tail/LSI/PAA), Rare Attribute |
 | **1** | User Research | Trả lời 4 câu hỏi tâm lý (xem mục 4) |
 | **2** | Outline theo User Journey | Cấu trúc H2/H3 theo hành trình tâm lý, không theo "là gì → tại sao → cách làm" |
@@ -279,7 +279,7 @@ projects/
     ├── profile.md           ← Brand voice + USP + business context (file lõi root)
     ├── topical.md           ← Sơ đồ topical map (file lõi root)
     ├── keywords-urls.md     ← Keyword + URL đã publish (file lõi root)
-    ├── external-sources.md  ← (v1.2) Whitelist nguồn ngoài 3-tier (cơ quan / báo chí / chuyên gia) — tùy chọn
+    ├── external-sources.md  ← (v1.3) Domain whitelist 3-tier + sample_urls + citation_rule per-source — tùy chọn
     │
     ├── writing/             ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
     ├── refresh/             ⭐ Bài REFRESH/optimize content cũ
@@ -290,7 +290,25 @@ projects/
     └── archive/             ⭐ Memory rotation + lưu trữ
 ```
 
-**Quy tắc**: 5 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) ở ROOT mỗi project. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project. File `external-sources.md` (v1.2) tùy chọn — không có → skip External Citation Check. **Fallback `_demo` (v1.3)**: kích hoạt khi không detect được project name + không có style profile name → output đặt trong `projects/_demo/{writing|refresh|audit}/{yyyy-mm-dd}-{slug}.md`, KHÔNG cập nhật memory project nào.
+**Quy tắc**: 5 file lõi (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) ở ROOT mỗi project. Mọi output khác PHẢI vào subfolder. KHÔNG lưu `{slug}.md` trực tiếp ở root project. File `external-sources.md` (v1.3) tùy chọn — không có → skip External Citation Check. **Fallback `_demo` (v1.3)**: kích hoạt khi không detect được project name + không có style profile name → output đặt trong `projects/_demo/{writing|refresh|audit}/{yyyy-mm-dd}-{slug}.md`, KHÔNG cập nhật memory project nào.
+
+## ⭐ Article Role Taxonomy v1.1 + External Citation v1.3 (2026-05-27 — BB cho mọi content skill)
+
+**Article Role** (PHẢI ghi vào `topical.md`):
+| Role | Content depth | Parent_url | Differentiator | Ví dụ |
+|------|---------------|------------|----------------|--------|
+| pillar | DEEP general (2500-4000 từ) | — | — | `ong-thep-duc` |
+| supporting | DEEP per-topic (1500-2500 từ) | pillar_slug | topic_name | `ong-thep-duc-tieu-chuan` |
+| **variant** ⭐ | SHORT general (≤120 từ + link pillar) + DEEP differentiator (60-70%, 1200-1800 từ) | pillar_slug | size/SKU/model | `ong-thep-duc-phi-76` |
+
+**Variant gating** (mỗi bài variant): Định nghĩa ≤120 từ + link | Thông số size 400-600 từ DEEP | Ứng dụng SPECIFIC 400-600 từ DEEP | Bảng so sánh size + Giá = BB.
+
+**External Citation v1.3**:
+- `sample_urls` trong `external-sources.md` = PROOFS, KHÔNG paste verbatim
+- Per-citation workflow: identify topic → match domain WL → web search `site:{domain} "{topic}"` → cite URL specific → fallback nếu không ra (plain text / domain root / TODO)
+- 4 anti-pattern: A domain ngoài WL | B sample URL paste | C URL inflation (1 URL ≥ 2 topics) | D anchor mơ hồ
+
+Chi tiết: `skills/content/Content Writing/SKILL.md` Phase 2.5 + Phase 5.6 | `skills/content/Topic Clusters/SKILL.md` Section 2.1 | `skills/content/Content Evaluation/SKILL.md` Section 5.6 + 5.7.
 
 Naming convention output (full path):
 

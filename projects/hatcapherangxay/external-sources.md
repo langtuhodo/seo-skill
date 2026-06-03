@@ -2,12 +2,16 @@
 
 > **Whitelist nguồn ngoài** mà AI được phép cite trong bài viết của dự án `hatcapherangxay`.
 >
-> **Nguyên tắc tối thượng**: Nếu nguồn KHÔNG có trong file này → AI **KHÔNG TỰ THÊM**, **KHÔNG BỊA URL**. Bỏ qua hoặc xóa câu cần cite.
+> **🛑 Nguyên tắc tối thượng v1.3** (2026-05-27):
+> 1. **Domain** = whitelist (trust signal). AI chỉ cite từ domain có trong file này.
+> 2. **`sample_urls` = PROOFS, KHÔNG phải URL để chèn vào bài**. AI **TUYỆT ĐỐI KHÔNG paste sample_urls verbatim**.
+> 3. **Khi cần cite topic cụ thể** (vd "TCVN 4193:2014", "giống Catimor", "ICO export data Q3 2026") → AI BẮT BUỘC **web search `site:{domain} "{topic}"`** để tìm URL specific.
+> 4. Nếu search không ra → fallback: (a) plain text không link, (b) link domain root + anchor topic, (c) `<!-- TODO: verify -->`.
 >
 > **Lĩnh vực dự án**: Cà phê — sản phẩm, trồng trọt, rang xay, văn hóa cà phê Việt Nam.
 >
-> **Schema version**: v1.0 (2026-05-27)
-> **Last updated**: 2026-05-27 (skeleton — user chưa fill)
+> **Schema version**: v1.3 (2026-05-27) — Domain Whitelist + Specific-Page Discovery Protocol.
+> **Last updated**: 2026-05-27 (skeleton — user chưa fill; schema upgrade ready cho v1.3 khi fill)
 
 ---
 
@@ -61,10 +65,32 @@
 
 ---
 
-## Quy tắc cite (AI BẮT BUỘC tuân thủ)
+## Quy tắc cite (AI BẮT BUỘC tuân thủ — v1.3)
 
-1. **CHỈ cite từ whitelist này**. File hiện đang **trống** → AI BỎ QUA mọi external citation cho project này cho đến khi user fill.
-2. **Anchor text** chứa tên nguồn hoặc claim cụ thể (xem template).
+### Per-citation workflow (khi user đã fill whitelist)
+
+```
+Step 1: Identify topic (vd "TCVN 4193:2014", "Arabica Cầu Đất", "ICO export VN 2026")
+Step 2: Match domain whitelist (vd ico.org, vicofa.org.vn, wasi.org.vn)
+Step 3: Web search: site:{domain} "{topic}"
+Step 4a: ✅ Tìm thấy URL specific → cite + anchor có topic
+Step 4b: ❌ Không tìm thấy → fallback (a) plain text / (b) domain root + anchor / (c) TODO
+Step 5: KHÔNG paste sample_urls
+Step 6: Log vào Session History
+```
+
+### Anti-pattern (tránh khi viết bài cà phê)
+
+| ❌ Sai | ✅ Đúng |
+|--------|--------|
+| Cite "TCVN 4193:2014" với URL `thuvienphapluat.vn` (homepage) | Search `site:thuvienphapluat.vn "TCVN 4193"` → cite URL bài full text |
+| Cite "ICO export data Vietnam" với URL `ico.org` (homepage) | Search `site:ico.org "Vietnam coffee export"` → cite URL report specific |
+| Cite "giống Catimor" với URL `wasi.org.vn` (root) | Search `site:wasi.org.vn "Catimor"` → cite URL bài giống Catimor |
+
+### Quy tắc chung
+
+1. **CHỈ cite domain từ whitelist**. File hiện đang **trống** → AI BỎ QUA mọi external citation cho project này cho đến khi user fill.
+2. **Anchor text** chứa tên topic cụ thể (TCVN code, tên giống cà phê, năm báo cáo).
 3. **Số lượng**: 2-5 external link/bài khi đã có whitelist.
 4. **Ưu tiên Tier 1** cho số liệu xuất khẩu, tiêu chuẩn cà phê, quy chuẩn pháp lý.
 5. **Format**: markdown `[anchor](URL)` hoặc HTML `<a href="URL" rel="noopener" target="_blank">anchor</a>`.
@@ -87,7 +113,8 @@
 ## Backward compatibility
 
 - File **không bắt buộc**. Hiện trạng skeleton trống → skill cảnh báo "hatcapherangxay chưa fill whitelist" và **SKIP** external citation check cho project này.
-- Khi user fill → skill tự động enable check ở phiên kế tiếp.
+- Khi user fill → dùng schema YAML v1.3 (xem `projects/external-sources-template.md`) với `citation_rule` per source. Skill tự động enable check ở phiên kế tiếp.
+- Schema v1.0 (table format) vẫn parse được, nhưng skill sẽ warn upgrade v1.3.
 
 ---
 
