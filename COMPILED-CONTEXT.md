@@ -308,7 +308,7 @@ projects/
 - Per-citation workflow: identify topic → match domain WL → web search `site:{domain} "{topic}"` → cite URL specific → fallback nếu không ra (plain text / domain root / TODO)
 - 4 anti-pattern: A domain ngoài WL | B sample URL paste | C URL inflation (1 URL ≥ 2 topics) | D anchor mơ hồ
 
-Chi tiết: `skills/content/Content Writing/SKILL.md` Phase 2.5 + Phase 5.6 | `skills/content/Topic Clusters/SKILL.md` Section 2.1 | `skills/content/Content Evaluation/SKILL.md` Section 5.6 + 5.7.
+Chi tiết: `skills/content/Content Writing/SKILL.md` Phase 2.5 (Role) + Section 2.2 (citation rules) + Phase 5.5 (pre-publish citation audit) | `skills/content/Topic Clusters/SKILL.md` Section 2.1 | `skills/content/Content Evaluation/SKILL.md` Section 5.6 + 5.7.
 
 Naming convention output (full path):
 

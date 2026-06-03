@@ -494,7 +494,7 @@ Workflow khi cite topic cụ thể (vd "ASTM A53"):
 ❌ **TUYỆT ĐỐI KHÔNG 1 URL cho ≥ 2 topic** (URL inflation — violation C)
 ❌ **Anchor KHÔNG mơ hồ** ("click here") — violation D
 
-Chi tiết: Content Writing Phase 5.6 + Content Refresh Step 5 + Content Evaluation Section 5.6.
+Chi tiết: Content Writing Section 2.2 (rules) + Phase 5.5 (pre-publish audit) + Content Refresh Step 5 + Content Evaluation Section 5.6.
 
 ### Content Output Format (Markdown)
 
