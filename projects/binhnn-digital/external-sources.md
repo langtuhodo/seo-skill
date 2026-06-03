@@ -2,12 +2,16 @@
 
 > **Whitelist nguồn ngoài** mà AI được phép cite trong bài viết của dự án `binhnn-digital`.
 >
-> **Nguyên tắc tối thượng**: Nếu nguồn KHÔNG có trong file này → AI **KHÔNG TỰ THÊM**, **KHÔNG BỊA URL**. Bỏ qua hoặc xóa câu cần cite.
+> **🛑 Nguyên tắc tối thượng v1.3** (2026-05-27):
+> 1. **Domain** = whitelist (trust signal). AI chỉ cite từ domain có trong file này.
+> 2. **`sample_urls` = PROOFS, KHÔNG phải URL để chèn vào bài**. AI **TUYỆT ĐỐI KHÔNG paste sample_urls verbatim**.
+> 3. **Khi cần cite topic cụ thể** (vd "Skyscraper Technique", "Core Web Vitals INP threshold") → AI BẮT BUỘC **web search `site:{domain} "{topic}"`** để tìm URL specific.
+> 4. Nếu search không ra → fallback: (a) plain text không link, (b) link domain root + anchor topic, (c) `<!-- TODO: verify -->`.
 >
 > **Lĩnh vực dự án**: Digital Marketing, SEO, Web — personal brand của BinhNN.
 >
-> **Schema version**: v1.0 (2026-05-27)
-> **Last updated**: 2026-05-27 (initial population từ danh sách user gửi)
+> **Schema version**: v1.3 (2026-05-27) — Domain Whitelist + Specific-Page Discovery Protocol.
+> **Last updated**: 2026-05-27 (upgrade từ v1.0 — annotate sample_urls + citation_rule).
 
 ---
 
@@ -15,11 +19,55 @@
 
 > Tài liệu chính thức từ search engine, organization tiêu chuẩn industry. **Cite cho guideline, định nghĩa kỹ thuật chuẩn, best practice từ chính platform.**
 
-| # | Tên nguồn | Domain | Lĩnh vực | Ngôn ngữ | Ghi chú |
-|---|-----------|--------|----------|----------|---------|
-| 1 | Google Search Central | https://developers.google.com/search | Tài liệu SEO chính thức của Google: structure, rich results, Core Web Vitals, crawl/index | en | Cite cho guideline Google (vd "theo Google Search Central, structured data...") |
-| 2 | Google — SEO Starter Guide | https://developers.google.com/search/docs/fundamentals/seo-starter-guide | Hướng dẫn SEO cơ bản từ Google (title, meta, URL, internal link) | en | Cite cho best practice nền tảng |
-| 3 | Google — SEO Starter Guide PDF (Columbia archive) | https://www.cuit.columbia.edu/sites/default/files/content/search-engine-optimization-starter-guide.pdf | Bản PDF SEO Starter Guide | en | Cite khi cần link PDF stable |
+```yaml
+- name: Google Search Central
+  domain: developers.google.com
+  tier: 1
+  ngon_ngu: en
+  linh_vuc: Tài liệu SEO chính thức của Google (structured data, rich results, Core Web Vitals, crawl/index, search guidelines)
+  sample_urls:                                  # ← PROOFS — KHÔNG paste vào bài
+    - https://developers.google.com/search
+    - https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+  citation_rule: |
+    Khi cite Google guideline cụ thể (vd "structured data Article", "Core Web Vitals INP threshold", "JavaScript SEO"):
+    1. Web search: site:developers.google.com "{topic}"
+    2. URL specific dạng: https://developers.google.com/search/docs/{path}/{topic}
+    3. Cite URL specific với anchor có tên topic (vd "[Google — Article structured data](URL)")
+    4. Không tìm thấy → fallback (a) plain text "theo Google Search Central"
+    TUYỆT ĐỐI KHÔNG paste sample_urls (landing page /search) cho cite spec cụ thể.
+  ghi_chu: Search Central là source duy nhất authoritative cho Google guideline. Tránh cite second-hand.
+
+- name: web.dev (Google)
+  domain: web.dev
+  tier: 1
+  ngon_ngu: en
+  linh_vuc: Web performance, Core Web Vitals, Lighthouse, PWA, modern web standards
+  sample_urls:
+    - https://web.dev/
+    - https://web.dev/learn/performance
+  citation_rule: |
+    Khi cite metric web performance cụ thể (vd "LCP < 2.5s", "INP < 200ms", "CLS < 0.1"):
+    1. Web search: site:web.dev "{metric name}"
+    2. URL specific dạng: https://web.dev/articles/{slug}
+    3. Cite URL specific với anchor metric (vd "[INP — web.dev](URL)")
+    4. Không tìm thấy → fallback plain text.
+  ghi_chu: web.dev là source mới nhất cho Core Web Vitals threshold (cập nhật khi Google thay đổi).
+
+- name: Columbia University — SEO Starter Guide PDF Archive
+  domain: cuit.columbia.edu
+  tier: 1
+  ngon_ngu: en
+  linh_vuc: Bản PDF archive của Google SEO Starter Guide
+  sample_urls:
+    - https://www.cuit.columbia.edu/sites/default/files/content/search-engine-optimization-starter-guide.pdf
+  citation_rule: |
+    Chỉ cite khi cần link PDF stable cho Google SEO Starter Guide:
+    1. Verify PDF version still match Google official
+    2. Cite trực tiếp URL PDF (vì là static archive)
+    3. Anchor: "[Google SEO Starter Guide (PDF — Columbia archive)](URL)"
+    KHÔNG dùng cho cite topic ngoài Starter Guide.
+  ghi_chu: Static PDF archive, không thay đổi. Có thể paste URL trực tiếp.
+```
 
 ---
 
@@ -27,13 +75,40 @@
 
 > Tổ chức marketing có tài liệu education-grade, được khóa học chuyên môn công nhận. **Cite cho framework, methodology, khóa học chuẩn ngành.**
 
-| # | Tên nguồn | Domain | Lĩnh vực | Ngôn ngữ | Ghi chú |
-|---|-----------|--------|----------|----------|---------|
-| 1 | Moz — What is SEO? | https://moz.com/learn/seo/what-is-seo | Giải thích crawling/indexing/ranking, on-page, off-page, technical SEO | en | Cite định nghĩa SEO chuẩn industry |
-| 2 | Moz — Beginner's Guide to SEO | https://moz.com/beginners-guide-to-seo | Hướng dẫn SEO nền tảng | en | Cite cho người mới SEO |
-| 3 | HubSpot Academy — Digital Marketing Certification | https://academy.hubspot.com/courses/digital-marketing | Khóa học miễn phí Digital Marketing (inbound, content, social, SEO, email, ads) | en | Cite cho phương pháp inbound, content marketing |
-| 4 | HubSpot Academy — Content Marketing | https://academy.hubspot.com/courses/content-marketing | Khóa học content marketing | en | Cite framework content |
-| 5 | HubSpot Academy — SEO | https://academy.hubspot.com/courses/seo-training | Khóa học SEO HubSpot | en | Cite framework SEO inbound |
+```yaml
+- name: Moz
+  domain: moz.com
+  tier: 2
+  ngon_ngu: en
+  linh_vuc: SEO education + tool blog (crawling/indexing/ranking, on-page, off-page, technical SEO)
+  sample_urls:
+    - https://moz.com/learn/seo/what-is-seo
+    - https://moz.com/beginners-guide-to-seo
+  citation_rule: |
+    Khi cite định nghĩa SEO / khái niệm từ Moz (vd "Domain Authority", "Beginner's Guide chapter X"):
+    1. Web search: site:moz.com "{topic}"
+    2. URL specific dạng: https://moz.com/learn/seo/{slug} hoặc /blog/{slug}
+    3. Cite URL specific với anchor tên topic
+    4. Không tìm thấy → fallback plain text.
+  ghi_chu: Moz Learn (whatis page) là evergreen. Moz Blog cho update mới.
+
+- name: HubSpot Academy
+  domain: academy.hubspot.com
+  tier: 2
+  ngon_ngu: en
+  linh_vuc: Khóa học miễn phí Digital Marketing / Content / SEO / Inbound
+  sample_urls:
+    - https://academy.hubspot.com/courses/digital-marketing
+    - https://academy.hubspot.com/courses/content-marketing
+    - https://academy.hubspot.com/courses/seo-training
+  citation_rule: |
+    Khi cite framework HubSpot (vd "Inbound methodology", "Pillar + Cluster model", "BOFU content"):
+    1. Web search: site:academy.hubspot.com "{framework}" hoặc site:hubspot.com/blog "{framework}"
+    2. Cite URL specific course/lesson hoặc blog post
+    3. Anchor: "[HubSpot — Inbound methodology](URL_specific)"
+    4. Không tìm thấy → fallback plain text "theo HubSpot framework {X}"
+  ghi_chu: HubSpot có course + blog song song. Cite blog post specific cho framework, course cho general overview.
+```
 
 ---
 
@@ -41,28 +116,101 @@
 
 > Cá nhân có authority quốc tế, được community SEO/marketing công nhận. **Cite cho quote, methodology đặc trưng (vd Skyscraper, 80/20 rule).**
 
-| # | Tên chuyên gia | Profile URL | Lĩnh vực | Ngôn ngữ | Ghi chú |
-|---|----------------|-------------|----------|----------|---------|
-| 1 | Brian Dean (Backlinko) | https://backlinko.com | SEO, content marketing, link building (founder Backlinko) | en | Cite framework Skyscraper, case study Backlinko |
-| 2 | Brian Dean — Author page | https://backlinko.com/blog/authors/brian-dean | Profile chính thức của Brian Dean | en | Cite credential khi quote Brian |
-| 3 | Neil Patel — Blog | https://neilpatel.com/blog/ | Digital marketing, SEO, content, paid ads, CRO | en | Cite cho strategy multi-channel, template thực thi |
-| 4 | Neil Patel — Profile | https://neilpatel.com | Profile Neil Patel | en | Cite credential khi quote Neil |
+```yaml
+- name: Brian Dean (Backlinko)
+  domain: backlinko.com
+  tier: 3
+  ngon_ngu: en
+  linh_vuc: SEO, content marketing, link building (founder Backlinko, sau bán cho Semrush)
+  sample_urls:
+    - https://backlinko.com
+    - https://backlinko.com/blog/authors/brian-dean
+  citation_rule: |
+    Khi cite framework Brian Dean (vd "Skyscraper Technique", "APP Formula", "Content Hub"):
+    1. Web search: site:backlinko.com "{framework name}"
+    2. Cite URL bài gốc với anchor "[Brian Dean — Skyscraper Technique](URL)"
+    3. Verify bài viết của Brian Dean (không phải author khác trên Backlinko sau acquisition)
+    4. Không tìm thấy bài gốc → fallback plain text "theo Brian Dean (Backlinko)"
+  ghi_chu: Backlinko đã bán cho Semrush — verify author Brian Dean rõ ràng khi cite framework cá nhân.
+
+- name: Neil Patel
+  domain: neilpatel.com
+  tier: 3
+  ngon_ngu: en
+  linh_vuc: Digital marketing, SEO, content, paid ads, CRO
+  sample_urls:
+    - https://neilpatel.com
+    - https://neilpatel.com/blog/
+  citation_rule: |
+    Khi cite strategy / template Neil Patel:
+    1. Web search: site:neilpatel.com/blog "{topic}"
+    2. Cite URL bài blog specific với anchor có topic
+    3. Anchor: "[Neil Patel — {topic}](URL_specific)"
+    4. Không tìm thấy → plain text "theo strategy của Neil Patel"
+  ghi_chu: Neil Patel blog có nhiều ghost writer — verify topic match credibility của Neil cho quote.
+```
 
 ---
 
-## Quy tắc cite (AI BẮT BUỘC tuân thủ)
+## Bảng tổng quan (digest)
 
-1. **CHỈ cite từ whitelist này**. Nguồn ngoài → AI **BỎ QUA**, **KHÔNG bịa link**. Nếu câu cần cite mà không có nguồn phù hợp → viết lại câu, hoặc xóa.
-2. **Anchor text** chứa tên nguồn hoặc claim cụ thể:
-   - ✅ "Theo [Google Search Central](url), Core Web Vitals...", "Framework [Skyscraper của Brian Dean](url)...", "HubSpot's inbound methodology..."
-   - ❌ "Xem [tại đây](url) để hiểu thêm"
-3. **Số lượng**: 2-5 external link/bài. Pillar pages có thể 5-7. Tránh spam.
+### Tier 1 (3 nguồn)
+| # | Tên nguồn | Domain | Lĩnh vực | Ngôn ngữ |
+|---|-----------|--------|----------|----------|
+| 1 | Google Search Central | developers.google.com | SEO docs official | en |
+| 2 | web.dev (Google) | web.dev | Core Web Vitals + perf | en |
+| 3 | Columbia archive SEO PDF | cuit.columbia.edu | PDF stable | en |
+
+### Tier 2 (2 nguồn)
+| # | Tên nguồn | Domain | Lĩnh vực | Ngôn ngữ |
+|---|-----------|--------|----------|----------|
+| 1 | Moz | moz.com | SEO education | en |
+| 2 | HubSpot Academy | academy.hubspot.com | Inbound framework | en |
+
+### Tier 3 (2 nguồn)
+| # | Tên chuyên gia | Domain | Lĩnh vực | Ngôn ngữ |
+|---|----------------|--------|----------|----------|
+| 1 | Brian Dean (Backlinko) | backlinko.com | Skyscraper + content | en |
+| 2 | Neil Patel | neilpatel.com | Multi-channel marketing | en |
+
+---
+
+## Quy tắc cite (AI BẮT BUỘC tuân thủ — v1.3)
+
+### Per-citation workflow
+
+```
+Step 1: Identify topic (vd "Skyscraper Technique", "Core Web Vitals INP", "structured data Article")
+Step 2: Match domain whitelist
+Step 3: Web search: site:{domain} "{topic}"
+Step 4a: ✅ Tìm thấy URL specific → cite + anchor có topic
+Step 4b: ❌ Không tìm thấy → fallback (a)(b)(c)
+Step 5: KHÔNG paste sample_urls
+Step 6: Log vào Session History
+```
+
+### Anti-pattern thường mắc
+
+| ❌ Sai | ✅ Đúng |
+|--------|--------|
+| Cite "Skyscraper Technique" với URL `backlinko.com` (sample paste) | Search `site:backlinko.com "skyscraper technique"` → cite URL bài gốc |
+| Cite "INP threshold 200ms" với URL `web.dev/` (homepage) | Search `site:web.dev "INP"` → cite URL bài INP specific |
+| Cite Google structured data Article với URL `developers.google.com/search` (landing) | Search `site:developers.google.com "Article structured data"` → cite URL spec |
+
+### Quy tắc chung
+
+1. **CHỈ cite domain từ whitelist**. Nguồn ngoài → AI BỎ QUA.
+2. **Anchor text** chứa tên topic cụ thể:
+   - ✅ "Theo [Google Search Central — Core Web Vitals](url_specific)..."
+   - ✅ "Framework [Skyscraper của Brian Dean](url_specific)..."
+   - ❌ "Xem [tại đây](url)"
+3. **Số lượng**: 2-5 external link/bài. Pillar pages có thể 5-7.
 4. **Ưu tiên Tier**:
    - **Tier 1** cho định nghĩa kỹ thuật SEO (Core Web Vitals, crawl/index, structured data), guideline Google.
-   - **Tier 2** cho framework chuẩn (inbound, content marketing 80/20, SEO funnel).
-   - **Tier 3** cho quote chuyên gia, methodology đặc trưng (Skyscraper, Pillar+Cluster của HubSpot).
-5. **Bài về SEO kỹ thuật** BẮT BUỘC có ít nhất 1 Tier 1 cite (Google Search Central).
-6. **Bài về Content/Marketing strategy** khuyến nghị mix Tier 2 + Tier 3 (HubSpot framework + chuyên gia cụ thể).
+   - **Tier 2** cho framework chuẩn (inbound, content marketing).
+   - **Tier 3** cho quote chuyên gia, methodology đặc trưng.
+5. **Bài về SEO kỹ thuật** BẮT BUỘC có ít nhất 1 Tier 1 cite URL specific (không sample).
+6. **Bài về Content/Marketing strategy** khuyến nghị mix Tier 2 + Tier 3.
 7. **Format**: markdown `[anchor](URL)`. HTML: `<a href="URL" rel="noopener" target="_blank">anchor</a>`.
 
 ---
@@ -85,6 +233,7 @@
 
 - File **không bắt buộc**. Project chưa có → skill cũ chạy bình thường (skip whitelist check).
 - File trống → skill cảnh báo "binhnn-digital chưa fill whitelist".
+- Schema v1.0 → skill v1.5+ vẫn parse, warn upgrade v1.3.
 
 ---
 

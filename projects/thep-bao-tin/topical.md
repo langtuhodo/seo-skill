@@ -7,10 +7,71 @@
 ## Cấu trúc Topical Map
 
 > **Quy ước ký hiệu:**
-> - 🏛️ = **Pillar** (trang danh mục / bài tổng quan bao quát)
+> - 🏛️ = **Pillar** (trang danh mục / bài tổng quan bao quát — DEEP toàn diện cluster)
 > - 📦 = **Cluster** (nhóm chủ đề chính)
-> - 📄 = **Supporting** (bài hỗ trợ chi tiết)
+> - 📄 = **Supporting** (bài hỗ trợ chi tiết — narrower topic, song song với pillar)
+> - 🧬 = **Variant** (bài sản phẩm theo size/SKU/model — SHORT general + DEEP differentiator)
 > - 🔗 = **Sub-cluster** (nhóm con trong cluster)
+
+## Article Roles v1.1 (2026-05-27)
+
+> **Định nghĩa role để skill content gate độ sâu khi viết.**
+
+| Role | Ký hiệu | Mục đích | Content depth | Parent_url | Differentiator |
+|------|---------|---------|---------------|------------|----------------|
+| pillar | 🏛️ | Hub bao quát cluster | DEEP toàn cluster (định nghĩa, quy trình, tiêu chuẩn chung, ứng dụng general) | — | — |
+| supporting | 📄 | Narrower topic trong cluster (vd "Phân biệt ống đúc/hàn", "Quy trình sản xuất") | DEEP về topic riêng, KHÔNG lặp pillar | pillar_slug | topic_name |
+| **variant** | 🧬 | **Sản phẩm theo size/SKU** (vd "ống đúc phi 76") | **SHORT general (≤120 từ + link pillar) + DEEP differentiator (400-600 từ)** | pillar_slug | size, SKU, model |
+
+### Variant content gating (BẮT BUỘC khi role=variant)
+
+| Section | Pillar (cũ) | Variant (mới) |
+|---|---|---|
+| Định nghĩa chung "X là gì" | 500-800 từ deep | **≤120 từ tóm tắt + link đến pillar** |
+| Quy trình sản xuất | 400-600 từ | **≤80 từ + link** |
+| Tiêu chuẩn chung (ASTM/JIS/TCVN) | 600 từ | **≤100 từ + link** |
+| **Thông số kỹ thuật của size cụ thể** | (không có) | **400-600 từ DEEP** (DN, OD, wall thickness, weight/m, áp lực) |
+| **Ứng dụng SPECIFIC cho size** | (general) | **400-600 từ DEEP — công trình/ngành nào ưu tiên size này** |
+| Bảng so sánh size khác trong cluster | optional | **bắt buộc** |
+| Giá / availability của size | optional | **bắt buộc** |
+
+→ Variant ưu tiên **60-70% từ ngữ vào differentiator-specific content**, 30-40% còn lại reference pillar.
+
+### Demo: Variant rows trong cluster "Ống Thép Đúc"
+
+| Slug | Vai trò | Parent URL | Differentiator | Ứng dụng SPECIFIC (DEEP focus) |
+|------|---------|-----------|----------------|--------------------------------|
+| ong-thep-duc | 🏛️ pillar | — | — | Toàn ngành |
+| ong-thep-duc-phi-21 | 🧬 variant | ong-thep-duc | size=DN15 (Φ21mm), wall 2.0-3.7mm | Ống nước nóng/lạnh dân dụng, gas thấp áp |
+| ong-thep-duc-phi-27 | 🧬 variant | ong-thep-duc | size=DN20 (Φ27mm) | Hệ thống PCCC mini, ống dẫn khí |
+| ong-thep-duc-phi-34 | 🧬 variant | ong-thep-duc | size=DN25 (Φ34mm) | PCCC trung bình, đường ống công nghiệp nhẹ |
+| ong-thep-duc-phi-42 | 🧬 variant | ong-thep-duc | size=DN32 (Φ42mm) | Ống dẫn dầu, hệ thống HVAC |
+| ong-thep-duc-phi-48 | 🧬 variant | ong-thep-duc | size=DN40 (Φ48mm) | Khung kết cấu, giàn giáo |
+| ong-thep-duc-phi-60 | 🧬 variant | ong-thep-duc | size=DN50 (Φ60mm) | PCCC chính, đường ống nhiệt |
+| ong-thep-duc-phi-76 | 🧬 variant | ong-thep-duc | **size=DN65 (Φ76mm), wall 3.2-6.0mm, weight 5.7-10.4kg/m** | **PCCC công nghiệp, đường ống dẫn dầu khí cao áp, hệ thống làm mát nhà máy** |
+| ong-thep-duc-phi-90 | 🧬 variant | ong-thep-duc | **size=DN80 (Φ90mm), wall 4.0-6.0mm, weight 8.5-12.5kg/m** | **Đường ống nước thải công nghiệp, PCCC cao tầng, hệ thống dẫn hơi nóng** |
+| ong-thep-duc-phi-114 | 🧬 variant | ong-thep-duc | size=DN100 (Φ114mm) | Đường ống chính khu công nghiệp, dẫn khí, gas trung áp |
+| ong-thep-duc-phi-127 | 🧬 variant | ong-thep-duc | size=DN125 (Φ127mm) | Ống dẫn nước thô nhà máy nước, slurry mỏ |
+| ong-thep-duc-phi-141 | 🧬 variant | ong-thep-duc | size=DN125 (Φ141mm) | Đường ống dẫn nước, hệ thống thoát |
+| ong-thep-duc-phi-168 | 🧬 variant | ong-thep-duc | **size=DN150 (Φ168mm), wall 5.0-8.0mm, weight 20.1-31.6kg/m** | **Đường ống dẫn dầu khí trung áp, cấp nước đô thị, hệ thống làm mát quy mô lớn nhà máy điện** |
+| ong-thep-duc-phi-219 | 🧬 variant | ong-thep-duc | size=DN200 (Φ219mm) | Đường ống dẫn dầu thô, cấp nước city scale, slurry mỏ quặng |
+| ong-thep-duc-phi-273 | 🧬 variant | ong-thep-duc | size=DN250 (Φ273mm) | Pipeline dẫn dầu cao áp, hệ thống xử lý nước thải KCN |
+| ong-thep-duc-phi-325 | 🧬 variant | ong-thep-duc | size=DN300 (Φ325mm) | Ống truyền tải dầu khí, đường ống cấp nước thô |
+| ong-thep-duc-phi-355 | 🧬 variant | ong-thep-duc | size=DN350 (Φ355mm) | Pipeline cao áp, đường ống nước thô đô thị |
+| ong-thep-duc-phi-406 | 🧬 variant | ong-thep-duc | size=DN400 (Φ406mm) | Đường ống truyền tải dầu khí liên tỉnh, ống cấp nước city scale |
+| ong-thep-duc-phi-508 | 🧬 variant | ong-thep-duc | size=DN500 (Φ508mm) | Pipeline trục dầu khí, đường ống nước thô liên vùng |
+| ong-thep-duc-phi-610 | 🧬 variant | ong-thep-duc | size=DN600 (Φ610mm) | Pipeline truyền tải dầu khí lớn, ống cấp nước hệ thống quốc gia |
+
+> **Lưu ý**: Bảng trên là **demo cluster Ống thép đúc** để skill content tham chiếu khi viết. Các cluster khác (Ống mạ kẽm theo phi, Ống đen theo phi, Thép hình theo size, Thép hộp theo cạnh...) áp dụng cùng pattern variant role.
+
+### Cluster khác có variant pattern tương tự
+
+- **Ống thép mạ kẽm theo phi**: variant rows {phi 60, 76, 90, 114, 140, D200} → parent: `ong-thep-ma-kem`
+- **Thép hình theo profile**: variant rows {I, U, V, H, L} → parent: `thep-hinh`
+- **Thép hộp theo cạnh**: variant rows {cạnh 50, 75, 100, 150, 200} → parent: `thep-hop`
+- **Ống thép hàn theo DN**: variant rows {DN300, 350, 400, 450, 500, 550, 600, 700, 800} → parent: `ong-thep-han`
+
+→ AI khi viết bài variant trong các cluster này BẮT BUỘC áp dụng **content gating table** ở trên.
 
 ```
 THÉP BẢO TÍN — NHÀ PHÂN PHỐI ỐNG THÉP & VẬT TƯ M&E
@@ -312,7 +373,9 @@ Khi viết bài, sử dụng hierarchy dưới đây để xác định context 
 ## Hướng dẫn sử dụng
 
 1. **Xác định cluster**: Bài viết thuộc cluster nào? (Ống Thép / Thép Hình / Thép Hộp / Thép Tấm / Phụ Kiện / PCCC)
-2. **Xác định role**: Pillar (🏛️ trang danh mục) hay Supporting (📄 bài chi tiết)?
+2. **Xác định role**: Pillar (🏛️ trang danh mục) / Supporting (📄 bài chi tiết) / **Variant (🧬 sản phẩm theo size/SKU)**?
+   - Nếu **variant** → áp dụng **Variant content gating table** (≤120 từ general + 400-600 từ differentiator) + reference parent pillar
 3. **Xác định sub-cluster**: Theo phi, theo thương hiệu, theo tiêu chuẩn, theo ứng dụng?
 4. **Context Linking**: Dùng bảng Category Hierarchy → link cha/con/ngang
 5. **Internal Links**: Đọc `keywords-urls.md` → lọc bài cùng cluster + bài liên quan
+6. **External Citation v1.3** (nếu cite chuẩn ASTM/JIS/TCVN/ISO): đọc `external-sources.md` → tuân thủ per-citation workflow (web search `site:{domain} "{topic}"`, TUYỆT ĐỐI không paste sample_urls)

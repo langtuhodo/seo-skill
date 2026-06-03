@@ -109,7 +109,7 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 
 | Command | Skill kích hoạt | Mục đích |
 |---------|-----------------|---------|
-| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.2 | Audit 1 bài viết theo chuẩn E-E-A-T & SEO 2026 + Duplicate Detection (vs `keywords-urls.md` schema v1.1, 7 cột) + Verdict 4 trạng thái (🟢 GIỮ NGUYÊN / 🟡 CẬP NHẬT / 🟠 LÀM MỚI / 🔴 XÓA) trên thang 100đ + **External Citation Check** (vs `external-sources.md` whitelist 3-tier, v1.2) |
+| `/audit` | `skills/content/Content Evaluation/SKILL.md` v1.5 | Audit 1 bài viết theo chuẩn E-E-A-T & SEO 2026 + Duplicate Detection + Verdict 4 trạng thái trên thang 100đ + **External Citation Check v1.3** (4 violation types: domain whitelist / sample URL pasted / URL inflation / anchor mismatch) + **Section 5.7 Variant Overlap Detection** (nếu role=variant + parent_url tồn tại: compute content-overlap với pillar + differentiator coverage) + Phase 4.5 PRE-FLIGHT GUARD (reject portfolio/config files) |
 
 **Anti-collision**: `/audit` LUÔN route đến `Content Evaluation` (bài đơn). Audit cluster vẫn dùng `Topical Audit` qua keyword "audit cluster" — không có command riêng.
 
@@ -149,7 +149,7 @@ Ngoài keyword trigger, AI nhận diện các slash command sau (cao ưu tiên h
 - `skills/content/Programmatic SEO/SKILL.md` — template + data, quality gate
 - `skills/content/Content Refresh/SKILL.md` — striking distance, light/medium/heavy
 - `skills/content/Topical Audit/SKILL.md` — audit cluster + page scoring 100đ + topical map + coverage gap + recommendations
-- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit` v1.2 (+ Duplicate Detection + Verdict 4 trạng thái + External Citation Check)
+- `skills/content/Content Evaluation/SKILL.md` — **Audit 1 bài viết (single-article) theo E-E-A-T & SEO 2026** ⭐ command `/audit` v1.5 (+ Duplicate Detection + Verdict 4 trạng thái + External Citation v1.3 + Variant Overlap Detection)
 
 ### Style (1 skill)
 - `skills/style-mimicker/SKILL.md` — **Sao chép & áp dụng phong cách viết theo dự án** ⭐ TÍCH HỢP VỚI CONTENT WRITING
@@ -380,7 +380,7 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
        └── projects/{ten-du-an}/profile.md → chủ thể, business context, brand voice (chi tiết)
        └── projects/{ten-du-an}/topical.md → topical map, cluster hierarchy, role (pillar/supporting)
        └── projects/{ten-du-an}/keywords-urls.md → keywords đã publish, URL sẵn có cho internal link
-       └── projects/{ten-du-an}/external-sources.md → whitelist nguồn ngoài (3-tier) để cite trong bài (v1.2) — nếu file thiếu thì skip External Citation Check
+       └── projects/{ten-du-an}/external-sources.md → whitelist nguồn ngoài (3-tier) để cite trong bài (v1.3 — domain whitelist + sample_urls KHÔNG paste verbatim + citation_rule per-source) — nếu file thiếu thì skip External Citation Check
    └── Áp dụng context vào mọi output
 
 4. ACTIVATE RELEVANT SKILLS
@@ -395,7 +395,7 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
        - Profile: profile.md
        - Topical map: topical.md
        - Keywords & URLs: keywords-urls.md
-       - External sources whitelist: external-sources.md (v1.2)
+       - External sources whitelist: external-sources.md (v1.3 — per-citation web search workflow)
 
    writing/ — bài viết mới (blog, pillar, supporting, tools, evergreen, pSEO):
        - writing/{slug-tieu-de}.md
@@ -457,7 +457,7 @@ Khi user yêu cầu bất kỳ task nào liên quan đến **một website/dự 
 projects/
 ├── memory-template.md                  ← Template memory.md cho dự án mới
 ├── keywords-urls-template.md           ← Template keywords-urls.md
-├── external-sources-template.md        ← (v1.2) Template external-sources.md (3-tier whitelist)
+├── external-sources-template.md        ← (v1.3) Template external-sources.md (domain whitelist + sample_urls PROOFS + citation_rule per-source)
 │
 ├── _demo/                              ← ⭐ (v1.3) Fallback cho ad-hoc content (không project + không style)
 │   ├── README.md                       ← Hướng dẫn cấu trúc + quy tắc đặt tên
@@ -473,7 +473,7 @@ projects/
     ├── profile.md                      ← Chủ thể + brand voice + business context
     ├── topical.md                      ← Sơ đồ topical map (pillar/cluster/sub-cluster)
     ├── keywords-urls.md                ← Keyword + URL đã publish (cho internal link)
-    ├── external-sources.md             ← (v1.2) Whitelist nguồn ngoài 3-tier để cite (cơ quan / báo chí / chuyên gia)
+    ├── external-sources.md             ← (v1.3) Domain whitelist 3-tier + sample_urls + citation_rule per-source (cơ quan / báo chí / chuyên gia)
     │
     ├── writing/                        ⭐ Bài viết MỚI (blog/pillar/supporting/tools/evergreen/pSEO)
     │   ├── {slug-bai-1}.md
@@ -513,7 +513,48 @@ projects/
         └── ...
 ```
 
-**5 file lõi ở root** (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) — AI auto-load ở Session Bootstrap. **Mọi output khác PHẢI vào subfolder**. File `external-sources.md` (v1.2) là tùy chọn — không có → AI skip External Citation Check (Phase 3.5 của `/audit`).
+**5 file lõi ở root** (`memory.md`, `profile.md`, `topical.md`, `keywords-urls.md`, `external-sources.md`) — AI auto-load ở Session Bootstrap. **Mọi output khác PHẢI vào subfolder**. File `external-sources.md` (v1.3) là tùy chọn — không có → AI skip External Citation Check.
+
+## ⭐ Article Role Taxonomy v1.1 + External Citation v1.3 (2026-05-27 — BB)
+
+### Article Role: pillar / supporting / **variant**
+
+Mỗi bài trong `topical.md` PHẢI có role:
+
+| Role | Content depth target | Parent_url | Differentiator | Ví dụ slug |
+|------|---------------------|------------|----------------|------------|
+| pillar | DEEP general overview toàn cluster (2500-4000 từ) | — | — | `ong-thep-duc` |
+| supporting | DEEP narrower topic (1500-2500 từ) | pillar_slug | topic_name | `ong-thep-duc-tieu-chuan` |
+| **variant** ⭐ | **SHORT general ≤120 từ + link pillar + DEEP differentiator 60-70% (1200-1800 từ)** | pillar_slug | size/SKU/model descriptor | `ong-thep-duc-phi-76` |
+
+**Variant content gating**:
+- Định nghĩa chung: ≤120 từ + link pillar (KHÔNG viết 500-800 từ nhân bản pillar)
+- Quy trình SX chung: ≤80 từ + link
+- Tiêu chuẩn chung: ≤100 từ + link
+- **Thông số kỹ thuật của size**: 400-600 từ DEEP (DN, OD, wall, weight, áp lực)
+- **Ứng dụng SPECIFIC cho size**: 400-600 từ DEEP (công trình nào / ngành nào ưu tiên size này)
+- Bảng so sánh size khác: BẮT BUỘC
+- Giá / availability: BẮT BUỘC
+
+Chi tiết: `skills/content/Content Writing/SKILL.md` Phase 2.5 Role Detection + `skills/content/Topic Clusters/SKILL.md` Section 2.1.
+
+### External Citation v1.3: Domain Whitelist + Per-citation Web Search
+
+🛑 **`sample_urls` trong `external-sources.md` = PROOFS of authority, KHÔNG phải URL để paste vào bài.**
+
+Khi AI cần cite topic cụ thể (vd "ASTM A53"):
+1. Identify topic
+2. Match domain whitelist (astm.org tier 1)
+3. **Web search**: `site:astm.org "A53"` → tìm URL specific
+4. Cite URL specific đó với anchor chứa tên topic
+5. Nếu search không ra → fallback: (a) plain text (b) link domain root + anchor descriptive (c) `<!-- TODO: verify URL for {topic} -->` comment
+6. Log vào `projects/{project}/memory.md` Session History
+
+❌ **TUYỆT ĐỐI KHÔNG paste `sample_urls` verbatim** (đây là anti-pattern v1.3 — Content Evaluation Section 5.6 detect violation B).
+❌ **TUYỆT ĐỐI KHÔNG dùng 1 URL cho ≥ 2 topic khác nhau** (URL inflation — violation C).
+❌ **Anchor text KHÔNG mơ hồ** ("click here", "tại đây") — violation D.
+
+Chi tiết: `skills/content/Content Writing/SKILL.md` Phase 5.6 + `skills/content/Content Refresh/SKILL.md` Step 5 + `skills/content/Content Evaluation/SKILL.md` Section 5.6.
 
 ### Content Output Format (Markdown)
 

@@ -1,7 +1,7 @@
 ---
 name: pillar-pages
-version: 1.0.0
-description: "Use this skill when the user asks to build pillar page / hub page: 'pillar page', 'trang trụ cột', 'hub content cluster', 'mega guide'. Covers pillar architecture, supporting article links, ToC, internal linking pattern. Output: projects/{project}/writing/{slug-pillar}.md."
+version: 1.1.0
+description: "Use this skill when the user asks to build pillar page / hub page: 'pillar page', 'trang trụ cột', 'hub content cluster', 'mega guide'. Covers pillar architecture, supporting article links, ToC, internal linking pattern. Output: projects/{project}/writing/{slug-pillar}.md. ✅ v1.1: Pillar role = DEEP general overview toàn cluster (2500-4000 từ), KHÔNG đi vào differentiator-specific (size/SKU). Differentiator depth thuộc về variant articles — pillar link xuống variant bằng bảng “Các size có sẵn”. "
 category: content
 ---
 
@@ -16,10 +16,37 @@ Pillar page là trang **"hub" cho 1 cluster topic**, cover topic ở mức tổn
 
 ## 2. Core Concepts / Khái niệm cốt lõi
 
-- **Pillar = comprehensive guide cho 1 topic rộng**, ví dụ "SEO" hay "Inbound Marketing".
-- **Supporting = bài chuyên sâu cho 1 sub-topic**, ví dụ "Keyword Research", "Title Tag Optimization".
-- **Hub-and-spoke**: pillar (hub) link xuống supporting (spoke); supporting link về pillar.
-- **Pillar dài hơn supporting**: thường 3000–8000 từ, là "definitive guide".
+- **Pillar = comprehensive guide cho 1 topic rộng**, ví dụ "SEO", "Inbound Marketing", "ống thép đúc".
+- **Supporting = bài chuyên sâu cho 1 sub-topic**, ví dụ "Keyword Research", "Tieu chuan ASTM cho ong duc".
+- **Variant (v1.1)** = bài sản phẩm theo size/SKU/model, ví dụ "ống thép đúc phi 76", "phi 90", "phi 168". Variant **KHÔNG phải pillar**, không viết general deep như pillar — xem `skills/content/Content Writing/SKILL.md` Phase 2.5 Role Detection.
+- **Hub-and-spoke**: pillar (hub) link xuống supporting (spoke) + variant; supporting + variant link về pillar.
+- **Pillar dài hơn supporting + variant**: thường 2500–4000 từ (chuẩn 2026 — đã cắt xuống từ 8000), là "definitive guide".
+
+### 2.1. Pillar role DEEP general overview — KHÔNG đi vào differentiator (v1.1)
+
+🚫 Pillar **KHÔNG** viết chi tiết thông số từng size SKU (vd "phi 76 = DN65, wall 3.2-6.0mm, weight 5.7-10.1 kg/m...") — để phần này cho **variant articles**.
+
+✅ Pillar **CHỈ** viết:
+- Tổng quan về product family ("ống thép đúc là gì", "quy trình sản xuất", "đặc điểm kỹ thuật chung").
+- Tiêu chuẩn chung (ASTM, JIS, TCVN — chung cho cả family).
+- Ứng dụng chung (PCCC, dẫn dầu khí, kết cấu… chung cho mọi size).
+- **Bảng "Các size có sẵn"** — link xuống từng variant (phi 76, 90, 168, ...) cho user muốn xem chi tiết.
+
+### 2.2. Link xuống variants (BB v1.1)
+
+Pillar PHẢI có 1 bảng hìển thị tất cả variants với anchor text descriptive:
+
+```markdown
+## Các size có sẵn trong portfolio
+
+| Size (Việt) | DN (Quy chuẩn) | Ø OD | Wall t (mm) | Weight (kg/m) | Chi tiết |
+|------------|-----------------|------|-------------|---------------|----------|
+| Phi 76 | DN65 | 76mm | 3.2-6.0 | 5.7-10.1 | [Xem thông số + ứng dụng ống đúc phi 76](/ong-thep-duc-phi-76) |
+| Phi 90 | DN80 | 90mm | 3.5-6.5 | 7.5-13.2 | [Xem thông số + ứng dụng ống đúc phi 90](/ong-thep-duc-phi-90) |
+| Phi 168 | DN150 | 168mm | 5.0-10.0 | 20.1-39.0 | [Xem thông số + ứng dụng ống đúc phi 168](/ong-thep-duc-phi-168) |
+```
+
+Anchor text PHẢI chứa tên variant + descriptor (vd "ống đúc phi 76") — KHÔNG dùng "xem tại đây".
 - **Evergreen**: pillar nhắm topic ổn định lâu dài, không seasonal.
 - **3 dạng pillar**:
   - **10x guide / Mega-guide**: 1 trang dài cover hết, có TOC, scroll dài.

@@ -1,7 +1,7 @@
 ---
 name: topical-authority
-version: 1.0.0
-description: "Use this skill when the user asks about building topical authority: 'topical authority', 'xây dựng uy tín chuyên môn', 'authority cluster strategy', 'EEAT topical'. Covers cluster completeness, expert content, citation depth, semantic coverage."
+version: 1.1.0
+description: "Use this skill when the user asks about building topical authority: 'topical authority', 'xây dựng uy tín chuyên môn', 'authority cluster strategy', 'EEAT topical'. Covers cluster completeness, expert content, citation depth, semantic coverage. ✅ v1.1: Variant role contribution to cluster — cluster có pillar + N supporting + N variants (size/SKU); variant đóng góp topical authority qua DEPTH per-size differentiator (specific application + thông số kỹ thuật), KHÔNG qua nhân bản pillar."
 category: growth
 ---
 
@@ -20,6 +20,22 @@ Topical Authority là **đo lường site được Google xem là expert trong 1
 - **Topical relevance of inbound link**: link từ site cùng ngách tăng authority topic; link từ site irrelevant không help (đôi khi harm).
 - **Topical drift**: site lan man nhiều ngành → mỗi ngành đều mỏng.
 - **Topical compression**: site focus 1 ngách → mỗi sub-topic đều dày.
+
+### 2.1. Variant role contribution (v1.1)
+
+Cluster product (vd cluster "Ống thép đúc") thường có cấu trúc 3 tầng:
+
+| Tầng | Role | Đóng góp topical authority |
+|------|------|---------------------------|
+| 1 | pillar (1 bài) | DEEP general overview → cover head keyword + topical breadth |
+| 2 | supporting (3-10 bài) | DEEP per-topic (tiêu chuẩn, quy trình, ứng dụng ngành) → cover topical depth |
+| 3 | **variant (N bài, vd 10-20 size)** | **DEEP per-size differentiator** (thông số kỹ thuật size + ứng dụng SPECIFIC cho size) → cover **long-tail per-product authority** |
+
+**Variant đóng góp topical authority qua DEPTH per-size, KHÔNG qua duplicate pillar**:
+- ✅ Variant cover 15 size khác nhau, mỗi size có 400-600 từ DEEP thông số riêng + 400-600 từ ứng dụng SPECIFIC → Google thấy site có **product-level expertise**.
+- ❌ Variant cover 15 size, mỗi size đều có 800 từ "ống đúc là gì" (copy pillar) → Google detect duplicate, **trừ điểm topical authority**.
+
+Chuẩn variant: xem `skills/content/Topic Clusters/SKILL.md` Section 2.1 + `skills/content/Content Writing/SKILL.md` Phase 2.5 Role Detection.
 
 ## 3. When to use
 - Site mới — chọn 1 ngách tập trung trước khi expand.

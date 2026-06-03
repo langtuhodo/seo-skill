@@ -1,7 +1,7 @@
 ---
 name: content-refresh
-version: 1.5.0
-description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. ⚠️ PRE-FLIGHT INPUT GUARD (v1.5): refuses to refresh portfolio/config files (keywords-urls.md, topical.md, memory.md, profile.md, external-sources.md, *-template.md, README.md, AGENTS.md, SKILL.md) — these are LOADED as context, NOT refresh targets. If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
+version: 1.7.0
+description: "Use this skill when the user asks to refresh / rewrite / update existing article: 'viết lại {file}.md', 'refresh bài này', 'cập nhật bài cũ', 'tối ưu lại bài đã publish'. DEFAULT skill when user says 'viết lại' + filename .md exists. ⚠️ PRE-FLIGHT INPUT GUARD (v1.5): refuses to refresh portfolio/config files. ✅ v1.7: applies Phase 2.5 Role Detection (pillar/supporting/variant) + Phase 5.6 External Citation v1.3 (per-citation web search, KHÔNG paste sample_urls). If user asks for a NEW article without referencing an existing file → route to content-writing instead. Output: projects/{project}/refresh/{slug}.md. Do NOT save to project root."
 category: content
 ---
 
@@ -74,8 +74,8 @@ Content Refresh là **task lặp định kỳ** (thường hằng quý hoặc b�
 | 1 | `projects/{project}/memory.md` ⭐ | Session History + Key Decisions → bài nào đã refresh, kết quả Win/Flat/Loss, lessons learned | ✅ ĐỌC TRƯỚC TIÊN |
 | 2 | `projects/{project}/keywords-urls.md` | URL portfolio + last_refresh date → tiêu chí identify candidates | ✅ BẮT BUỘC |
 | 3 | `projects/{project}/profile.md` | Brand voice → refresh phải giữ giọng nhất quán | ✅ Nếu memory.md không đủ |
-| 4 | `projects/{project}/topical.md` | Cluster context → refresh phải giữ vai trò (pillar/supporting) | ✅ Nếu tồn tại |
-| 5 | `projects/{project}/external-sources.md` ⭐ (v1.1) | Whitelist nguồn ngoài — khi refresh nâng EEAT Trust → chỉ cite từ whitelist này | ✅ Nếu tồn tại |
+| 4 | `projects/{project}/topical.md` ⭐ (v1.7) | Cluster context + **Article Roles table (pillar/supporting/variant + parent_url + differentiator)** — refresh phải giữ đúng vai trò. Nếu role=variant → áp dụng **Content Depth Gating** (xem [Phase 2.5 Content Writing](#variant-gating-table)) | ✅ Nếu tồn tại |
+| 5 | `projects/{project}/external-sources.md` ⭐ (v1.3) | **Domain whitelist + sample_urls + citation_rule per source**. `sample_urls` = PROOFS, KHÔNG paste. Khi cite topic cụ thể → web search `site:{domain} "{topic}"` (v1.3) | ✅ Nếu tồn tại |
 
 > ⚠️ Nếu `memory.md` chưa tồn tại → copy `projects/memory-template.md`, fill Quick Facts từ profile.md, áp dụng Session End Protocol cuối phiên (xem section 8.5 bên dưới). Cực kỳ quan trọng với Content Refresh vì task lặp định kỳ.
 >
@@ -109,6 +109,61 @@ Cho mỗi candidate, ghi:
 - Word count?
 - Ngày publish/update của top?
 - Information gain mình thiếu gì?
+
+### Bước 3.5. Role Detection — BẮT BUỘC (v1.7, 2026-05-27)
+
+> **🛑 Trước khi quyết định plan refresh, AI BẮT BUỘC xác định Article Role để áp dụng đúng Content Depth Gating.**
+>
+> Bug đã ghi nhận: AI refresh bài variant ("ống đúc phi 76") vẫn deep như pillar → nhân bản, không tạo giá trị riêng cho size.
+
+#### 3.5.1 Xác định role từ `topical.md`
+
+1. **Mở `projects/{project}/topical.md`** → tìm slug bài đang refresh trong Article Roles table.
+2. Match → đọc role (`pillar` / `supporting` / `variant`) + `parent_url` + `differentiator`.
+3. KHÔNG match → infer pattern:
+   - Slug `{cluster}-{size/sku/model}` (vd `ong-thep-duc-phi-76`) → **variant**
+   - Slug match 1 cluster pillar → **pillar**
+   - Còn lại → **supporting**
+
+#### 3.5.2 Áp dụng Content Depth Gating (đồng bộ Content Writing Phase 2.5)
+
+| Section | Pillar | Supporting | **Variant** |
+|---------|--------|------------|-------------|
+| Định nghĩa chung "X là gì" | 500-800 từ DEEP | 200-300 từ | **≤120 từ + link pillar** |
+| Quy trình sản xuất | 400-600 từ | 300-500 từ | **≤80 từ + link** |
+| Tiêu chuẩn chung (ASTM/JIS/TCVN) | 600 từ | 400 từ | **≤100 từ + link** |
+| **Thông số kỹ thuật của size cụ thể** | (không có) | (không có) | **400-600 từ DEEP** |
+| **Ứng dụng SPECIFIC cho size** | (general) | (general) | **400-600 từ DEEP** |
+| Bảng so sánh size khác | optional | optional | **BẮT BUỘC** |
+| Giá / availability | optional | optional | **BẮT BUỘC** |
+| Total word count target | 2500-4000 | 1500-2500 | **1200-1800** |
+| Tỷ lệ general / differentiator | 100% / 0% | 80% / 20% | **30-40% / 60-70%** |
+
+#### 3.5.3 Refresh action theo role
+
+| Role hiện tại | Bài cũ viết general nhiều | Action refresh |
+|---------------|---------------------------|----------------|
+| **variant** (vd phi 76) | Có 800 từ "ống đúc là gì" + 600 từ "quy trình SX" | **CẮT** general → ≤200 từ tổng + link pillar. **MỞ RỘNG** differentiator: thêm thông số DN65 chi tiết + 3-5 ứng dụng SPECIFIC cho phi 76 (vd PCCC công nghiệp, làm mát nhà máy) → đạt 400-600 từ/section |
+| **variant** (vd phi 90) | Chỉ có general, không có differentiator | **VIẾT MỚI** 2 section deep: "Thông số kỹ thuật phi 90" + "Ứng dụng SPECIFIC cho phi 90" + **BẢNG SO SÁNH** size kề (phi 76, phi 90, phi 114) + **Giá/availability** |
+| **pillar** | Đang DEEP đúng chuẩn pillar | Refresh recency + thêm Summary Chunk + bổ sung entity mới. KHÔNG cắt section. |
+| **supporting** | Đang DEEP đúng topic riêng | Refresh recency + bổ sung Information Gain + entity mới. KHÔNG cắt section. |
+
+#### 3.5.4 Ghi vào Refresh Brief (NỘI BỘ)
+
+```markdown
+## Refresh Brief (NỘI BỘ)
+- **Slug**: ong-thep-duc-phi-76
+- **Role**: variant
+- **Parent URL**: ong-thep-duc (pillar)
+- **Differentiator**: size=DN65 (Φ76mm)
+- **Word count hiện tại**: 2800
+- **Word count target sau refresh**: 1500
+- **Sections CẮT** (general overlap pillar): "Ống đúc là gì" (800→100), "Quy trình SX" (600→80)
+- **Sections MỞ RỘNG** (differentiator): "Thông số DN65" (0→500), "Ứng dụng PCCC công nghiệp" (200→500)
+- **Sections THÊM**: Bảng so sánh phi 60/76/90, Giá hiện tại phi 76
+```
+
+---
 
 ### Bước 4. Update plan
 
@@ -167,13 +222,22 @@ Quy tắc:
   - Thêm PAA questions mới vào FAQ section
 - Bổ sung entity/term thiếu (NLP audit).
 - Refresh internal link IN/OUT. **Đảm bảo mỗi URL nội bộ chỉ xuất hiện 1 lần duy nhất** — loại bỏ link trùng lặp nếu có.
-- **⭐ (v1.1) Refresh external citations từ whitelist**:
-  - Đọc `projects/{project}/external-sources.md` nếu tồn tại
-  - Enumerate external link hiện có trong bài → đối chiếu whitelist
-  - Link KHÔNG có trong whitelist + không có `<!-- ad-hoc cite -->` comment → **xóa** (hoặc thay bằng link Tier 1 phù hợp từ whitelist)
-  - Phần data/tiêu chuẩn chưa cite → bổ sung Tier 1 (Bộ Công Thương, TCVN, ASTM, ISO, Google Search Central…) tùy lĩnh vực project
-  - Refresh year: nếu cite "Statista 2023" mà whitelist có URL Statista 2025 → update anchor + URL
-  - KHÔNG bịa link mới ngoài whitelist (anti-pattern v1.1)
+- **⭐ (v1.3) Refresh external citations theo Per-citation Workflow**:
+  - Đọc `projects/{project}/external-sources.md` (v1.3 schema: domain whitelist + sample_urls + citation_rule).
+  - **Enumerate external link hiện có** trong bài → check 4 loại defect:
+    - (a) **Domain KHÔNG có trong whitelist** → XÓA hoặc thay link Tier 1 từ whitelist
+    - (b) **URL trùng verbatim với `sample_urls[]`** → đây là bug "sample URL pasted". XÓA và thay bằng URL specific (web search `site:{domain} "{topic}"` cho topic mà bài đang nhắc tới)
+    - (c) **Cùng 1 URL cho ≥ 2 topic khác nhau** (URL inflation) → tách thành URL specific riêng cho từng topic
+    - (d) **Anchor text mơ hồ** ("click here", "tại đây") → viết lại anchor chứa tên topic/standard
+  - **Per-citation Workflow** khi thêm cite mới (vd "ASTM A53"):
+    1. Identify topic
+    2. Match domain whitelist (astm.org tier 1)
+    3. Web search `site:astm.org "A53"`
+    4. Cite URL specific tìm được
+    5. Fallback nếu không ra URL: plain text / domain root / TODO comment
+  - Phần data/tiêu chuẩn chưa cite → bổ sung Tier 1 (TCVN, ASTM, ISO, Boḉng Thông Tin Pháp Luật…) URL specific
+  - Refresh year: nếu cite "Statista 2023" mà có URL Statista 2025 → update anchor + URL specific
+  - ❌ TUYỆT ĐỐI KHÔNG paste `sample_urls` (proofs of authority) vào bài → anti-pattern v1.3
 - Update schema (Article dateModified, BreadcrumbList nếu IA đổi).
 - Update author byline + last updated date.
 - **Kiểm tra + bổ sung frontmatter** theo `projects/content-template.md`: `meta_title` (50-60 ký tự) + `meta_description` (150-160 ký tự) nếu thiếu.
@@ -306,8 +370,11 @@ Phân tích:
 - Refresh sai bài (light cho bài cần heavy, hoặc ngược lại).
 - Không track post-result → không học pattern.
 - Refresh nhưng vẫn giữ giọng AI generic → cơ hội nâng EEAT bị bỏ phí.
-- **(v1.1) Bịa URL nguồn ngoài khi refresh EEAT Trust** — AI tự thêm URL Statista/Wikipedia mà không có trong `external-sources.md`. **CHỈ cite từ whitelist project**; thiếu → để trống hoặc thay claim.
+- **(v1.1) Bịa URL nguồn ngoài khi refresh EEAT Trust** — AI tự thêm URL Statista/Wikipedia mà không có domain trong `external-sources.md`. **CHỈ cite từ domain whitelist project**; thiếu → để trống hoặc thay claim.
+- **(v1.3) Paste `sample_urls` từ whitelist vào bài** — vd refresh ASTM cite bằng URL category landing page từ `sample_urls[]`. **SAI**. Phải web search URL specific cho từng spec code (vd `site:astm.org "A53"`).
+- **(v1.3) URL inflation khi refresh** — dùng 1 URL ASTM cho cả A53, A106, A572. Mỗi spec code phải có URL specific riêng sau khi search.
 - **(v1.1) Không xóa link 404/ngoài whitelist trong bài cũ khi refresh** — link cũ broken/spam giữ lại = giảm Trust signal. Bước 5 BẮT BUỘC check enumerate external link.
+- **(v1.7) Refresh bài variant nhưng viết general như pillar** — vd refresh "ống đúc phi 76" mà vẫn viết "ống đúc là gì" 800 từ. Khi role=variant → cắt general về ≤120 từ + link pillar + dành 60-70% word count cho **thông số + ứng dụng SPECIFIC của size đó**.
 
 > ⚠️ **Anti-AI Detection**: Khi refresh, đây là cơ hội tốt nhất để humanize nội dung — thêm kinh nghiệm cá nhân, case study mới, quan điểm rõ ràng. Tuân thủ 4 Rulesets trong `knowledge/15-anti-ai-content-rules.md` — Vocabulary Blacklist VN+EN (1A-1F), loại bỏ từ cấm + mẫu câu AI, Self-Correction + Red Flag Check. MỤC TIÊU: 🟢 0-2 red flags. Chi tiết: section 2.4 trong `skills/content/Content Writing/SKILL.md`.
 

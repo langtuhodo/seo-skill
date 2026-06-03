@@ -1,7 +1,7 @@
 ---
 name: content-writing
-version: 1.4.0
-description: "Use this skill when the user asks to write NEW content / article / blog post: 'viết bài mới', 'viết bài về X', 'tạo bài viết', 'write new article'. Activates Phase -0.5 Intent Disambiguation + Output Path Resolution (4-step pre-flight). If user says 'viết lại' + filename → route to content-refresh instead. Output: projects/{project}/writing/{slug}.md."
+version: 1.7.0
+description: "Use this skill when the user asks to write NEW content / article / blog post: 'viết bài mới', 'viết bài về X', 'tạo bài viết', 'write new article'. Activates Phase -0.5 Intent Disambiguation + Output Path Resolution (4-step pre-flight) + Phase 3.5 Role Detection (pillar/supporting/variant) + Phase 5.6 External Citation v1.3 (per-citation web search, KHÔNG paste sample_urls). If user says 'viết lại' + filename → route to content-refresh instead. Output: projects/{project}/writing/{slug}.md."
 category: content
 ---
 
@@ -116,12 +116,31 @@ Trước khi viết BẤT KỲ bài nào, phải trả lời 4 câu hỏi:
 | **Authoritativeness** | Author có tên thật + bio + ảnh + LinkedIn, công ty có địa chỉ + SĐT + giấy phép | Không có author, không có thông tin công ty |
 | **Trust** | Có nguồn trích dẫn (từ `external-sources.md` của project), có hình ảnh thực, có review khách hàng, có chính sách rõ ràng | Hứa hẹn không căn cứ, hình stock photo, **bịa URL nguồn không có trong whitelist** |
 
-> **(v1.1) External Citation Rule — BẮT BUỘC**:
-> - Nếu project có file `projects/{project}/external-sources.md` (whitelist nguồn ngoài) → AI **CHỈ cite từ whitelist này**, KHÔNG tự thêm URL từ ngoài.
-> - Nếu câu cần cite mà không có nguồn phù hợp trong whitelist → viết lại câu để không cần cite, HOẶC để TODO `<!-- TODO: cite source (chưa có trong whitelist) -->` cho user fill sau.
-> - Ưu tiên Tier 1 (cơ quan chính thức/tiêu chuẩn) cho data/tiêu chuẩn; Tier 2 (báo cáo/case study) cho thị trường; Tier 3 (chuyên gia) cho quote/framework.
-> - Anchor text chứa tên nguồn cụ thể, KHÔNG dùng "click here", "tại đây".
-> - Chi tiết workflow + schema 3-tier: xem `projects/external-sources-template.md`.
+> **(v1.3) External Citation Rule — BẮT BUỘC + Per-citation Workflow**:
+>
+> 🛑 **Domain = whitelist (trust signal). `sample_urls` = PROOFS, KHÔNG phải URL để paste vào bài.**
+>
+> Khi cần cite topic cụ thể (vd "ASTM A53", "TCVN 4193:2014", "Skyscraper Technique", "Core Web Vitals INP"):
+>
+> 1. **Identify topic** từ câu cần cite (vd "ASTM A53").
+> 2. **Match domain** trong `projects/{project}/external-sources.md` whitelist (vd astm.org tier 1).
+> 3. **Web search**: `site:{domain} "{topic}"` (vd `site:astm.org "A53"`) — tìm URL specific cho topic đó.
+> 4. **Cite URL specific tìm được** với anchor có tên topic (vd `[ASTM A53 — Standard Specification](URL_specific)`).
+> 5. **Nếu search không ra URL specific** → fallback (theo thứ tự ưu tiên):
+>    - (a) **Plain text không link** (an toàn nhất): "theo tiêu chuẩn ASTM A53..."
+>    - (b) **Link domain root + anchor có topic**: `[ASTM (xem astm.org)](https://www.astm.org)` (chỉ khi cần signal trust)
+>    - (c) **Comment**: `<!-- TODO: verify specific URL for ASTM A53 on astm.org -->`
+> 6. **Log vào Session History** ở Phase 7 (Session End): citation discovery + URL used + fallback nếu có.
+>
+> ❌ **TUYỆT ĐỐI KHÔNG paste `sample_urls` verbatim** từ external-sources.md — đó là proofs of authority cho user verify domain hợp lệ, không phải URL để chèn cho bất kỳ topic nào.
+>
+> ❌ **TUYỆT ĐỐI KHÔNG dùng 1 URL cho ≥ 2 topic khác nhau** (URL inflation — vd cùng URL category dùng cho cả "A53" và "A106"). Mỗi topic specific phải có URL specific riêng.
+>
+> ❌ **Anchor text KHÔNG mơ hồ** ("click here", "tại đây", "xem thêm") — phải chứa tên topic/standard/concept.
+>
+> ✅ Ưu tiên Tier: Tier 1 (cơ quan chính thức/tiêu chuẩn) cho data/tiêu chuẩn → Tier 2 (báo cáo/case study) cho thị trường → Tier 3 (chuyên gia) cho quote/framework.
+>
+> 📖 Chi tiết schema YAML + `citation_rule` per source: xem `projects/external-sources-template.md` (v1.3).
 
 ### 2.3. GEO — Generative Engine Optimization
 
@@ -486,8 +505,9 @@ Nếu path final KHÔNG khớp ✅ pattern hợp lệ → **DỪNG, không tạo
 |-------|------|----------|-----------|
 | 1 | `projects/{project}/memory.md` ⭐ | Quick Facts + Active Context + Pending Tasks + Recent Articles + Key Decisions → 80% context AI cần | ✅ ĐỌC TRƯỚC TIÊN |
 | 2 | `projects/{project}/profile.md` | Chủ thể, brand voice, business context (chi tiết) | ✅ Nếu memory.md không đủ |
-| 3 | `projects/{project}/topical.md` | Topical map, cluster hierarchy, role (pillar/supporting) | ✅ (nếu tồn tại) |
+| 3 | `projects/{project}/topical.md` | Topical map, cluster hierarchy, **Article Roles table (pillar/supporting/variant + parent_url + differentiator)** | ✅ (nếu tồn tại) — input cho **Phase 2.5 Role Detection** |
 | 4 | `projects/{project}/keywords-urls.md` | Keywords đã publish → chèn internal link | ✅ (nếu tồn tại) |
+| 5 | `projects/{project}/external-sources.md` | **Domain whitelist + sample_urls + citation_rule per source (v1.3)** | ✅ (nếu tồn tại) — input cho **Phase 5.6 External Citation v1.3** |
 
 **Tại sao đọc memory.md trước**: Memory.md cache 80% context AI cần để bắt đầu (brand voice 1 dòng, cluster đang focus, style profile, pending tasks). Chỉ mở profile.md/topical.md/keywords-urls.md khi memory.md không đủ. Điều này giảm bootstrap từ ~30k token xuống ~5k token cho task thường gặp.
 
@@ -500,9 +520,15 @@ Nếu path final KHÔNG khớp ✅ pattern hợp lệ → **DỪNG, không tạo
 
 **Từ topical.md xác định:**
 1. Bài viết thuộc **cluster nào**?
-2. Vai trò: **pillar** hay **supporting**?
-3. **Category hierarchy** (cha → con → cháu) cho Topical Context Linking
-4. Các bài liên quan trong cluster → nên link đến
+2. **Article Role**: **pillar** / **supporting** / **variant** (xem Article Roles table v1.1) — input chính cho Phase 2.5 Role Detection
+3. Nếu role = variant → đọc `parent_url` + `differentiator` (vd size=DN65)
+4. **Category hierarchy** (cha → con → cháu) cho Topical Context Linking
+5. Các bài liên quan trong cluster → nên link đến
+
+**Từ external-sources.md (v1.3) xác định:**
+1. Domain nào có trong whitelist tier 1/2/3 — chỉ cite từ domain này
+2. Đọc `citation_rule` per source — biết cách search URL specific khi cite topic cụ thể (vd "ASTM A53")
+3. `sample_urls` là PROOFS — KHÔNG paste vào bài
 
 **Từ keywords-urls.md xác định:**
 1. Lọc bài **cùng cluster** có trạng thái ✅ published → chèn internal link
@@ -755,6 +781,101 @@ Outline không theo "H2 là gì, H2 tại sao, H2 cách làm" — mà theo **hà
 
 ---
 
+### Phase 2.5: Role Detection — BẮT BUỘC (v1.7, 2026-05-27)
+
+> **🛑 Trước khi outline + viết, AI BẮT BUỘC xác định Article Role để gate độ sâu nội dung.**
+>
+> Bug đã ghi nhận: AI viết bài variant ("ống đúc phi 76") deep như pillar ("ống đúc") → nhân bản pillar, không tạo giá trị riêng cho size cụ thể.
+
+#### Bước 2.5.1. Xác định role từ `topical.md`
+
+1. **Mở `projects/{project}/topical.md`** (nếu chưa load ở Phase -1).
+2. **Tìm slug bài đang viết** trong Article Roles table:
+   - Nếu match → đọc role (`pillar` | `supporting` | `variant`) + `parent_url` + `differentiator`.
+   - Nếu KHÔNG match → infer từ pattern slug:
+     - Slug có dạng `{cluster}-{size/sku/model}` (vd `ong-thep-duc-phi-76`, `ong-ma-kem-phi-60`) → **variant** (parent = `{cluster}`)
+     - Slug match 1 cluster pillar trong tree (vd `ong-thep-duc`, `thep-hinh`) → **pillar**
+     - Còn lại → **supporting**
+
+3. **Ghi role vào Outline Brief** (NỘI BỘ — không xuất hiện trong bài):
+
+```markdown
+## Role Brief (NỘI BỘ)
+- **Slug**: ong-thep-duc-phi-76
+- **Role**: variant
+- **Parent URL**: ong-thep-duc (pillar)
+- **Differentiator**: size=DN65 (Φ76mm), wall 3.2-6.0mm, weight 5.7-10.4kg/m
+- **Ứng dụng SPECIFIC focus**: PCCC công nghiệp, dẫn dầu khí cao áp, làm mát nhà máy
+```
+
+#### Bước 2.5.2. Áp dụng Content Depth Gating theo role
+
+| Section | Pillar (role=pillar) | Supporting (role=supporting) | **Variant (role=variant)** |
+|---------|---------------------|------------------------------|----------------------------|
+| Định nghĩa chung "X là gì" | 500-800 từ DEEP | 200-300 từ (context cho topic riêng) | **≤120 từ tóm tắt + link đến pillar** |
+| Quy trình sản xuất | 400-600 từ | 300-500 từ (nếu là topic) | **≤80 từ + link đến pillar** |
+| Tiêu chuẩn chung (ASTM/JIS/TCVN) | 600 từ | 400 từ (nếu là topic) | **≤100 từ + link đến pillar** |
+| **Thông số kỹ thuật của size cụ thể** | (không có — pillar không deep dive 1 size) | (không có) | **400-600 từ DEEP** (DN, OD, wall thickness, weight/m, áp lực) |
+| **Ứng dụng SPECIFIC cho size** | (general, list nhiều size) | (general) | **400-600 từ DEEP — công trình/ngành nào ưu tiên size này** |
+| Bảng so sánh size khác trong cluster | optional | optional | **BẮT BUỘC** |
+| Giá / availability | optional | optional | **BẮT BUỘC** |
+| **Tổng word count target** | **2500-4000** | **1500-2500** | **1200-1800** |
+| **Tỷ lệ general vs differentiator** | 100% general (đó là pillar) | 80% topic / 20% reference pillar | **30-40% general (reference pillar) / 60-70% DEEP differentiator** |
+
+#### Bước 2.5.3. Anti-pattern cho variant — BẮT BUỘC TRÁNH
+
+| ❌ SAI (variant nhân bản pillar) | ✅ ĐÚNG (variant tạo giá trị riêng) |
+|----------------------------------|-------------------------------------|
+| Bài "ống đúc phi 76" viết H2 "Ống đúc là gì" 800 từ định nghĩa toàn diện | Bài "ống đúc phi 76" viết H2 "Ống đúc phi 76 là gì" 80 từ + link "[Tổng quan ống thép đúc](pillar_url)" + chuyển ngay vào differentiator |
+| Bài "ống đúc phi 168" viết H2 "Quy trình sản xuất ống đúc" 600 từ | Bài "ống đúc phi 168" chỉ note "(Quy trình sản xuất chuẩn — xem [pillar])" rồi dành 500 từ cho "Thông số DN150 + áp lực thiết kế" |
+| Bài "ống đúc phi 90" liệt kê 20 ứng dụng general (giàn giáo, kết cấu, dẫn nước, PCCC...) | Bài "ống đúc phi 90" focus 3-5 ứng dụng MÀ phi 90 thực sự ưu tiên (vd PCCC cao tầng, đường ống dẫn hơi nóng, nước thải công nghiệp) — giải thích tại sao size này phù hợp |
+
+#### Bước 2.5.4. Variant Outline Template
+
+```markdown
+# Ống thép đúc phi 76 — [hook ngắn về ứng dụng nổi bật của size này]
+
+> SEO Metadata...
+
+> **Tóm tắt nhanh** (Summary Chunk 40-60 chữ — answer-first cho size cụ thể)
+
+## 1. Ống thép đúc phi 76 là gì? (≤120 từ + link pillar)
+[Định nghĩa 1-2 câu + link "Tổng quan ống thép đúc" về pillar]
+
+## 2. Thông số kỹ thuật ống đúc phi 76 (400-600 từ DEEP — DIFFERENTIATOR)
+- DN, OD, wall thickness (mọi range), weight/m
+- Áp lực thiết kế, áp lực test
+- Mác thép thường gặp cho size này (vd ASTM A106 Gr.B)
+- Bảng quy cách chi tiết
+
+## 3. Ứng dụng SPECIFIC cho ống đúc phi 76 (400-600 từ DEEP — DIFFERENTIATOR)
+- Công trình/ngành nào ưu tiên size này, TẠI SAO
+- 3-5 ứng dụng cụ thể với context (vd "PCCC nhà xưởng diện tích 5000-15000m²")
+- Phân biệt với size kề cận (phi 60 thì sao, phi 90 thì sao)
+
+## 4. Bảng so sánh các size phổ biến trong cluster (BẮT BUỘC)
+| Size | DN | OD | Wall | Weight | Ứng dụng chính |
+|------|----|----|------|--------|----------------|
+| phi 60 | DN50 | 60.3 | ... | ... | ... |
+| **phi 76 (bài này)** | **DN65** | **76.1** | ... | ... | ... |
+| phi 90 | DN80 | 88.9 | ... | ... | ... |
+
+## 5. Quy trình sản xuất + tiêu chuẩn (≤180 từ tổng — chỉ reference, không deep)
+- 1-2 câu về quy trình + link "Quy trình sản xuất ống đúc" pillar/supporting
+- 1 câu về tiêu chuẩn ASTM/JIS thường gặp + link
+
+## 6. Giá / availability (BẮT BUỘC)
+- Range giá hiện tại, factors ảnh hưởng
+- Tồn kho / leadtime
+
+## CTA
+- Liên hệ báo giá size phi 76 cụ thể
+```
+
+→ Tổng bài variant ~1200-1800 từ, **60-70% nội dung là differentiator specific** (sections 2, 3, 4).
+
+---
+
 ### Phase 3: Viết Draft (60-90 phút)
 
 #### Nguyên tắc viết
@@ -866,8 +987,10 @@ Không viết để "có đủ H2". Mỗi H2 phải trả lời được: "Đọ
 ### Expertise
 - [ ] Giải thích kỹ thuật chính xác
 - [ ] Cite tiêu chuẩn/nguồn uy tín
-- [ ] (v1.1) **Mọi external link đều từ `external-sources.md` whitelist** — KHÔNG có URL ngoài whitelist (kể cả khi AI "tưởng đúng")
-- [ ] (v1.1) Mỗi bài kỹ thuật/data có ≥ 1 cite Tier 1 (cơ quan chính thức/tiêu chuẩn)
+- [ ] (v1.3) **Mọi external link là URL specific cho topic cụ thể** — KHÔNG paste `sample_urls` từ whitelist, KHÔNG dùng 1 URL cho ≥ 2 topic khác nhau
+- [ ] (v1.3) Mỗi topic cụ thể (ASTM/JIS/TCVN/ISO code) đã web search `site:{domain} "{topic}"` hoặc dùng fallback (plain text / domain root / TODO comment)
+- [ ] (v1.3) Mọi domain external trong bài có trong whitelist `external-sources.md`
+- [ ] (v1.1) Mỗi bài kỹ thuật/data có ≥ 1 cite Tier 1 (cơ quan chính thức/tiêu chuẩn) — URL specific, KHôNG sample
 - [ ] Không có thông tin sai
 
 ### Authoritativeness (bổ sung 2026 — Author Entity)
@@ -1156,7 +1279,10 @@ Top 5 SERP đang thiếu gì? Mình sẽ làm tốt hơn ở đâu?
 - ❌ Author ẩn danh hoặc không có credentials
 - ❌ Số liệu không có nguồn
 - ❌ Hình ảnh stock thay vì hình thực
-- ❌ **(v1.1) Bịa URL nguồn không có trong `external-sources.md` whitelist** — AI tự fabricate domain, paragraph 404, hoặc trộn URL không tồn tại. ABS phải cite **CHỈ** từ whitelist project; thiếu nguồn → viết lại câu hoặc để TODO comment.
+- ❌ **(v1.1) Bịa URL nguồn không có domain trong `external-sources.md` whitelist** — AI tự fabricate domain, paragraph 404, hoặc trộn URL không tồn tại. ABS phải cite **CHỈ** từ domain whitelist project; thiếu nguồn → viết lại câu hoặc để TODO comment.
+- ❌ **(v1.3) Paste `sample_urls` từ whitelist vào bài** — vd cite "ASTM A53" bằng URL `astm.org/products-services/.../steel-standards.html` (sample landing page). Đây là PROOF cho user verify domain, KHÔNG phải URL chèn vào bài.
+- ❌ **(v1.3) URL inflation** — dùng 1 URL cho ≥ 2 topic khác nhau trong bài (vd cùng URL category cho A53, A106, A572). Mỗi topic specific cần URL specific riêng sau khi web search.
+- ❌ **(v1.3) Anchor text mơ hồ** ("click here", "tại đây") — phải chứa tên topic/standard.
 - ❌ Cite nguồn không phù hợp Tier (vd dùng Wikipedia làm tiêu chuẩn pháp lý thay vì TCVN)
 
 ### Sai về GEO
