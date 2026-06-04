@@ -27,6 +27,7 @@
 
 | Date | CLI / Model | Task Done | Files Touched | Pending Carry-over |
 |------|-------------|-----------|---------------|---------------------|
+| 2026-06-04 | Devin | Tối ưu copy trang chủ theo 4 dịch vụ chính (web trọn gói chủ lực + SEO tổng thể + Google Ads + Google Map) | `projects/binhnn-digital/writing/homepage-copy.md` | Bổ sung Google Map vào web + tạo trang dịch vụ chi tiết + sửa lỗi nút form `<strong>` |
 | 2026-05-27 | Devin (Claude) | Khởi tạo Project Memory system cho dự án | `projects/binhnn-digital/memory.md` | Lên topical.md + keywords-urls.md đầy đủ |
 | - | - | Audit website content trước đó | `website-content-audit.md` | Triển khai recommendations |
 
@@ -44,6 +45,9 @@
 - [ ] 2026-05-27 — Tạo `keywords-urls.md` cho dự án
 - [ ] 2026-05-27 — Triển khai recommendations từ `website-content-audit.md`
 - [ ] 2026-05-27 — Xác định 3 cluster ưu tiên đầu tiên dựa trên USP (Technical SEO + Web Dev cho SEO)
+- [ ] 2026-06-04 — Áp copy `homepage-copy.md` lên trang chủ WordPress; thêm dịch vụ Google Map vào footer + section dịch vụ
+- [ ] 2026-06-04 — Sửa lỗi nút form hiển thị raw `<strong>Gửi Yêu Cầu Tư Vấn</strong>`
+- [ ] 2026-06-04 — Tạo 4 trang dịch vụ chi tiết để internal link từ trang chủ (thiet-ke-website-tron-goi, seo-tong-the, quang-cao-google-ads, dich-vu-google-map)
 
 ## Key Decisions (append-only, không xóa)
 
